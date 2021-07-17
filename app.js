@@ -4,6 +4,8 @@ const express = require('express');
 const request = require('request');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
+const cors = require('cors');
+const util = require('util');
 
 var con = mysql.createConnection({
   host: "localhost",
@@ -11,6 +13,8 @@ var con = mysql.createConnection({
   password: "",
   database: "communify_store"
 });
+
+const query = util.promisify(con.query).bind(con);
 
 con.connect(function(err){
   if(err) throw err;
@@ -21,110 +25,154 @@ const app = express();
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}));
-
-app.get('/', function(req, res) {
-  res.sendFile(__dirname+"\\home.html");
-});
+app.use(express.json());
+app.use(cors());
 
 
-app.post('/signin', function(req,res){
-  console.log('Client-side code running');
+//------------------------------------------------Ridwan-----------------------------------------------------------
 
-  res.sendFile(__dirname+"\\signin.html"); 
-})
+const getServers = async (req, res) => {
+  console.log(req.body);
 
-app.post('/signup', function(req,res){
-  console.log('Client-side code running');
+const server=[];
 
-  res.sendFile(__dirname+"\\signup.html"); 
-})
+let result= await query("SELECT `serverID`, `serverName`, `serverDescription`, `imageURL`, `owner` FROM `myserver` WHERE `owner`='"+req.params.userName+"'");
+console.log(result);
 
-app.post('/usersignup', function(req,res){
-
-  var username = req.body.username; 
-  var password = req.body.password; 
-  var confirm_password = req.body.confirm_password; 
-
-  var flag = new Boolean(false);
-
-  con.query('SELECT Username FROM `user_login`', function (err, result, fields) {
-    if (err) throw err;
-    else
-    {
-      for(var i=0; i<result.length;i++)
+  for(var i=0; i<result.length;i++)
       {
-        if(result[i]==username)
-        {
-          flag=true;
-          break;
-        }
-      }
-    }
-    
-  });
+        console.log(result[i].serverName);
+        var feed={
+            title: result[i].serverName,
+            cardBody: result[i].serverDescription,
+            imageUrl: result[i].imageURL,
+            };
+        server.push(feed);
+          }
 
-  if(flag===false && password===confirm_password)
-  {
-    var insertQuery = 'insert into `user_login` (`Username`,`Password`) values (?,?)';
-    var query = mysql.format(insertQuery,[username,password]);
-    con.query(query,function(err,response){
-      if(err) throw err;
-      else
-      {
-        console.log("User Created!");
-        res.sendFile(__dirname+"\\home.html");
-      }
-    });
+  try {
+      res.status(200).json(server);
+  } catch (error) {
+      res.status(404).json({ message: error.message });
   }
-  else if(flag===true)
-  {
-    console.log("Username Already Taken!");
-  }
-  else
-  {
-    console.log("Confirm password does not match. Try Again!");
-    res.sendFile(__dirname+"\\signup.html");
-  }
-})
+};
+
+app.get("/ownedServers/:userName", getServers);
 
 
 
 
-app.post('/usersignin', function(req,res){
+const React_Login = async (req,res) => {
+  console.log(req.body);
 
-  var username = req.body.username; 
-  var password = req.body.password; 
-  
+  var username = req.body.username;
+  var password = req.body.password;
+
   var flag1 = 0;
 
   con.query('SELECT Username,Password FROM `user_login`', function (err, result, fields) {
     if (err) throw err;
-    else
-    {
-      for(var i=0; i<result.length;i++)
-      {
-        if(result[i].Username===username && result[i].Password===password)
-        {
-          flag1=1;
+    else {
+      for (var i = 0; i < result.length; i++) {
+        if (result[i].Username === username && result[i].Password === password) {
+          flag1 = 1;
           break;
         }
       }
     }
   });
-  setTimeout(() => {  
-    if(flag1===1)
-    {
+  setTimeout(() => {
+    if (flag1 === 1) {
       console.log("User Signed In!");
+      try {
+        res.status(200).json({username : req.body.username});
+      } catch (error) {
+        res.status(404).json({ message: error.message });
+      }
     }
-    else
-    {
+    else {
       console.log("Username or Password does not match. Try Again!");
-    } }, 200);
-  
-})
+    }
+  }, 200);
+};
+
+
+app.post("/React_Login", React_Login);
+
+
+const React_SignUp = async (req, res) => {
+
+  console.log(req.body);
+  var username_2 = req.body.username;
+  var password_2 = req.body.password;
+  var confirm_password_2=req.body.confirmPassword;
+  var flag_2 = new Boolean(false);
+  var email_2=req.body.email;
+
+  let result= await query('SELECT Username FROM `user_login`');
+  console.log(result);
+
+      for (var i = 0; i < result.length; i++) {
+        if (result[i].Username == username_2) {
+          flag_2 = true;
+          break;
+        }
+      }
+    console.log(password_2);
+    console.log(confirm_password_2);
+    console.log(flag_2);
+
+
+  if (flag_2==false && confirm_password_2==password_2) {
+    var insertQuery = 'insert into `user_login` (`Username`,`Password`,`Email`) values (?,?,?)';
+    var query_insert = mysql.format(insertQuery, [username_2, password_2,email_2]);
+    con.query(query_insert, function (err, response) {
+      if (err) throw err;
+      else {
+        console.log("User Created!");
+        try {
+          res.status(200).json({username : req.body.username});
+        } catch (error) {
+          res.status(404).json({ message: error.message });
+        }
+      }
+    });
+  }
+  else if (flag_2 === true) {
+    console.log("Username Already Taken!");
+  }
+  else {
+    console.log("Confirm password does not match. Try Again!");
+  }
+
+}
+
+app.post("/React_SignUp", React_SignUp);
 
 
 
-app.listen(3000, function() {
-  console.log("SERVER RUNNING IN PORT 3000");
+app.listen(2999, function() {
+  console.log("SERVER RUNNING IN PORT 2999");
 });
+
+const React_AddServer = async(req,res) =>{
+  console.log(req.body);
+
+  var insertQuery = 'insert into `myserver` (`serverName`,`serverDescription`,`imageURL`,`owner`) values (?,?,?,?)';
+  var query_insert = mysql.format(insertQuery, [req.body.servername, req.body.description,req.body.imageURL,req.body.username]);
+  con.query(query_insert, function (err, response) {
+    if (err) throw err;
+    else {
+      console.log("Server Created!");
+      try {
+        res.status(200).json({username : req.body.username});
+      } catch (error) {
+        res.status(404).json({ message: error.message });
+      }
+    }
+  });
+
+}
+
+
+app.post("/React_AddServer", React_AddServer);

@@ -1,0 +1,17 @@
+.cardGrid{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.addServerButton{
+    display: flex;
+    float: right;
+}
+
+.addServer h2{
+    display: inline;
+}
+.addServer{
+    margin-left: 10px;
+    margin-right: 10px;
+}

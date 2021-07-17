@@ -1,0 +1,15 @@
+@media all and (min-width: 480px) {
+    .Signup {
+      padding: 60px 0;
+    }
+  
+    .Signup form {
+      margin: 0 auto;
+      max-width: 350px;
+    }
+  }
+
+  Button{
+      margin-top: 10px;
+      margin-bottom: 15px;
+  }
