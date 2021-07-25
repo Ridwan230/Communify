@@ -58,7 +58,6 @@ const Signup = () => {
                     <Form.Group size="lg" controlId="username">
                         <Form.Label>User Name</Form.Label>
                         <Form.Control
-                            autoFocus
                             type="text"
                             value={user}
                             onChange={(e) => setUser(e.target.value)}

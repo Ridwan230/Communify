@@ -10,6 +10,7 @@ const AddServer = (props) => {
     const {state}=props.location;
     let history = useHistory();
     const [serverName, setServerName] = useState("");
+    const [serverPassword, setServerPassword] = useState("");
     const [description, setDescription] = useState("");
 
     function validateForm() {
@@ -21,6 +22,7 @@ const AddServer = (props) => {
             username: state.username,
             servername: serverName,
             description: description,
+            serverpassword: serverPassword,
             imageURL: 'https://images.unsplash.com/photo-1544006659-f0b21884ce1d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFuJTIwd29ya2luZyUyMG9uJTIwY29tcHV0ZXJ8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
         };
         console.log(data);
@@ -52,12 +54,19 @@ const AddServer = (props) => {
                         onChange={(e) => setServerName(e.target.value)}
                     />
                 </Form.Group>
+                <Form.Group size="lg" controlId="serverpassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control
+                        type="text"
+                        value={serverPassword}
+                        onChange={(e) => setServerPassword(e.target.value)}
+                    />
+                </Form.Group>
                 <InputGroup>
                     <InputGroup.Prepend>
                         <InputGroup.Text>Description</InputGroup.Text>
                     </InputGroup.Prepend>
                     <FormControl as="textarea" aria-label="With textarea"
-                    autoFocus
                         type="text"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)} />
