@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import "./Signup.css";
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
+import MD5 from "crypto-js/md5";
 
 const Signup = () => {
     
@@ -22,9 +23,9 @@ const Signup = () => {
 
         const data={
             username: user,
-            password: password,
+            password: MD5(password).toString(),
             email: email,
-            confirmPassword: confirmPassword,
+            confirmPassword: MD5(confirmPassword).toString(),
         }
 
         axios.post('http://localhost:2999/React_SignUp', data)

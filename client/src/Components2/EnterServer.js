@@ -6,6 +6,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal'
 import { Link } from 'react-router-dom';
+import MD5 from "crypto-js/md5";
 
 const EnterServer = (props) => {
     let history = useHistory();
@@ -20,7 +21,7 @@ const EnterServer = (props) => {
         const data = {
             username: state.username,
             servername: state.servername,
-            code: serverCode,
+            code: MD5(serverCode).toString(),
         };
 
         axios.post("http://localhost:2999/React_EnterServer", data)

@@ -5,6 +5,7 @@ import {InputGroup,FormControl} from "react-bootstrap";
 import "./AddServer.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import MD5 from "crypto-js/md5";
 
 const AddServer = (props) => {
     const {state}=props.location;
@@ -22,7 +23,7 @@ const AddServer = (props) => {
             username: state.username,
             servername: serverName,
             description: description,
-            serverpassword: serverPassword,
+            serverpassword: MD5(serverPassword).toString(),
             imageURL: 'https://images.unsplash.com/photo-1544006659-f0b21884ce1d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFuJTIwd29ya2luZyUyMG9uJTIwY29tcHV0ZXJ8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80',
         };
         console.log(data);
@@ -57,7 +58,7 @@ const AddServer = (props) => {
                 <Form.Group size="lg" controlId="serverpassword">
                     <Form.Label>Password</Form.Label>
                     <Form.Control
-                        type="text"
+                        type="password"
                         value={serverPassword}
                         onChange={(e) => setServerPassword(e.target.value)}
                     />

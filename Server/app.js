@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const cors = require('cors');
 const util = require('util');
-
+const MD5= require('crypto-js/md5');
 const socketio = require('socket.io');
 const http = require('http');
 
@@ -42,8 +42,16 @@ app.use(router);
 const getServers = async (req, res) => {
 
   const server = [];
-
-  let result = await query("SELECT `serverID`, `serverName`, `serverDescription`, `imageURL`, `owner` FROM `myserver` WHERE `owner`='" + req.params.userName + "'");
+  let result;
+  if(req.params.userName==='all')
+  {
+    result = await query("SELECT `serverID`, `serverName`, `serverDescription`, `imageURL`, `owner` FROM `myserver` ");
+  }
+  else
+  {
+    result = await query("SELECT `serverID`, `serverName`, `serverDescription`, `imageURL`, `owner` FROM `myserver` WHERE `owner`='" + req.params.userName + "'");
+  }
+  
 
   for (var i = 0; i < result.length; i++) {
     var feed = {
@@ -57,6 +65,7 @@ const getServers = async (req, res) => {
   }
 
   try {
+    console.log(server)
     res.status(200).json(server);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -112,7 +121,7 @@ const React_SignUp = async (req, res) => {
   var username_2 = req.body.username;
   var password_2 = req.body.password;
   var confirm_password_2 = req.body.confirmPassword;
-  var flag_2 = new Boolean(false);
+  var flag_2 = false;
   var email_2 = req.body.email;
 
   let result = await query('SELECT Username FROM `user_login`');
@@ -126,7 +135,6 @@ const React_SignUp = async (req, res) => {
   console.log(password_2);
   console.log(confirm_password_2);
   console.log(flag_2);
-//Passwords don't match...Thik kora lagbe
 
   if (flag_2 === false && confirm_password_2 === password_2) {
     var insertQuery = 'insert into `user_login` (`Username`,`Password`,`Email`) values (?,?,?)';
@@ -160,22 +168,20 @@ app.post("/React_SignUp", React_SignUp);
 
 const React_AddServer = async (req, res) => {
 
-  var flag = new Boolean(false);
+  var flag = false;
 
-  con.query('SELECT serverName FROM `user_login`', function (err, result, fields) {
-    if (err) throw err;
-    else {
-      for (var i = 0; i < result.length; i++) {
-        if (result[i] === req.body.servername) {
-          flag = true;
-          break;
-        }
-      }
+  let result = await query('SELECT serverName FROM `myserver`');
+  console.log("Inside Addserver");
+  console.log(result);
+  for (var i = 0; i < result.length; i++) {
+    if (result[i].serverName === req.body.servername) {
+      flag = true;
+      break;
     }
-  });
+  }
 
 
-  if (flag === false) {
+  if (!flag) {
     var insertQuery = 'insert into `myserver` (`serverName`,`serverDescription`,`imageURL`,`owner`,`password`) values (?,?,?,?,?)';
     var query_insert = mysql.format(insertQuery, [req.body.servername, req.body.description, req.body.imageURL, req.body.username, req.body.serverpassword]);
     con.query(query_insert, function (err, response) {
@@ -208,7 +214,7 @@ const React_EnterServer = async (req, res) => {
   var servername = req.body.servername;
   var code = req.body.code;
 
-  var flag = new Boolean(false);
+  var flag = false;
 
   con.query('SELECT serverName,Password FROM `myserver`', function (err, result, fields) {
     if (err) throw err;

@@ -4,10 +4,8 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import ServerInfo from './ServerInfoPage.js';
 import Login from './Components/Login';
-import Navbar from './Components/NavbarComp.js';
-import ServerInfoPage from './ServerInfoPage.js';
+import ServerInfoPage from './Components/ServerInfoPage.js';
 import Signup from './Components/Signup';
 import AddServer from './Components/AddServer';
 import EnterServer from './Components2/EnterServer';

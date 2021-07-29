@@ -5,6 +5,7 @@ import "./Login.css";
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
+import MD5 from "crypto-js/md5";
 
 const Login = () => {
 
@@ -24,7 +25,7 @@ const Login = () => {
 
         const data={
             username: user,
-            password: password,
+            password: MD5(password).toString(),
         }
         console.log(data);
 
