@@ -82,32 +82,48 @@ const React_Login = async (req, res) => {
   var username = req.body.username;
   var password = req.body.password;
 
-  var flag1 = 0;
+  var flag_username = false;
+  var flag_password = false;
 
-  con.query('SELECT Username,Password FROM `user_login`', function (err, result, fields) {
-    if (err) throw err;
-    else {
-      for (var i = 0; i < result.length; i++) {
-        if (result[i].Username === username && result[i].Password === password) {
-          flag1 = 1;
-          break;
-        }
+  console.log(req.body.username);
+  console.log(req.body.password);
+
+  let result = await query('SELECT Username,Password FROM `user_login`');
+  for (var i = 0; i < result.length; i++) {
+    console.log(result[i].Username)
+    if (result[i].Username === username) {
+      flag_username = true;
+      if(result[i].Password === password){
+        flag_password=true;
       }
+      break;
     }
-  });
-  setTimeout(() => {
-    if (flag1 === 1) {
-      console.log("User Signed In!");
-      try {
-        res.status(200).json({ username: req.body.username });
-      } catch (error) {
-        res.status(404).json({ message: error.message });
-      }
+  }
+
+  if (flag_username === false) {
+    try {
+      console.log({ username: '', message: "Username does not exist!" });
+      res.status(200).json({ username: '', message: "Username does not exist!" });
+    } catch (error) {
+      res.status(404).json({ message: error.message });
     }
-    else {
-      console.log("Username or Password does not match. Try Again!");
+  }
+  else if(flag_username === true && flag_password===false){
+    try {
+      console.log({ username: '', message: "Password Incorrect!" })
+      res.status(200).json({ username: '', message: "Password Incorrect!" });
+    } catch (error) {
+      res.status(404).json({ message: error.message });
     }
-  }, 200);
+  }
+  else {
+    try {
+      console.log({ username: req.body.username, message: "" })
+      res.status(200).json({ username: req.body.username, message: "" });
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+  }
 };
 
 app.post("/React_Login", React_Login);
@@ -299,3 +315,4 @@ io.on('connect', (socket) => {
 app.listen(2999, function () {
   console.log("SERVER RUNNING IN PORT 2999");
 });
+

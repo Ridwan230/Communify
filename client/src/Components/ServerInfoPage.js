@@ -6,16 +6,23 @@ import "./ServerInfoPage.css";
 import axios from 'axios';
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import Footer from "./Footer";
 
 
 const ServerInfoPage = (props) => {
 
     const allServer = () => {
         setUser('all');
+        setLinkColorMyServer('serverLink');
+        setLinkColorAllServer('selectedLink');
     }
     const myServer = () => {
         setUser(state.username);
+        setLinkColorAllServer('serverLink');
+        setLinkColorMyServer('selectedLink');
     }
+    const [linkColorMyServer, setLinkColorMyServer] = useState('selectedLink');
+    const [linkColorAllServer, setLinkColorAllServer] = useState('serverLink');
 
     const [data, setData] = useState([]);
     const { state } = props.location;        //location = fething data from the initial page
@@ -33,10 +40,10 @@ const ServerInfoPage = (props) => {
     }, [user]);
 
     return (
-        <div>
+        <div className='serverPage'>
             <div>
-                <Navbar className='navBar' bg="light" expand="lg" >
-                    <Navbar.Brand href="/">Communify</Navbar.Brand>
+                <Navbar className='navBar' expand="lg" >
+                    <Navbar.Brand href="/"><h1>Communify</h1></Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
                         <Nav
@@ -44,31 +51,23 @@ const ServerInfoPage = (props) => {
                             style={{ maxHeight: "100px" }}
                             navbarScroll
                         >
-                            <Nav.Link onClick={allServer}>All Server</Nav.Link>
-                            <Nav.Link onClick={myServer}>My Server</Nav.Link>
+                            <Nav.Link className={linkColorAllServer} onClick={allServer}>All Server</Nav.Link>
+                            <Nav.Link className={linkColorMyServer} onClick={myServer}>My Server</Nav.Link>
                         </Nav>
-                        <Form className="d-flex">
-                            <FormControl
-                                type="search"
-                                placeholder="Search"
-                                className="mr-2"
-                                aria-label="Search"
-                            />
-                            <Button variant="outline-success">Search</Button>
-                        </Form>
+                        <Link to={{
+                            pathname: "/AddServer",
+                            state: { username: state.username } // your data array of objects
+                        }}>
+                            <Button className="addServerButton" variant="success" size="sm">
+                            <h5>Add Server</h5>
+                            </Button>
+                        </Link>
+
                     </Navbar.Collapse>
                 </Navbar>
             </div>
             <div className="addServer">
-                <h2>Hello {state.username} </h2>
-                <Link to={{
-                    pathname: "/AddServer",
-                    state: { username: state.username } // your data array of objects
-                }}>
-                    <Button className="addServerButton" variant="primary" size="lg">
-                        Add Server
-                    </Button>
-                </Link>
+                <h2 className='greeting'>Hello, {state.username}. </h2>
 
             </div>
 
@@ -87,6 +86,9 @@ const ServerInfoPage = (props) => {
                         );
                     })}
             </div>
+            <Footer>
+
+            </Footer>
         </div>
     );
 

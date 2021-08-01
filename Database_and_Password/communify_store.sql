@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 29, 2021 at 10:53 PM
+-- Generation Time: Aug 01, 2021 at 02:47 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.7
 
@@ -44,7 +44,11 @@ INSERT INTO `myserver` (`serverID`, `serverName`, `serverDescription`, `imageURL
 (1, 'CSE 18', 'Official Communify group for CSE batch 18', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFt-yDxqzDMlEa9UDFXYvesyT6V9YZ5zXqGg&usqp=CAU', 'ridwan', ''),
 (2, 'Photography Society', 'Official group for Photography Society', 'https://jooinn.com/images/photography-1.jpg', 'ridwan', ''),
 (11, 'Gaming', 'Gaming Server', 'https://i.pcmag.com/imagery/articles/00DDUM2F1UuVX1ciAvfJqM3-9..1623763322.jpg', 'ridwan', '7d04b658be887021751453d32bb239cf'),
-(41, 'Abrar', 'Server', 'https://images.unsplash.com/photo-1544006659-f0b21884ce1d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFuJTIwd29ya2luZyUyMG9uJTIwY29tcHV0ZXJ8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80', 'abrar', '62f8f80d384b8e9fdc81ef4e307b2b57');
+(41, 'Abrar', 'Server', 'https://images.unsplash.com/photo-1544006659-f0b21884ce1d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFuJTIwd29ya2luZyUyMG9uJTIwY29tcHV0ZXJ8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80', 'abrar', '62f8f80d384b8e9fdc81ef4e307b2b57'),
+(45, 'R', 'R', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627648542/coofshf2cgi6nwprr5sf.png', 'ridwan', 'e1e1d3d40573127e9ee0480caf1283d6'),
+(47, 'Adib', 'Adib', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627648892/yz9vyn60e2dbjhr4byy1.jpg', 'ridwan', 'a7805c2fb28085aa50a3f7ed1ff56936'),
+(48, 'D', 'D', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627731867/qmlz2s6r8jmtr29uusvx.jpg', 'ridwan', 'f623e75af30e62bbd73d6df5b50bb7b5'),
+(49, 'W', 'W', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627732002/ffityene7jkjkbom1gvf.jpg', 'ridwan', '61e9c06ea9a85a5088a499df6458d276');
 
 -- --------------------------------------------------------
 
@@ -92,7 +96,7 @@ ALTER TABLE `user_login`
 -- AUTO_INCREMENT for table `myserver`
 --
 ALTER TABLE `myserver`
-  MODIFY `serverID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `serverID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

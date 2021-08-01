@@ -6,10 +6,29 @@
     .Login form {
       margin: 0 auto;
       max-width: 350px;
+      padding: 20px;
+      border : 2px solid #c3c3c3;
+      border-radius: 7px;
+      background-color: #2d3748;
     }
   }
 
   Button{
       margin-top: 10px;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
   }
+
+  .form-control:not(active){
+    background-color: #3b4453;
+    border-color: #198754;
+ }
+
+ .form-control:focus{
+    background-color: #3b4453;
+    border-color: #198754;
+    box-shadow:1px 1px 1px 1px #198754;
+ }
+
+.alert{
+  text-align: center;
+}
