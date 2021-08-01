@@ -44,11 +44,14 @@ const Login = () => {
             .catch(error => {
                 console.log(error);
             })
+<<<<<<< Updated upstream
 
 
 
 
 
+=======
+>>>>>>> Stashed changes
 
     }
 

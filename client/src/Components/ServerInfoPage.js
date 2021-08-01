@@ -12,12 +12,20 @@ import Footer from "./Footer";
 const ServerInfoPage = (props) => {
 
     const allServer = () => {
+<<<<<<< Updated upstream
         setUser('all');
+=======
+        setDisplayServer('all');
+>>>>>>> Stashed changes
         setLinkColorMyServer('serverLink');
         setLinkColorAllServer('selectedLink');
     }
     const myServer = () => {
+<<<<<<< Updated upstream
         setUser(state.username);
+=======
+        setDisplayServer('my');
+>>>>>>> Stashed changes
         setLinkColorAllServer('serverLink');
         setLinkColorMyServer('selectedLink');
     }
@@ -26,9 +34,21 @@ const ServerInfoPage = (props) => {
 
     const [data, setData] = useState([]);
     const { state } = props.location;        //location = fething data from the initial page
+<<<<<<< Updated upstream
     const [user, setUser] = useState([state.username]);
     useEffect(() => {
         axios.get('http://localhost:2999/ownedServers/' + user)  //useState use koray state change holei backend e req giye server gula change kore dicche
+=======
+    const [displayServer, setDisplayServer] = useState("");
+
+    const data1={
+        username: state.username,
+        displayserver: displayServer,
+    }
+
+    useEffect(() => {
+        axios.post('http://localhost:2999/ownedServers' , data1)  //useState use koray state change holei backend e req giye server gula change kore dicche
+>>>>>>> Stashed changes
             .then(response => {
                 console.log(response.data);
                 setData(response.data);
@@ -37,7 +57,11 @@ const ServerInfoPage = (props) => {
                 console.log(error);
             })
 
+<<<<<<< Updated upstream
     }, [user]);
+=======
+    }, [displayServer]);
+>>>>>>> Stashed changes
 
     return (
         <div className='serverPage'>

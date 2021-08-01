@@ -53,11 +53,15 @@ const AddServer = (props) => {
         
             }
         )
+<<<<<<< Updated upstream
 
 
 
         
         
+=======
+   
+>>>>>>> Stashed changes
     }
 
     return (

@@ -10,6 +10,8 @@ const MD5= require('crypto-js/md5');
 const socketio = require('socket.io');
 const http = require('http');
 
+const PORT = process.env.PORT || 2999;
+
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -41,15 +43,25 @@ app.use(router);
 
 const getServers = async (req, res) => {
 
+<<<<<<< Updated upstream
   const server = [];
   let result;
   if(req.params.userName==='all')
+=======
+  const server1 = [];
+  let result;
+  if(req.body.displayserver==='all')
+>>>>>>> Stashed changes
   {
     result = await query("SELECT `serverID`, `serverName`, `serverDescription`, `imageURL`, `owner` FROM `myserver` ");
   }
   else
   {
+<<<<<<< Updated upstream
     result = await query("SELECT `serverID`, `serverName`, `serverDescription`, `imageURL`, `owner` FROM `myserver` WHERE `owner`='" + req.params.userName + "'");
+=======
+    result = await query("SELECT `serverID`, `serverName`, `serverDescription`, `imageURL`, `owner` FROM `myserver` WHERE `owner`='" + req.body.username + "'");
+>>>>>>> Stashed changes
   }
   
 
@@ -59,20 +71,25 @@ const getServers = async (req, res) => {
       cardBody: result[i].serverDescription,
       imageUrl: result[i].imageURL,
       id: result[i].serverID,
-      username: result[i].owner,
+      owner: result[i].owner,
+      username: req.body.username,
     };
-    server.push(feed);
+    server1.push(feed);
   }
 
   try {
+<<<<<<< Updated upstream
     console.log(server)
     res.status(200).json(server);
+=======
+    res.status(200).json(server1);
+>>>>>>> Stashed changes
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
 };
 
-app.get("/ownedServers/:userName", getServers);
+app.post("/ownedServers", getServers);
 
 
 
@@ -307,12 +324,19 @@ io.on('connect', (socket) => {
 
 
 
+server.listen(PORT, () => console.log(`Server has started on port ${PORT}`));
 
 
 
 
+// app.listen(2999, function () {
+//   console.log("SERVER RUNNING IN PORT 2999");
+// });
 
+<<<<<<< Updated upstream
 app.listen(2999, function () {
   console.log("SERVER RUNNING IN PORT 2999");
 });
 
+=======
+>>>>>>> Stashed changes
