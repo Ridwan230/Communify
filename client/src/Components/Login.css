@@ -5,7 +5,7 @@
   
     .Login form {
       margin: 0 auto;
-      max-width: 350px;
+      max-width: 360px;
       padding: 20px;
       border : 2px solid #c3c3c3;
       border-radius: 7px;
@@ -21,14 +21,31 @@
   .form-control:not(active){
     background-color: #3b4453;
     border-color: #198754;
+    color: white;
  }
 
  .form-control:focus{
     background-color: #3b4453;
     border-color: #198754;
     box-shadow:1px 1px 1px 1px #198754;
+    color: white;
  }
 
 .alert{
   text-align: center;
 }
+.para{
+  font-size: 20px;
+  text-align: center;
+  
+}
+.link{
+  color: #198754;
+  text-transform: capitalize;
+}
+
+a:hover {
+   color:#198754;
+   text-transform: capitalize;
+}
+

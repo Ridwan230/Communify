@@ -1,8 +1,4 @@
 import React from 'react';
-import Form from "react-bootstrap/Form";
-import { Button } from 'react-bootstrap';
-import { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import './Card.css';
 

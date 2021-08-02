@@ -5,11 +5,24 @@
   
     .addServer form {
       margin: 0 auto;
-      max-width: 350px;
+      max-width: 400px;
+      padding: 20px;
+      border : 2px solid #c3c3c3;
+      border-radius: 7px;
+      background-color: #2d3748;
     }
   }
 
   Button{
       margin-top: 10px;
       margin-bottom: 15px;
+  }
+
+  .alert{
+    margin-top: 15px;
+    text-align: center;
+  }
+
+  ::-webkit-input-placeholder {
+    text-align: left;
   }

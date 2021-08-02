@@ -43,25 +43,15 @@ app.use(router);
 
 const getServers = async (req, res) => {
 
-<<<<<<< Updated upstream
-  const server = [];
-  let result;
-  if(req.params.userName==='all')
-=======
   const server1 = [];
   let result;
   if(req.body.displayserver==='all')
->>>>>>> Stashed changes
   {
-    result = await query("SELECT `serverID`, `serverName`, `serverDescription`, `imageURL`, `owner` FROM `myserver` ");
+    result = await query("SELECT `serverID`, `serverName`, `serverDescription`, `imageURL`, `owner` FROM `myserver` where `serverType`='Public'");
   }
   else
   {
-<<<<<<< Updated upstream
-    result = await query("SELECT `serverID`, `serverName`, `serverDescription`, `imageURL`, `owner` FROM `myserver` WHERE `owner`='" + req.params.userName + "'");
-=======
     result = await query("SELECT `serverID`, `serverName`, `serverDescription`, `imageURL`, `owner` FROM `myserver` WHERE `owner`='" + req.body.username + "'");
->>>>>>> Stashed changes
   }
   
 
@@ -78,19 +68,13 @@ const getServers = async (req, res) => {
   }
 
   try {
-<<<<<<< Updated upstream
-    console.log(server)
-    res.status(200).json(server);
-=======
     res.status(200).json(server1);
->>>>>>> Stashed changes
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
 };
 
 app.post("/ownedServers", getServers);
-
 
 
 
@@ -169,7 +153,7 @@ const React_SignUp = async (req, res) => {
   console.log(confirm_password_2);
   console.log(flag_2);
 
-  if (flag_2 === false && confirm_password_2 === password_2) {
+  if (flag_2 === false) {
     var insertQuery = 'insert into `user_login` (`Username`,`Password`,`Email`) values (?,?,?)';
     var query_insert = mysql.format(insertQuery, [username_2, password_2, email_2]);
     con.query(query_insert, function (err, response) {
@@ -177,20 +161,21 @@ const React_SignUp = async (req, res) => {
       else {
         console.log("User Created!");
         try {
-          res.status(200).json({ username: req.body.username });
+          res.status(200).json({ username: req.body.username, message:'' });
         } catch (error) {
           res.status(404).json({ message: error.message });
         }
       }
     });
   }
-  else if (flag_2 === true) {
+  else{
     console.log("Username Already Taken!");
+    try {
+      res.status(200).json({ username: '', message:'Username already taken!' });
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
   }
-  else {
-    console.log("Confirm password does not match. Try Again!");
-  }
-
 }
 
 app.post("/React_SignUp", React_SignUp);
@@ -215,14 +200,14 @@ const React_AddServer = async (req, res) => {
 
 
   if (!flag) {
-    var insertQuery = 'insert into `myserver` (`serverName`,`serverDescription`,`imageURL`,`owner`,`password`) values (?,?,?,?,?)';
-    var query_insert = mysql.format(insertQuery, [req.body.servername, req.body.description, req.body.imageURL, req.body.username, req.body.serverpassword]);
+    var insertQuery = 'insert into `myserver` (`serverName`,`serverDescription`,`imageURL`,`owner`,`password`,`serverType`) values (?,?,?,?,?,?)';
+    var query_insert = mysql.format(insertQuery, [req.body.servername, req.body.description, req.body.imageURL, req.body.username, req.body.serverpassword,req.body.serverType]);
     con.query(query_insert, function (err, response) {
       if (err) throw err;
       else {
         console.log("Server Created!");
         try {
-          res.status(200).json({ username: req.body.username });
+          res.status(200).json({ username: req.body.username, message:'' });
         } catch (error) {
           res.status(404).json({ message: error.message });
         }
@@ -230,7 +215,12 @@ const React_AddServer = async (req, res) => {
     });
   }
   else {
-    console.log("Server Name already taken. Use another name!");
+    console.log("Server Name already taken!");
+    try {
+      res.status(200).json({ username: req.body.username, message:'Server Name already taken!' });
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
   }
 }
 
@@ -323,7 +313,6 @@ io.on('connect', (socket) => {
 //----------------------------------------------IO PART ENDS----------------------------------------------
 
 
-
 server.listen(PORT, () => console.log(`Server has started on port ${PORT}`));
 
 
@@ -333,10 +322,3 @@ server.listen(PORT, () => console.log(`Server has started on port ${PORT}`));
 //   console.log("SERVER RUNNING IN PORT 2999");
 // });
 
-<<<<<<< Updated upstream
-app.listen(2999, function () {
-  console.log("SERVER RUNNING IN PORT 2999");
-});
-
-=======
->>>>>>> Stashed changes

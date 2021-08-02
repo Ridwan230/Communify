@@ -44,14 +44,6 @@ const Login = () => {
             .catch(error => {
                 console.log(error);
             })
-<<<<<<< Updated upstream
-
-
-
-
-
-=======
->>>>>>> Stashed changes
 
     }
 
@@ -89,11 +81,7 @@ const Login = () => {
                     <Button block size="lg" type="submit" variant='success'>
                         Login
                     </Button>
-                    <Link to='/Signup'>
-                        <Button block size="lg" type="submit" variant='success'>
-                            Sign Up
-                        </Button>
-                    </Link>
+                    <p className='para'>Don't have an account? <Link to='/Signup' className='link'>Sign up</Link></p>
                 </Form>
             </div>
             <Footer>

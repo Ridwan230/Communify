@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 01, 2021 at 02:47 PM
+-- Generation Time: Aug 02, 2021 at 11:24 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.7
 
@@ -33,22 +33,23 @@ CREATE TABLE `myserver` (
   `serverDescription` varchar(50) NOT NULL,
   `imageURL` varchar(200) NOT NULL,
   `owner` varchar(20) NOT NULL,
-  `Password` varchar(100) NOT NULL
+  `Password` varchar(100) NOT NULL,
+  `serverType` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `myserver`
 --
 
-INSERT INTO `myserver` (`serverID`, `serverName`, `serverDescription`, `imageURL`, `owner`, `Password`) VALUES
-(1, 'CSE 18', 'Official Communify group for CSE batch 18', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFt-yDxqzDMlEa9UDFXYvesyT6V9YZ5zXqGg&usqp=CAU', 'ridwan', ''),
-(2, 'Photography Society', 'Official group for Photography Society', 'https://jooinn.com/images/photography-1.jpg', 'ridwan', ''),
-(11, 'Gaming', 'Gaming Server', 'https://i.pcmag.com/imagery/articles/00DDUM2F1UuVX1ciAvfJqM3-9..1623763322.jpg', 'ridwan', '7d04b658be887021751453d32bb239cf'),
-(41, 'Abrar', 'Server', 'https://images.unsplash.com/photo-1544006659-f0b21884ce1d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFuJTIwd29ya2luZyUyMG9uJTIwY29tcHV0ZXJ8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80', 'abrar', '62f8f80d384b8e9fdc81ef4e307b2b57'),
-(45, 'R', 'R', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627648542/coofshf2cgi6nwprr5sf.png', 'ridwan', 'e1e1d3d40573127e9ee0480caf1283d6'),
-(47, 'Adib', 'Adib', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627648892/yz9vyn60e2dbjhr4byy1.jpg', 'ridwan', 'a7805c2fb28085aa50a3f7ed1ff56936'),
-(48, 'D', 'D', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627731867/qmlz2s6r8jmtr29uusvx.jpg', 'ridwan', 'f623e75af30e62bbd73d6df5b50bb7b5'),
-(49, 'W', 'W', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627732002/ffityene7jkjkbom1gvf.jpg', 'ridwan', '61e9c06ea9a85a5088a499df6458d276');
+INSERT INTO `myserver` (`serverID`, `serverName`, `serverDescription`, `imageURL`, `owner`, `Password`, `serverType`) VALUES
+(11, 'Gaming', 'Gaming Server', 'https://i.pcmag.com/imagery/articles/00DDUM2F1UuVX1ciAvfJqM3-9..1623763322.jpg', 'ridwan', '7d04b658be887021751453d32bb239cf', 'Public'),
+(53, 'CSE 18', 'Official group for IUT CSE 19', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627895320/ij9aufyzaiwxgazkkwfm.jpg', 'ridwan', '25d55ad283aa400af464c76d713c07ad', 'Public'),
+(54, 'IUT Chess Society', 'IUT Chess community group', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627895387/xdai5m612dyttkcoc5sp.png', 'ridwan', '25d55ad283aa400af464c76d713c07ad', 'Public'),
+(55, 'Nature Study Club', 'A typical nature lovers paradise', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627895464/iuyrlwaysk9mjrjmqfhf.jpg', 'ridwan', '25d55ad283aa400af464c76d713c07ad', 'Public'),
+(56, 'Photography Society', 'Photography society group', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627895604/ebx175ndjrjrkpbtrwey.jpg', 'ridwan', '25d55ad283aa400af464c76d713c07ad', 'Public'),
+(57, 'Family', 'I got family', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627895728/endvf3x9bus9xlhzc4ql.jpg', 'ridwan', '25d55ad283aa400af464c76d713c07ad', 'Private'),
+(58, 'Music ', 'Music appreciation group', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627895821/wipild6cqifwhgw8kj4z.jpg', 'ridwan', '25d55ad283aa400af464c76d713c07ad', 'Public'),
+(59, 'Marvel Fans', 'Avengers Assemble', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627895925/jiwkyfpvj754flinfcxy.jpg', 'ridwan', '25d55ad283aa400af464c76d713c07ad', 'Public');
 
 -- --------------------------------------------------------
 
@@ -96,7 +97,7 @@ ALTER TABLE `user_login`
 -- AUTO_INCREMENT for table `myserver`
 --
 ALTER TABLE `myserver`
-  MODIFY `serverID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `serverID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
