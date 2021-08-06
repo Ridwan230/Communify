@@ -44,16 +44,25 @@ const Login = () => {
             .catch(error => {
                 console.log(error);
             })
-<<<<<<< Updated upstream
-
-
-
-
-
-=======
->>>>>>> Stashed changes
 
     }
+
+    // const handleClick = (event) =>{
+    //     event.preventDefault();
+    //     console.log("GOOGLE SIGNIN BUTTON PRESSED");
+        
+    //     axios.get('http://localhost:2999/google')
+    //         .then(response => {
+    //             history.push({
+    //                 pathname: "/ServerInfoPage",
+    //                 state: response.data
+    //             });
+    //         })
+    //         .catch(error => {
+    //             console.log(error);
+    //         })
+    // }
+
 
     return (
         <div>
@@ -89,12 +98,13 @@ const Login = () => {
                     <Button block size="lg" type="submit" variant='success'>
                         Login
                     </Button>
-                    <Link to='/Signup'>
-                        <Button block size="lg" type="submit" variant='success'>
-                            Sign Up
-                        </Button>
-                    </Link>
+                    {/* <Button block size="lg" type="submit" variant='danger' onClick={handleClick}>
+                        Login with Google
+                    </Button>
+                    <a href="/google" className="btn btn-danger"> Google</a> */}
+                    <p className='para'>Don't have an account? <Link to='/Signup' className='link'>Sign up</Link></p>
                 </Form>
+                
             </div>
             <Footer>
 

@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const cors = require('cors');
 const util = require('util');
-const MD5= require('crypto-js/md5');
+const MD5 = require('crypto-js/md5');
 const socketio = require('socket.io');
 const http = require('http');
 
@@ -43,27 +43,15 @@ app.use(router);
 
 const getServers = async (req, res) => {
 
-<<<<<<< Updated upstream
-  const server = [];
-  let result;
-  if(req.params.userName==='all')
-=======
   const server1 = [];
   let result;
-  if(req.body.displayserver==='all')
->>>>>>> Stashed changes
-  {
-    result = await query("SELECT `serverID`, `serverName`, `serverDescription`, `imageURL`, `owner` FROM `myserver` ");
+  if (req.body.displayserver === 'all') {
+    result = await query("SELECT `serverID`, `serverName`, `serverDescription`, `imageURL`, `owner` FROM `myserver` where `serverType`='Public'");
   }
-  else
-  {
-<<<<<<< Updated upstream
-    result = await query("SELECT `serverID`, `serverName`, `serverDescription`, `imageURL`, `owner` FROM `myserver` WHERE `owner`='" + req.params.userName + "'");
-=======
+  else {
     result = await query("SELECT `serverID`, `serverName`, `serverDescription`, `imageURL`, `owner` FROM `myserver` WHERE `owner`='" + req.body.username + "'");
->>>>>>> Stashed changes
   }
-  
+
 
   for (var i = 0; i < result.length; i++) {
     var feed = {
@@ -78,19 +66,13 @@ const getServers = async (req, res) => {
   }
 
   try {
-<<<<<<< Updated upstream
-    console.log(server)
-    res.status(200).json(server);
-=======
     res.status(200).json(server1);
->>>>>>> Stashed changes
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
 };
 
 app.post("/ownedServers", getServers);
-
 
 
 
@@ -110,8 +92,8 @@ const React_Login = async (req, res) => {
     console.log(result[i].Username)
     if (result[i].Username === username) {
       flag_username = true;
-      if(result[i].Password === password){
-        flag_password=true;
+      if (result[i].Password === password) {
+        flag_password = true;
       }
       break;
     }
@@ -125,7 +107,7 @@ const React_Login = async (req, res) => {
       res.status(404).json({ message: error.message });
     }
   }
-  else if(flag_username === true && flag_password===false){
+  else if (flag_username === true && flag_password === false) {
     try {
       console.log({ username: '', message: "Password Incorrect!" })
       res.status(200).json({ username: '', message: "Password Incorrect!" });
@@ -155,6 +137,7 @@ const React_SignUp = async (req, res) => {
   var password_2 = req.body.password;
   var confirm_password_2 = req.body.confirmPassword;
   var flag_2 = false;
+  var IsGoogleAccount = false;
   var email_2 = req.body.email;
 
   let result = await query('SELECT Username FROM `user_login`');
@@ -169,28 +152,29 @@ const React_SignUp = async (req, res) => {
   console.log(confirm_password_2);
   console.log(flag_2);
 
-  if (flag_2 === false && confirm_password_2 === password_2) {
-    var insertQuery = 'insert into `user_login` (`Username`,`Password`,`Email`) values (?,?,?)';
-    var query_insert = mysql.format(insertQuery, [username_2, password_2, email_2]);
+  if (flag_2 === false) {
+    var insertQuery = 'insert into `user_login` (`Username`,`Password`,`Email`,`IsGoogleAccount`) values (?,?,?,?)';
+    var query_insert = mysql.format(insertQuery, [username_2, password_2, email_2, IsGoogleAccount]);
     con.query(query_insert, function (err, response) {
       if (err) throw err;
       else {
         console.log("User Created!");
         try {
-          res.status(200).json({ username: req.body.username });
+          res.status(200).json({ username: req.body.username, message: '' });
         } catch (error) {
           res.status(404).json({ message: error.message });
         }
       }
     });
   }
-  else if (flag_2 === true) {
-    console.log("Username Already Taken!");
-  }
   else {
-    console.log("Confirm password does not match. Try Again!");
+    console.log("Username Already Taken!");
+    try {
+      res.status(200).json({ username: '', message: 'Username already taken!' });
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
   }
-
 }
 
 app.post("/React_SignUp", React_SignUp);
@@ -215,14 +199,14 @@ const React_AddServer = async (req, res) => {
 
 
   if (!flag) {
-    var insertQuery = 'insert into `myserver` (`serverName`,`serverDescription`,`imageURL`,`owner`,`password`) values (?,?,?,?,?)';
-    var query_insert = mysql.format(insertQuery, [req.body.servername, req.body.description, req.body.imageURL, req.body.username, req.body.serverpassword]);
+    var insertQuery = 'insert into `myserver` (`serverName`,`serverDescription`,`imageURL`,`owner`,`password`,`serverType`) values (?,?,?,?,?,?)';
+    var query_insert = mysql.format(insertQuery, [req.body.servername, req.body.description, req.body.imageURL, req.body.username, req.body.serverpassword, req.body.serverType]);
     con.query(query_insert, function (err, response) {
       if (err) throw err;
       else {
         console.log("Server Created!");
         try {
-          res.status(200).json({ username: req.body.username });
+          res.status(200).json({ username: req.body.username, message: '' });
         } catch (error) {
           res.status(404).json({ message: error.message });
         }
@@ -230,7 +214,12 @@ const React_AddServer = async (req, res) => {
     });
   }
   else {
-    console.log("Server Name already taken. Use another name!");
+    console.log("Server Name already taken!");
+    try {
+      res.status(200).json({ username: req.body.username, message: 'Server Name already taken!' });
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
   }
 }
 
@@ -249,30 +238,27 @@ const React_EnterServer = async (req, res) => {
 
   var flag = false;
 
-  con.query('SELECT serverName,Password FROM `myserver`', function (err, result, fields) {
-    if (err) throw err;
-    else {
-      for (var i = 0; i < result.length; i++) {
-        if (result[i].serverName === servername && result[i].Password === code) {
-          flag = true;
-          break;
-        }
-      }
+  let result = await query('SELECT serverName,Password FROM `myserver`');
+
+  for (var i = 0; i < result.length; i++) {
+    if (result[i].serverName === servername && result[i].Password === code) {
+      flag = true;
+      break;
     }
-  });
-  setTimeout(() => {
-    if (flag === true) {
-      console.log("Entered into the Server!");
-      try {
-        res.status(200).json({ servername: req.body.servername, servercode: req.body.code , username: req.body.username}); 
-      } catch (error) {
-        res.status(404).json({ message: error.message });
-      }
+  }
+
+  if (flag === true) {
+    console.log("Entered into the Server!");
+    try {
+      res.status(200).json({ servername: req.body.servername, servercode: req.body.code, username: req.body.username });
+    } catch (error) {
+      res.status(404).json({ message: error.message });
     }
-    else {
-      console.log("Code does not match. Try Again!");
-    }
-  }, 200);
+  }
+  else {
+    console.log("Code does not match. Try Again!");
+  }
+
 };
 
 app.post("/React_EnterServer", React_EnterServer);
@@ -281,33 +267,33 @@ app.post("/React_EnterServer", React_EnterServer);
 
 //---------------------------------------IO PART STARTS----------------------------------------------
 
-const {addUser, removeUser, getUser, getUsersInRoom} = require('./users.js');
+const { addUser, removeUser, getUser, getUsersInRoom } = require('./users.js');
 
 io.on('connect', (socket) => {
 
-  socket.on('join', ({name, room}, callback) => {
-      const {error,user} = addUser({id: socket.id, name, room});
+  socket.on('join', ({ name, room }, callback) => {
+    const { error, user } = addUser({ id: socket.id, name, room });
 
-      if(error) return callback(error);
+    if (error) return callback(error);
 
-      socket.join(user.room);
+    socket.join(user.room);
 
-      socket.emit('message', {user: 'admin', text: `${user.name}, welcome to the room ${user.room}`});
-      socket.broadcast.to(user.room).emit('message', {user: 'admin', text: `${user.name}, has joined!`});
+    socket.emit('message', { user: 'admin', text: `${user.name}, welcome to the room ${user.room}` });
+    socket.broadcast.to(user.room).emit('message', { user: 'admin', text: `${user.name}, has joined!` });
 
 
-      io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room)})
+    io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) })
 
-      callback();
+    callback();
   });
 
   socket.on('sendMessage', (message, callback) => {
-      const user = getUser(socket.id);
+    const user = getUser(socket.id);
 
-      io.to(user.room).emit('message', {user: user.name, text: message});
-      io.to(user.room).emit('roomData', {room: user.room, text: message});
+    io.to(user.room).emit('message', { user: user.name, text: message });
+    io.to(user.room).emit('roomData', { room: user.room, text: message });
 
-      callback();
+    callback();
   });
 
   // socket.on('disconnect', () => {
@@ -322,21 +308,63 @@ io.on('connect', (socket) => {
 
 //----------------------------------------------IO PART ENDS----------------------------------------------
 
+/*require('dotenv').config()
+const passport = require('passport');
+const cookieSession = require('cookie-session')
+require('./passport-setup')
+
+app.use(cookieSession({
+  name: 'tuto-session',
+  keys: ['key1', 'key2']
+}))
+
+const isLoggedIn = (req, res, next) => {
+  if (req.user) {
+    next();
+  } else {
+    res.sendStatus(401);
+  }
+}
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('/failed', (req, res) => {
+  console.log("Sign in FAILED using Google account")
+  //res.send('You Failed to log in!')
+})
+
+app.get('/good', isLoggedIn, (req, res) => {
+  console.log("Signed IN SUCCESSFULLY using Google account");
+  //res.render("pages/profile",{name:req.user.displayName,pic:req.user.photos[0].value,email:req.user.emails[0].value})
+})
+
+
+app.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+// const google = async (req, res) => {
+//   console.log("INSIDE GOOGLE FUNCTION");
+//   passport.authenticate('google', { scope: ['profile', 'email'] });
+// }
+
+//app.get('/google', google); 
+
+
+app.get('/google/callback', passport.authenticate('google', { failureRedirect: '/failed' }),
+  function (req, res) {
+    console.log("before success");
+    res.redirect('/good');
+  }
+);
+
+app.get('/logout', (req, res) => {
+    req.session = null;
+    req.logout();
+    res.redirect('/');
+})
+
+*/
 
 
 server.listen(PORT, () => console.log(`Server has started on port ${PORT}`));
 
-
-
-
-// app.listen(2999, function () {
-//   console.log("SERVER RUNNING IN PORT 2999");
-// });
-
-<<<<<<< Updated upstream
-app.listen(2999, function () {
-  console.log("SERVER RUNNING IN PORT 2999");
-});
-
-=======
->>>>>>> Stashed changes

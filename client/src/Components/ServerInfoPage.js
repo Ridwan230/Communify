@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import "./ServerInfoPage.css";
 import axios from 'axios';
-import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
+import { Navbar, Nav, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Footer from "./Footer";
 
@@ -12,20 +12,12 @@ import Footer from "./Footer";
 const ServerInfoPage = (props) => {
 
     const allServer = () => {
-<<<<<<< Updated upstream
-        setUser('all');
-=======
         setDisplayServer('all');
->>>>>>> Stashed changes
         setLinkColorMyServer('serverLink');
         setLinkColorAllServer('selectedLink');
     }
     const myServer = () => {
-<<<<<<< Updated upstream
-        setUser(state.username);
-=======
         setDisplayServer('my');
->>>>>>> Stashed changes
         setLinkColorAllServer('serverLink');
         setLinkColorMyServer('selectedLink');
     }
@@ -34,21 +26,15 @@ const ServerInfoPage = (props) => {
 
     const [data, setData] = useState([]);
     const { state } = props.location;        //location = fething data from the initial page
-<<<<<<< Updated upstream
-    const [user, setUser] = useState([state.username]);
-    useEffect(() => {
-        axios.get('http://localhost:2999/ownedServers/' + user)  //useState use koray state change holei backend e req giye server gula change kore dicche
-=======
     const [displayServer, setDisplayServer] = useState("");
 
-    const data1={
+    const data1 = {
         username: state.username,
         displayserver: displayServer,
     }
 
     useEffect(() => {
-        axios.post('http://localhost:2999/ownedServers' , data1)  //useState use koray state change holei backend e req giye server gula change kore dicche
->>>>>>> Stashed changes
+        axios.post('http://localhost:2999/ownedServers', data1)  //useState use koray state change holei backend e req giye server gula change kore dicche
             .then(response => {
                 console.log(response.data);
                 setData(response.data);
@@ -57,11 +43,8 @@ const ServerInfoPage = (props) => {
                 console.log(error);
             })
 
-<<<<<<< Updated upstream
-    }, [user]);
-=======
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [displayServer]);
->>>>>>> Stashed changes
 
     return (
         <div className='serverPage'>
@@ -75,15 +58,15 @@ const ServerInfoPage = (props) => {
                             style={{ maxHeight: "100px" }}
                             navbarScroll
                         >
-                            <Nav.Link className={linkColorAllServer} onClick={allServer}>All Server</Nav.Link>
-                            <Nav.Link className={linkColorMyServer} onClick={myServer}>My Server</Nav.Link>
+                            <Nav.Link className={linkColorAllServer} onClick={allServer}>ALL SERVER</Nav.Link>
+                            <Nav.Link className={linkColorMyServer} onClick={myServer}>MY SERVER</Nav.Link>
                         </Nav>
                         <Link to={{
                             pathname: "/AddServer",
                             state: { username: state.username } // your data array of objects
                         }}>
                             <Button className="addServerButton" variant="success" size="sm">
-                            <h5>Add Server</h5>
+                                <h5>Add Server</h5>
                             </Button>
                         </Link>
 

@@ -9,9 +9,14 @@
 }
 
 .addServerButton{
-    margin-right: 15px;
+    margin-right: 25px;
+    margin-top: 15px;
     display: flex;
     float: right;
+}
+
+h5{
+    margin-top: 5px;
 }
 
 .addServer h2{
@@ -29,6 +34,7 @@
 
 .navBar h1{
     padding-left: 12px;
+    text-transform: capitalize;
 }
 
 
@@ -59,7 +65,7 @@
     margin: 0 40px 0 40px;
     border-radius: 15px;
     background-color: #1a202c;
-    transform: scale(1.2);
+    transform: scale(1.25);
     transition: 0.1s;
     animation: forwards;
 }
