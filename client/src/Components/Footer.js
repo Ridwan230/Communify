@@ -5,6 +5,14 @@ function Footer() {
     const year = new Date().getFullYear();
     return (
         <footer>
+            <hr
+                style={{
+                    color: "white",
+                    width: "80%",
+                    margin: "auto",
+                }}
+            />
+            <br />
             <p>Copyright ⓒ Communify {year}</p>
         </footer>
     );

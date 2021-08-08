@@ -7,7 +7,7 @@
       margin: 0 auto;
       max-width: 360px;
       padding: 20px;
-      border : 2px solid #c3c3c3;
+      border : 2px solid #5658dd;
       border-radius: 7px;
       background-color: #2d3748;
     }
@@ -20,14 +20,14 @@
 
   .form-control:not(active){
     background-color: #3b4453;
-    border-color: #198754;
+    border-color: #5658dd;
     color: white;
  }
 
  .form-control:focus{
     background-color: #3b4453;
-    border-color: #198754;
-    box-shadow:1px 1px 1px 1px #198754;
+    border-color: #5658dd;
+    box-shadow:1px 1px 1px 1px #5658dd;
     color: white;
  }
 
@@ -37,14 +37,19 @@
 .para{
   font-size: 20px;
   text-align: center;
-  
 }
 .link{
-  color: #198754;
+  color: #5658dd;
   text-transform: capitalize;
 }
 
 a:hover {
-   color:#198754;
+   color:#5658dd;
    text-transform: capitalize;
+}
+
+.LoginButton{
+  background-color: #5658dd;
+  border-color: #5658dd;
+  color: #5658dd;
 }

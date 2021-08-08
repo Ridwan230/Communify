@@ -34,7 +34,7 @@ const Signup = () => {
             }
             else {
                 if (password.length < 8) {
-                    alertError = 'Minimum 8 charecter password needed!';
+                    alertError = 'Minimum 8 characters password needed!';
                 }
                 else {
                     if (password !== confirmPassword) {
@@ -106,7 +106,7 @@ const Signup = () => {
                         <Form.Control
                             type="password"
                             value={password}
-                            placeholder='Minimum 8 charecters'
+                            placeholder='Minimum 8 characters'
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </Form.Group>
@@ -115,7 +115,7 @@ const Signup = () => {
                         <Form.Control
                             type="password"
                             value={confirmPassword}
-                            placeholder='Minimum 8 charecters'
+                            placeholder='Minimum 8 characters'
                             onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                     </Form.Group>
@@ -125,7 +125,7 @@ const Signup = () => {
                     <Button block size="lg" type="submit" variant='success'>
                         Sign Up
                     </Button>
-                    <p className='para'>Already have an account? <Link to='/' className='link'>Log in</Link></p>
+                    <p className='para'>Already have an account? <Link to='/Login' className='link'>Log in</Link></p>
                 </Form>
             </div>
             <Footer>

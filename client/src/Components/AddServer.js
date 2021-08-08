@@ -39,7 +39,7 @@ const AddServer = (props) => {
         }
         else{
             if (serverPassword.length < 8) {
-                setError("Password length must be atleast 8 charecters")
+                setError("Password length must be atleast 8 characters")
             }
             else {
                 if (serverPassword !== confirmPassword) {
@@ -101,7 +101,7 @@ const AddServer = (props) => {
                     <Form.Group size="lg" controlId="serverpassword">
                         <Form.Label>PASSWORD</Form.Label>
                         <Form.Control
-                            placeholder='Minimum 8 charecters'
+                            placeholder='Minimum 8 characters'
                             type="password"
                             value={serverPassword}
                             onChange={(e) => setServerPassword(e.target.value)}
@@ -112,7 +112,7 @@ const AddServer = (props) => {
                         <Form.Control
                             type="password"
                             value={confirmPassword}
-                            placeholder='Minimum 8 charecters'
+                            placeholder='Minimum 8 characters'
                             onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                     </Form.Group>

@@ -14,6 +14,28 @@
     display: flex;
     float: right;
     width: 100%;
+    background-color: #5658dd;
+    border-color: #5658dd;
+}
+
+.SignUpButton:focus{
+    background-color: #3f42d9;
+    border-color: #3f42d9;
+}
+
+.SignUpButton:hover{
+    background-color: #3f42d9;
+    border-color: #3f42d9;
+}
+
+.SignUpButton:active{
+    background-color: #3f42d9 !important;
+    border-color: #3f42d9 !important;
+}
+
+.SignUpButton:visited{
+    background-color: #3f42d9 !important;
+    border-color: #3f42d9 !important;
 }
 
 .LoginButton{
@@ -22,6 +44,28 @@
     display: flex;
     float: right;
     width: 95%;
+    background-color: #5658dd;
+    border-color: #5658dd;
+}
+
+.LoginButton:focus{
+    background-color: #3f42d9;
+    border-color: #3f42d9;
+}
+
+.LoginButton:hover{
+    background-color: #3f42d9;
+    border-color: #3f42d9;
+}
+
+.LoginButton:active{
+    background-color: #3f42d9 !important;
+    border-color: #3f42d9 !important;
+}
+
+.LoginButton:visited{
+    background-color: #3f42d9 !important;
+    border-color: #3f42d9 !important;
 }
 
 .SignUpButton h5{
@@ -40,7 +84,15 @@
     text-align: center;
     font-size: 70px;
     margin-top: 135px;
-    font-weight: bold;
+    font-weight: 900;
+}
+
+.maintextbody2 p{
+    color: #8d98a2;
+    text-align: center;
+    font-size: 35px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
 }
 
 .addServer h2{
@@ -59,7 +111,27 @@
 .navBar h1{
     padding-left: 12px;
     text-transform: capitalize;
+    font-size: 50px;
 }
 
+.col{
+    height: 100px;
+}
 
+.gridcontainer{
+    background: rgba(0,0,0,0);
+    margin-top: 150px;
+    width: 100%;
+    margin-bottom: -100px;
+}
 
+.frontpageimage {
+    width: 1333px;
+    height: 720px;
+    margin: 0 auto;
+    margin-top: 100px;
+}
+
+.serverPage{
+    background-color: #171923;
+}
