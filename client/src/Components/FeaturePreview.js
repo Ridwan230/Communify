@@ -7,7 +7,7 @@ const FeaturePreview = (props) => {
 
 
     return (
-        <div classname="feature">
+        <div className="feature">
         
             <div className="featureImage">
                 <FaCodepen size={56}/>

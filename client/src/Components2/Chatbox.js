@@ -18,6 +18,8 @@ const Chatbox = (props) => {
     const [messages, setMessages] = useState([]);
     const ENDPOINT = 'localhost:2999';
 
+    const channel_name = props.channel;
+
     useEffect(() => {
         const name = props.username;
         const room = props.servername;
@@ -27,9 +29,20 @@ const Chatbox = (props) => {
         setName(name);
         setRoom(room);
 
-        socket.emit('join', { name, room }, (error) => {
-            if(error){
-                alert(error);
+        socket.emit('join', name, room, channel_name, (callback) => {
+            if (callback.error) {
+                console.log("Join error");
+                alert(callback.error);
+            }
+            else {
+                for (var i = 0; i < callback.length1; i++) {
+                    const initial_message = {
+                        user: callback.result[i].sender,
+                        text: callback.result[i].text,
+                    }
+                    setMessages(messages => [...messages, initial_message]);
+
+                }
             }
         });
 
@@ -42,19 +55,19 @@ const Chatbox = (props) => {
 
     useEffect(() => {
         socket.on('message', (message) => {
-            setMessages(messages => [...messages, message]);
+            setMessages(messages => [...messages, message]); 
         })
 
-        socket.on('roomData', ({users}) => {
-            setUsers(users);
-        })
+        // socket.on('roomData', ({users}) => {
+        //     setUsers(users);
+        // })
     }, []);
 
     const sendMessage = (event) => {
         event.preventDefault();
 
         if (message) {
-            socket.emit('sendMessage', message, () => setMessage(''));
+            socket.emit('sendMessage',  message, name, room, channel_name , () => setMessage(''));
         }
     }
 

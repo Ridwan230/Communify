@@ -95,7 +95,7 @@ const Login = () => {
                     {error !== '' ? <Alert className='alert' variant='danger'>
                         {error}
                     </Alert> : null}
-                    <Button classname="LoginButton" block size="lg" type="submit" variant='success'>
+                    <Button block size="lg" type="submit" variant='success'>
                         Login
                     </Button>
                     {/* <Button block size="lg" type="submit" variant='danger' onClick={handleClick}>

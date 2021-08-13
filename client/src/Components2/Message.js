@@ -5,9 +5,9 @@ import './Message.css';
 const Message = ({message: {user,text}, name}) => {
     let isSentByCurrentUser = false;
 
-    const trimmedName = name.trim().toLowerCase();
+    //const trimmedName = name.trim().toLowerCase();
 
-    if(user===trimmedName)
+    if(user===name)
     {
         isSentByCurrentUser=true;
     }
@@ -16,7 +16,7 @@ const Message = ({message: {user,text}, name}) => {
         isSentByCurrentUser
           ? (
             <div className="messageContainer justifyEnd">
-              <p className="sentText pr-10">{trimmedName}</p>
+              <p className="sentText pr-10">{name}</p>
               <div className="messageBox backgroundBlue">
                 <p className="messageText colorWhite">{text}</p>
               </div>

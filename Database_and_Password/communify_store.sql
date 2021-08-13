@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 02, 2021 at 11:24 AM
+-- Generation Time: Aug 13, 2021 at 11:20 AM
 -- Server version: 10.4.19-MariaDB
--- PHP Version: 8.0.7
+-- PHP Version: 8.0.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,30 @@ SET time_zone = "+00:00";
 --
 -- Database: `communify_store`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `messages`
+--
+
+CREATE TABLE `messages` (
+  `message_no` int(11) NOT NULL,
+  `sender` varchar(20) NOT NULL,
+  `server_name` varchar(20) NOT NULL,
+  `channel_name` varchar(20) NOT NULL,
+  `text` varchar(1000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `messages`
+--
+
+INSERT INTO `messages` (`message_no`, `sender`, `server_name`, `channel_name`, `text`) VALUES
+(12, 'ridwan', 'Gaming', 'General', 'hi'),
+(13, 'ifrad', 'Gaming', 'General', 'hello '),
+(14, 'ridwan', 'CSE 18', 'General', 'class cancelled'),
+(15, 'ifrad', 'CSE 18', 'General', 'thanks');
 
 -- --------------------------------------------------------
 
@@ -60,22 +84,51 @@ INSERT INTO `myserver` (`serverID`, `serverName`, `serverDescription`, `imageURL
 CREATE TABLE `user_login` (
   `Username` varchar(10) NOT NULL,
   `Password` varchar(100) NOT NULL,
-  `Email` varchar(50) NOT NULL
+  `Email` varchar(50) NOT NULL,
+  `IsGoogleAccount` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user_login`
 --
 
-INSERT INTO `user_login` (`Username`, `Password`, `Email`) VALUES
-('abrar', '202cb962ac59075b964b07152d234b70', 'abrar@gmail.com'),
-('Hello', '7a6d1b13498fb5b3085b2fd887933575', 'Hello@gmail.com'),
-('ifrad', '202cb962ac59075b964b07152d234b70', 'ifrad@gmail.com'),
-('ridwan', '202cb962ac59075b964b07152d234b70', 'ridwan@gmail.com');
+INSERT INTO `user_login` (`Username`, `Password`, `Email`, `IsGoogleAccount`) VALUES
+('abrar', '202cb962ac59075b964b07152d234b70', 'abrar@gmail.com', 0),
+('Hello', '7a6d1b13498fb5b3085b2fd887933575', 'Hello@gmail.com', 0),
+('ifrad', '202cb962ac59075b964b07152d234b70', 'ifrad@gmail.com', 0),
+('ridwan', '202cb962ac59075b964b07152d234b70', 'ridwan@gmail.com', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_rooms`
+--
+
+CREATE TABLE `user_rooms` (
+  `id` int(11) NOT NULL,
+  `username` varchar(20) NOT NULL,
+  `room` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user_rooms`
+--
+
+INSERT INTO `user_rooms` (`id`, `username`, `room`) VALUES
+(10, 'ridwan', 'Gaming'),
+(11, 'ifrad', 'Gaming'),
+(12, 'ridwan', 'CSE 18'),
+(13, 'ifrad', 'CSE 18');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `messages`
+--
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`message_no`);
 
 --
 -- Indexes for table `myserver`
@@ -90,14 +143,32 @@ ALTER TABLE `user_login`
   ADD PRIMARY KEY (`Username`);
 
 --
+-- Indexes for table `user_rooms`
+--
+ALTER TABLE `user_rooms`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `message_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `myserver`
 --
 ALTER TABLE `myserver`
   MODIFY `serverID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
+
+--
+-- AUTO_INCREMENT for table `user_rooms`
+--
+ALTER TABLE `user_rooms`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

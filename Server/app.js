@@ -84,12 +84,10 @@ const React_Login = async (req, res) => {
   var flag_username = false;
   var flag_password = false;
 
-  console.log(req.body.username);
-  console.log(req.body.password);
 
   let result = await query('SELECT Username,Password FROM `user_login`');
   for (var i = 0; i < result.length; i++) {
-    console.log(result[i].Username)
+    
     if (result[i].Username === username) {
       flag_username = true;
       if (result[i].Password === password) {
@@ -148,9 +146,6 @@ const React_SignUp = async (req, res) => {
       break;
     }
   }
-  console.log(password_2);
-  console.log(confirm_password_2);
-  console.log(flag_2);
 
   if (flag_2 === false) {
     var insertQuery = 'insert into `user_login` (`Username`,`Password`,`Email`,`IsGoogleAccount`) values (?,?,?,?)';
@@ -267,31 +262,50 @@ app.post("/React_EnterServer", React_EnterServer);
 
 //---------------------------------------IO PART STARTS----------------------------------------------
 
-const { addUser, removeUser, getUser, getUsersInRoom } = require('./users.js');
+const { addUser, removeUser, getUser, getUsersInRoom, getMessages } = require('./users.js');
 
 io.on('connect', (socket) => {
 
-  socket.on('join', ({ name, room }, callback) => {
+  socket.on('join', ( name, room, channel_name, callback) => {
     const { error, user } = addUser({ id: socket.id, name, room });
 
-    if (error) return callback(error);
+    if (error) {
+      return callback({error: error});
+    }
 
-    socket.join(user.room);
+    socket.join(room);
 
-    socket.emit('message', { user: 'admin', text: `${user.name}, welcome to the room ${user.room}` });
-    socket.broadcast.to(user.room).emit('message', { user: 'admin', text: `${user.name}, has joined!` });
+    //socket.emit('message', { user: 'admin', text: `${user.name}, welcome to the room ${user.room}` });
+    //socket.broadcast.to(user.room).emit('message', { user: 'admin', text: `${user.name}, has joined!` });
 
 
-    io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) })
+    //io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) })
 
-    callback();
+    (async function () {
+      let result = await getMessages(room, channel_name);
+      var length1 = result.length;
+      callback({
+        result: result,
+        length1: length1,
+      });
+
+    }());
+
+
   });
 
-  socket.on('sendMessage', (message, callback) => {
-    const user = getUser(socket.id);
+  socket.on('sendMessage', (message, name, room, channel_name, callback) => {
+    //const user = getUser(socket.id);
+    const user = name;
+    
+    var insertQuery = 'insert into `messages` (`sender`,`server_name`,`channel_name`,`text`) values (?,?,?,?)';
+    var query_insert = mysql.format(insertQuery, [name, room, channel_name, message]);
+    con.query(query_insert, function (err, response) {
+      if (err) throw err;
+    });
 
-    io.to(user.room).emit('message', { user: user.name, text: message });
-    io.to(user.room).emit('roomData', { room: user.room, text: message });
+    io.to(room).emit('message', { user: name, text: message });
+    //io.to(user.room).emit('roomData', { room: user.room, text: message });
 
     callback();
   });
