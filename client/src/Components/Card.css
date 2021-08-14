@@ -1,3 +1,4 @@
+
 .cardContainer{
     width: 250px;
     height: 250px;
@@ -6,9 +7,9 @@
     margin: 25px;
     transition: 0.4s;
     animation: ease-in;
-    border-radius: 50%;
     font-family: "Lato";
     background-color: #171923;
+    border-radius: 50%;
 }
 
 .cardContainer:hover{
@@ -43,7 +44,7 @@ h3,p{
 }
 
 .cardTitle{
-    justify-content: center;
+    justify-content: center !important;
 }
 
 .cardBtn{
@@ -77,4 +78,73 @@ a{
 .linkedContainer :hover{
     color: white;
     text-decoration: none !important;
+}
+
+
+
+
+
+
+.image {
+    position: relative;
+    width: 300px;
+}
+
+.image__img {
+    display: block;
+    width: 100%;
+}
+
+.image__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: 0px;
+    width: 250px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.25s;
+    word-wrap: break-word;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 13px;
+}
+
+.image__overlay--blur {
+    backdrop-filter: blur(5px);
+}
+
+.image__overlay--primary {
+    background: #1a202c;
+}
+
+.image__overlay > * {
+    transform: translateY(20px);
+    transition: transform 0.25s;
+}
+
+.image__overlay:hover {
+    opacity: .8;
+}
+
+.image__overlay:hover > * {
+    transform: translateY(0);
+}
+
+.image__title {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.image__description {
+    font-size: 1.25em;
+    margin-top: 0px;
+    opacity: 1;
 }

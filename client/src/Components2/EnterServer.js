@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal'
 import { Link } from 'react-router-dom';
 import MD5 from "crypto-js/md5";
+import './EnterServer.css'
 
 const EnterServer = (props) => {
     let history = useHistory();
@@ -41,19 +42,19 @@ const EnterServer = (props) => {
 
     const [show, setShow] = useState(true);
 
-    /*function handleClose(event) {
+    function handleClose(event) {
         setShow(false);
         history.push({
             pathname: "/ServerInfoPage",
-            state: state.username
+            state: { username: state.username }         //bug fixed
         });
-    }*/ //Didn't work for some reason...to be figured out later
+    }
 
-    const handleClose = () => setShow(false);
+   // const handleClose = () => setShow(false);
 
     return (
         <>
-            <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false} centered>
+            <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false} centered className='popup'>
                 <Modal.Header closeButton>
                     <Modal.Title>Enter Room</Modal.Title>
                 </Modal.Header>
@@ -72,7 +73,7 @@ const EnterServer = (props) => {
                             <Button variant="secondary" onClick={handleClose}>
                                 Close
                             </Button>
-                            <Button variant="primary" type="submit" disabled={!validateForm()}>
+                            <Button variant="success" type="submit" disabled={!validateForm()}>
                                 Enter
                             </Button>
                         </Modal.Footer>

@@ -13,6 +13,8 @@ import validator from 'email-validator';
 
 const Signup = () => {
 
+
+    let re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     let history = useHistory();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -37,8 +39,12 @@ const Signup = () => {
                     alertError = 'Minimum 8 characters password needed!';
                 }
                 else {
-                    if (password !== confirmPassword) {
-                        alertError = 'Passwords do not match!';
+                    if(!re.test(password)){
+                        alertError='Password must contain atleast 1 letter and 1 number!'
+                    }else{
+                        if (password !== confirmPassword) {
+                            alertError = 'Passwords do not match!';
+                        }
                     }
                 }
             }

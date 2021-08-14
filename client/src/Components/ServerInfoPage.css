@@ -64,8 +64,30 @@ h5{
     padding: 10px 20px 10px 20px;
     margin: 0 40px 0 40px;
     border-radius: 15px;
-    background-color: #1a202c;
+    background-color: #1A202C;
+    border-color: #157347 !important;
+    border-width: 1 px;
+    border-style: double;
     transform: scale(1.25);
     transition: 0.1s;
     animation: forwards;
 }
+
+.selector{
+    float: right;
+    padding-right: 20px;
+}
+
+.d-flex{
+    margin-left: 0px;
+    min-width: 180px;
+}
+
+.selector .form-label{
+    margin-left: 10px !important;
+}
+
+.selector h3{
+    padding-right: 10px;
+}
+
