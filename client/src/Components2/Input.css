@@ -1,6 +1,8 @@
 .form {
     display: flex;
-    border-top: 2px solid #D3D3D3;
+    width: 980px;
+    height: 90px;
+    margin-bottom: 30px;
   }
   
   .input {
@@ -8,8 +10,9 @@
     border-radius: 0;
     padding: 5%;
     width: 80%;
-    font-size: 1.2em;
-    color: black;
+    font-size: 1.5em;
+    color: white;
+    background-color: #42454b;
   }
   
   input:focus, textarea:focus, select:focus{
@@ -25,4 +28,9 @@
     display: inline-block;
     border: none;
     width: 20%;
+  }
+
+  .sendButton1{
+    margin-left: 40px;
+    margin-top: 5px;
   }

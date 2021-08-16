@@ -1,0 +1,55 @@
+.channel-page{
+    width: 100vw;
+    overflow-x: hidden;
+    height: 100vh;
+}
+
+.noticebutton{
+    margin-top: 180px;
+    width: 100%;
+    background-color: #2f3136;
+    color: white;
+}
+
+.generalbutton{
+    margin-top: 0px;
+    width: 100%;
+    background-color: #2f3136;
+    color: white;
+}
+
+.homeicon{
+    margin-top: 15px;
+    text-align: center;
+}
+
+.col1{
+    background-color: #202225;
+    height: 913px;
+}
+
+.col2{
+    background-color: #2f3136;
+    height: 913px;
+}
+
+.col3{
+    background-color: #36393e;
+    height: 913px;
+}
+
+.col4{
+    background-color: #2f3136;
+    height: 913px;
+}
+
+.col2 h1{
+    font-size: 40px;
+    margin-top: 25px;
+    margin-left: 15px;
+    font-family:Georgia, 'Times New Roman', Times, serif
+}
+
+.servernameicon{
+    margin-top: -5px;
+}

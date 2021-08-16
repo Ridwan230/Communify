@@ -296,7 +296,7 @@ io.on('connect', (socket) => {
 
   socket.on('sendMessage', (message, name, room, channel_name, callback) => {
     //const user = getUser(socket.id);
-    const user = name;
+    //const user = name;
     
     var insertQuery = 'insert into `messages` (`sender`,`server_name`,`channel_name`,`text`) values (?,?,?,?)';
     var query_insert = mysql.format(insertQuery, [name, room, channel_name, message]);

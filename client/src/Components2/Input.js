@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { IoSend } from "react-icons/io5";
 import './Input.css';
 
 const Input = ({  message, setMessage, sendMessage }) => (
@@ -12,7 +12,8 @@ const Input = ({  message, setMessage, sendMessage }) => (
       onChange={({ target: { value } }) => setMessage(value)}
       onKeyPress={event => event.key === 'Enter' ? sendMessage(event) : null}
     />
-    <button className="sendButton" onClick={event => sendMessage(event)}>Send</button>
+    {/* <button className="sendButton" onClick={event => sendMessage(event)}>Send</button> */}
+    <a href=""><IoSend size={80} className="sendButton1" onClick={event => sendMessage(event)}/></a>
   </form>
 )
 
