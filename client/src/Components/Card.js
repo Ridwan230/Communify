@@ -10,14 +10,21 @@ const Card = (props) => {
     const buttonPush = () => {
         history.push({
             pathname: "/EnterServer",
-            state: { servername: props.title, username: props.username } 
+            state: { servername: props.title, username: props.username }
         });
     }
 
     return (
-        <div className='cardContainer'onClick={buttonPush}>
+        <div className='cardContainer' onClick={buttonPush}>
             <div className='imageContainer'>
-                <img src={props.imageUrl} alt="cardImage" />
+                <div className="image">
+                    <img className="image__img" src={props.imageUrl} alt="cardImage" />
+                    <div className="image__overlay image__overlay--primary">
+                        <p className="image__description">
+                            {props.cardBody}
+                        </p>
+                    </div>
+                </div>
             </div>
 
             <div className='cardContents'>

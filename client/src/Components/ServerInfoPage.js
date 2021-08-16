@@ -7,6 +7,7 @@ import axios from 'axios';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Footer from "./Footer";
+import { Form } from "react-bootstrap";
 
 
 const ServerInfoPage = (props) => {
@@ -15,6 +16,7 @@ const ServerInfoPage = (props) => {
         setDisplayServer('all');
         setLinkColorMyServer('serverLink');
         setLinkColorAllServer('selectedLink');
+        setServerType('Both');
     }
     const myServer = () => {
         setDisplayServer('my');
@@ -26,7 +28,8 @@ const ServerInfoPage = (props) => {
 
     const [data, setData] = useState([]);
     const { state } = props.location;        //location = fething data from the initial page
-    const [displayServer, setDisplayServer] = useState("");
+    const [displayServer, setDisplayServer] = useState("my");
+    const [serverType, setServerType] = useState("Both");       //My server e differentiate korar jonno
 
     const data1 = {
         username: state.username,
@@ -76,19 +79,50 @@ const ServerInfoPage = (props) => {
             <div className="addServer">
                 <h2 className='greeting'>Hello, {state.username}. </h2>
 
+                {displayServer === 'my' ? 
+                <div className="selector">
+                <Form.Group controlId="formBasicSelect" className="d-flex align-items-end">
+                        <Form.Label><h3>Show</h3></Form.Label>
+                        <Form.Control
+                            as="select"
+                            value={serverType}
+                            onChange={(e) => {
+                                setServerType(e.target.value);
+                            }}
+                        >
+                            <option value="All">Both</option>
+                            <option value="Public">Public</option>
+                            <option value="Private">Private</option>
+                        </Form.Control>
+                    </Form.Group>
+                    </div> 
+                    : null}
+
             </div>
+
 
             <div className="cardGrid">
                 {
-                    data.map((classItem) => {
+                    data.filter((Item) => {
+                        if(serverType==='Private'){
+                            return Item.serverType==='Private'
+                        }
+                        else if(serverType==='Public'){
+                            return Item.serverType==='Public'
+                        }
+                        else{
+                            return Item
+                        }
+                    })
+                    .map((classItem) => {
                         return (
-
                             <Card
-                                key={classItem.serverID}
+                                key={classItem.id}
                                 title={classItem.title}
                                 imageUrl={classItem.imageUrl}
                                 cardBody={classItem.cardBody}
                                 username={classItem.username}
+                                serverType={classItem.serverType}
                             />
                         );
                     })}

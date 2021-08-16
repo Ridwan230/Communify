@@ -24,6 +24,8 @@ const AddServer = (props) => {
 
     function handleSubmit(event) {
         event.preventDefault();
+
+        let re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
         const data = {
             username: state.username,
             servername: serverName,
@@ -46,7 +48,11 @@ const AddServer = (props) => {
                     setError("Passwords don't match")
                 }
                 else {
-                    console.log(imageFile[0]); //Image ta nilam ekhon cloudinary te pathabo
+                    if(!re.test(serverPassword)){
+                        setError('Password must contain atleast 1 letter and 1 number!')
+                    }
+                    else{
+                        console.log(imageFile[0]); //Image ta nilam ekhon cloudinary te pathabo
                     const formData = new FormData();
                     formData.append("file", imageFile[0]);
                     formData.append("upload_preset", "mfqta5a8");
@@ -74,6 +80,8 @@ const AddServer = (props) => {
                                     console.log(error);
                                 });
                         });
+                    }
+                    
                 }
             }
         }
