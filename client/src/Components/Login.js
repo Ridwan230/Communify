@@ -27,7 +27,6 @@ const Login = () => {
             username: user,
             password: MD5(password).toString(),
         }
-        console.log(data);
 
         axios.post('http://localhost:2999/React_Login', data)
             .then(response => {

@@ -18,11 +18,8 @@ con.connect(function (err) {
 
 const users = [];
 
-const addUser = async ({ id, name, room }) => {
-    // name = name.trim().toLowerCase();
-    // room = room.trim().toLowerCase();
+const addUser = async ({ name, room }) => {
 
-    //const existingUser = users.find((user) => user.room === room && user.name === name);
     var existingUser = false;
 
     let result = await query("SELECT `username` FROM `user_rooms` WHERE `room`='" + room + "'");
@@ -34,9 +31,29 @@ const addUser = async ({ id, name, room }) => {
         }
     }
 
+    var flag=false;
     if (!existingUser) {
-        var insertQuery = 'insert into `user_rooms` (`username`,`room`) values (?,?)';
-        var query_insert = mysql.format(insertQuery, [name, room]);
+        let result1 = await query("SELECT `serverName`,`owner` FROM `myserver`");
+
+        for(var i=0; i<result1.length; i++)
+        {
+            if(result1[i].serverName===room && result1[i].owner===name)
+            {
+                flag=true;
+                break;
+            }
+        }
+
+        if(flag===true)
+        {
+            var insertQuery = 'insert into `user_rooms` (`username`,`room`,`isAdmin`) values (?,?,?)';
+        }
+        else
+        {
+            var insertQuery = 'insert into `user_rooms` (`username`,`room`,`isAdmin`) values (?,?,?)';
+        }
+
+        var query_insert = mysql.format(insertQuery, [name, room, flag]);
         con.query(query_insert, function (err, response) {
             if (err) throw err;
             else {
@@ -45,7 +62,7 @@ const addUser = async ({ id, name, room }) => {
         });
     }
 
-    const user = { id, name, room };
+    const user = { name, room };
 
     //users.push(user);
 
