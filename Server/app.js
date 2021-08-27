@@ -49,13 +49,13 @@ const getServers = async (req, res) => {
   let result;
   if (req.body.displayserver === "all") {
     result = await query(
-      "SELECT `serverID`, `serverName`, `serverDescription`, `imageURL`, `owner`,`serverType` FROM `myserver` where `serverType`='Public'"
+      "SELECT `serverID`, `serverName`, `serverDescription`, `imageURL`, `owner`,`serverType` FROM `myserver` where `serverType`='Public' ORDER BY `serverName`"
     );
   } else {
     result = await query(
       "SELECT `serverID`, `serverName`, `serverDescription`, `imageURL`, `owner`,`serverType` FROM `myserver` WHERE `owner`='" +
         req.body.username +
-        "'"
+        "' ORDER BY `serverName`"
     );
   }
 
@@ -64,7 +64,7 @@ const getServers = async (req, res) => {
       title: result[i].serverName,
       cardBody: result[i].serverDescription,
       imageUrl: result[i].imageURL,
-      id: result[i].serverID,
+      id: i+1,
       owner: result[i].owner,
       username: req.body.username,
       serverType: result[i].serverType,

@@ -5,6 +5,7 @@ import { TiHome } from "react-icons/ti";
 import { FaGripfire } from "react-icons/fa";
 import './Channel.css';
 import Chatbox from './Chatbox'
+import Calendar from 'react-calendar';
 
 class Channel extends Component {
 
@@ -53,7 +54,13 @@ class Channel extends Component {
               {/* <h1>BLANK</h1> */}
             </Col>
 
-            <Col className="col4" sm={0} md={3} lg={3}>Calendar</Col>
+            <Col className="col4" sm={0} md={3} lg={3}>
+
+
+            <Calendar className='Calendar'/>
+            
+            
+            </Col>
           </Row>
         </div>
       );

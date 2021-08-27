@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import "./ServerInfoPage.css";
 import axios from 'axios';
-import { Navbar, Nav, Button } from 'react-bootstrap';
+import { Navbar, Nav, Button, FormControl } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Footer from "./Footer";
 import { Form } from "react-bootstrap";
@@ -16,7 +16,6 @@ const ServerInfoPage = (props) => {
         setDisplayServer('all');
         setLinkColorMyServer('serverLink');
         setLinkColorAllServer('selectedLink');
-        setServerType('Both');
     }
     const myServer = () => {
         setDisplayServer('my');
@@ -29,7 +28,7 @@ const ServerInfoPage = (props) => {
     const [data, setData] = useState([]);
     const { state } = props.location;        //location = fething data from the initial page
     const [displayServer, setDisplayServer] = useState("my");
-    const [serverType, setServerType] = useState("Both");       //My server e differentiate korar jonno
+    const [search, setSearch] = useState("");       //My server e differentiate korar jonno
 
     const data1 = {
         username: state.username,
@@ -46,7 +45,7 @@ const ServerInfoPage = (props) => {
                 console.log(error);
             })
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [displayServer]);
 
     return (
@@ -64,6 +63,7 @@ const ServerInfoPage = (props) => {
                             <Nav.Link className={linkColorAllServer} onClick={allServer}>ALL SERVER</Nav.Link>
                             <Nav.Link className={linkColorMyServer} onClick={myServer}>MY SERVER</Nav.Link>
                         </Nav>
+
                         <Link to={{
                             pathname: "/AddServer",
                             state: { username: state.username } // your data array of objects
@@ -76,10 +76,59 @@ const ServerInfoPage = (props) => {
                     </Navbar.Collapse>
                 </Navbar>
             </div>
-            <div className="addServer">
+            <div className="serverGreeting">
                 <h2 className='greeting'>Hello, {state.username}. </h2>
 
-                {displayServer === 'my' ? 
+                <Form className="d-flex align-items-end searchBar">
+                    <FormControl
+                        type="search"
+                        placeholder="Search"
+                        className="mr-2 searchInput"
+                        aria-label="Search"
+                        value={search}
+                        onChange={(e) => {setSearch(e.target.value);}}
+                    />
+                    <Button variant="success" className='searchButton' onClick={(e) => {console.log(search)}}>Search</Button>
+                </Form>
+
+            </div>
+
+
+            <div className="cardGrid">
+                {
+                    data
+                    .filter((Item) => {
+                        if(search==='')
+                            return Item;
+                        else
+                            return Item.title.includes(search);
+                    })                  
+                    .map((classItem) => {
+                            return (
+                                <Card
+                                    key={classItem.id}
+                                    title={classItem.title}
+                                    imageUrl={classItem.imageUrl}
+                                    cardBody={classItem.cardBody}
+                                    username={classItem.username}
+                                    serverType={classItem.serverType}
+                                />
+                            );
+                        })}
+            </div>
+            <Footer>
+
+            </Footer>
+        </div>
+    );
+
+};
+export default ServerInfoPage;
+
+
+
+/*
+     {displayServer === 'my' ?
                 <div className="selector">
                 <Form.Group controlId="formBasicSelect" className="d-flex align-items-end">
                         <Form.Label><h3>Show</h3></Form.Label>
@@ -95,43 +144,19 @@ const ServerInfoPage = (props) => {
                             <option value="Private">Private</option>
                         </Form.Control>
                     </Form.Group>
-                    </div> 
+                    </div>
                     : null}
 
-            </div>
-
-
-            <div className="cardGrid">
-                {
-                    data.filter((Item) => {
-                        if(serverType==='Private'){
-                            return Item.serverType==='Private'
+                    .filter((Item) => {
+                        if (serverType === 'Private') {
+                            return Item.serverType === 'Private'
                         }
-                        else if(serverType==='Public'){
-                            return Item.serverType==='Public'
+                        else if (serverType === 'Public') {
+                            return Item.serverType === 'Public'
                         }
-                        else{
+                        else {
                             return Item
                         }
                     })
-                    .map((classItem) => {
-                        return (
-                            <Card
-                                key={classItem.id}
-                                title={classItem.title}
-                                imageUrl={classItem.imageUrl}
-                                cardBody={classItem.cardBody}
-                                username={classItem.username}
-                                serverType={classItem.serverType}
-                            />
-                        );
-                    })}
-            </div>
-            <Footer>
-
-            </Footer>
-        </div>
-    );
-
-};
-export default ServerInfoPage;
+                        
+*/

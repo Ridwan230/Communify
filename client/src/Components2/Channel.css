@@ -53,3 +53,11 @@
 .servernameicon{
     margin-top: -5px;
 }
+
+.Calendar{
+    background-color:#2C2F31 !important;
+}
+
+.react-calendar__tile{
+    background-color: royalblue;
+}
