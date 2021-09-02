@@ -112,4 +112,15 @@ h5{
     color: white;
  }
 
+ .searchIcon{
+     background-color: #171923;
+     border-color: #292a30 !important;
+ }
+
+ .searchInputGroup{
+     float: right !important;
+     width: 250px;
+     margin-right: 10px;
+ }
+
 

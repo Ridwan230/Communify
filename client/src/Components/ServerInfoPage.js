@@ -8,6 +8,9 @@ import { Navbar, Nav, Button, FormControl } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Footer from "./Footer";
 import { Form } from "react-bootstrap";
+import { InputGroup } from "react-bootstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
 
 const ServerInfoPage = (props) => {
@@ -78,8 +81,14 @@ const ServerInfoPage = (props) => {
             </div>
             <div className="serverGreeting">
                 <h2 className='greeting'>Hello, {state.username}. </h2>
-
+                <InputGroup className='searchInputGroup'>
+                <InputGroup.Prepend >
+                                <InputGroup.Text className='searchIcon'>
+                                <FontAwesomeIcon icon={faSearch}/>
+                                </InputGroup.Text>
+                            </InputGroup.Prepend>
                 <Form className="d-flex align-items-end searchBar">
+                    
                     <FormControl
                         type="search"
                         placeholder="Search"
@@ -88,8 +97,10 @@ const ServerInfoPage = (props) => {
                         value={search}
                         onChange={(e) => {setSearch(e.target.value);}}
                     />
-                    <Button variant="success" className='searchButton' onClick={(e) => {console.log(search)}}>Search</Button>
+                    
                 </Form>
+                </InputGroup>        
+               
 
             </div>
 
@@ -101,7 +112,7 @@ const ServerInfoPage = (props) => {
                         if(search==='')
                             return Item;
                         else
-                            return Item.title.includes(search);
+                            return Item.title.toUpperCase().startsWith(search.toUpperCase());
                     })                  
                     .map((classItem) => {
                             return (
@@ -111,7 +122,6 @@ const ServerInfoPage = (props) => {
                                     imageUrl={classItem.imageUrl}
                                     cardBody={classItem.cardBody}
                                     username={classItem.username}
-                                    serverType={classItem.serverType}
                                 />
                             );
                         })}
