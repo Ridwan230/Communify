@@ -1,6 +1,7 @@
 const { get } = require("./router");
 const mysql = require('mysql');
 const util = require('util');
+const { encrypt, decrypt } = require('./encryption');
 
 var con = mysql.createConnection({
     host: "localhost",
@@ -66,20 +67,25 @@ const addUser = async ({ name, room }) => {
 }
 
 
-const removeUser = (id) => {
-    const index = users.findIndex((user) => user.id === id);
-
-    if (index !== -1) {
-        return users.splice(index, 1)[0];
-    }
-}
-
-
 const getMessages = async ( room, channel_name ) => {
 
     let result = await query("SELECT `sender`,`text` FROM `messages` WHERE `server_name`='" + room + "'and `channel_name`='" + channel_name + "'");
-    
     return result;
+    // let result = await query("SELECT `sender`,`initial_vector`,`content` FROM `messages` WHERE `server_name`='" + room + "'and `channel_name`='" + channel_name + "'");
+    // const result1=[];
+    // for(var i=0;i<result.length;i++)
+    // {
+    //     const hash = {
+    //         iv: result[i].initial_vector,
+    //         content: result[i].content,
+    //     }
+    //     const message = decrypt(hash);
+    //     result1[i]={
+    //         sender: result[i].sender,
+    //         text: message
+    //     }
+    // }
+    // return result1;
 }
 
 
@@ -89,4 +95,4 @@ const getUser = (id) => users.find((user) => user.id === id);
 const getUsersInRoom = (room) => users.filter((user) => user.room === room);
 
 
-module.exports = { addUser, removeUser, getUser, getUsersInRoom, getMessages };
+module.exports = { addUser, getUser, getUsersInRoom, getMessages };

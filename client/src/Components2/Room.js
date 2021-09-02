@@ -1,4 +1,4 @@
-import React, { useState, Component } from "react";
+import React, { useState, Component, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "./Room.css";
@@ -13,6 +13,8 @@ import Chatbox from './Chatbox'
 const Room = (props) => {
 
     const { state } = props.location;
+
+    console.log("ROOM");
 
     return (
         <div className="room">

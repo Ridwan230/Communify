@@ -1,0 +1,43 @@
+.smallcardGrid{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.smallcard_scrollbar_container{
+    height: 86vh;
+    background-color: #202225;
+}
+
+
+
+
+.scrollbar {
+    overflow: scroll;
+  }
+  
+  .scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.2);
+  }
+  
+  /* custom colors  */
+  .scrollbar-primary::-webkit-scrollbar {
+    background-color: #F5F5F5;
+  }
+  .scrollbar-primary {
+    scrollbar-color: #4285f4 #f5f5f5;
+  }
+  .scrollbar-primary::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #4285F4;
+  }
+
+  .mdb{
+    justify-content: flex-start !important;
+    padding: 0 0 0 0 !important;
+  }

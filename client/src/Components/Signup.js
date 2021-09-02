@@ -90,9 +90,7 @@ const Signup = () => {
 
     return (
         <div>
-            <Header>
-
-            </Header>
+            <Header />
             <div className="Signup">
                 <Form onSubmit={handleSubmit}>
                     <h1>Sign Up</h1>
@@ -140,9 +138,9 @@ const Signup = () => {
                     <p className='para'>Already have an account? <Link to='/Login' className='link'>Log in</Link></p>
                 </Form>
             </div>
-            <Footer>
-
-            </Footer>
+            <div className="signupFooter">
+                <Footer />
+            </div>
         </div>
     );
 }

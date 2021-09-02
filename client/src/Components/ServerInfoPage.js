@@ -41,7 +41,6 @@ const ServerInfoPage = (props) => {
     useEffect(() => {
         axios.post('http://localhost:2999/ownedServers', data1)  //useState use koray state change holei backend e req giye server gula change kore dicche
             .then(response => {
-                console.log(response.data);
                 setData(response.data);
             })
             .catch(error => {

@@ -10,12 +10,22 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background: #36393e;
+    /* background: #36393e; */
     border-radius: 8px;
     height: 100%;
     width: 100%;
   }
   
+  .container1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #36393e;
+    border-radius: 8px;
+    height: 100%;
+    width: 100%;
+  }
+
   @media (min-width: 320px) and (max-width: 480px) {
     .outerContainer {
       height: 100%;

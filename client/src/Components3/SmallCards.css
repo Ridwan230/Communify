@@ -1,0 +1,95 @@
+
+.smallcardContainer{
+    width: 130px;
+    height: 130px;
+    overflow: hidden;
+    box-shadow: 5px 5px 15px -5px #225504;
+    margin: 19px;
+    transition: 0.4s;
+    animation: ease-in;
+    font-family: "Lato";
+    background-color: #171923;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+.smallcardContainer:hover{
+    transform: scale(1.02);
+    box-shadow: 5px 5px 15px 0px #158b06;
+    cursor: pointer;
+    background-color: #171923;
+
+}
+
+.smallimageContainer img{
+    width: 150px;
+    overflow: hidden;
+    height: 135px;
+    object-fit:cover;
+}
+
+
+.cardBtn button{
+    padding: 0.5rem;
+    background-color: white;
+    border: none;
+    transition: 0.2s;
+    margin-bottom: 0.5rem;
+    border-radius: 3px;
+}
+
+.cardBtn button:hover{
+    background: rgba(27, 156, 252, 0.1);
+}
+
+a{
+    text-transform: uppercase;
+    color: #189CFC;
+    text-decoration: none;
+    font-weight: bold;
+}
+.linkedContainer{
+    color: white;
+}
+
+.linkedContainer :hover{
+    color: white;
+    text-decoration: none !important;
+}
+
+
+
+
+
+
+.smallimage {
+    position: relative;
+    width: 300px;
+}
+
+.smallimage__img {
+    display: block;
+    width: 100%;
+}
+
+
+
+.image__overlay--blur {
+    backdrop-filter: blur(5px);
+}
+
+
+
+.image__overlay:hover {
+    opacity: .8;
+}
+
+.image__overlay:hover > * {
+    transform: translateY(0);
+}
+
+.image__title {
+    font-size: 2em;
+    font-weight: bold;
+}
+

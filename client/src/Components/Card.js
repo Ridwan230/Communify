@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import './Card.css';
 
-//const Card = ({ title, imageUrl, cardBody}) => {
 const Card = (props) => {
 
     let history = useHistory();
@@ -19,7 +18,7 @@ const Card = (props) => {
             .then(response => {
                 if (response.data.flag === true) {
                     history.push({
-                        pathname: "/Room",
+                        pathname: "/Room/" + props.title,
                         state: { servername: props.title, username: props.username }
                     });
                 }
