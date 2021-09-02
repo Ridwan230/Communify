@@ -24,11 +24,11 @@ const EnterServer = (props) => {
             servername: state.servername,
             code: MD5(serverCode).toString(),
         };
-
+console.log("ENTERSERVER "+state.servername);
         axios.post("http://localhost:2999/React_EnterServer", data)
             .then((response) => {
                 history.push({                                                                         
-                    pathname: "/Room", 
+                    pathname: "/Room/" + state.servername, 
                     state: response.data,
                     //I guess here I have to receive all the informations like admin, username, members etc.
                 });

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import Button from "react-bootstrap/Button";
 import { DropdownButton, Dropdown, ButtonGroup } from 'react-bootstrap';
 import axios from 'axios';
@@ -12,21 +12,26 @@ const Settings = (props) => {
     let history = useHistory();
     const [flag, setFlag] = useState("false");
 
-    const data = {
-        username: props.username,
-        servername: props.servername,
-    }
+    useEffect(() => {
 
-    const checkifAdmin = async () => {
-        await axios.post('http://localhost:2999/isAdmin', data)
-            .then(response => {
-                setFlag(response.data.flag);
-            })
-            .catch(error => {
-                console.log(error);
-            })
-    }
-    checkifAdmin();
+        const data = {
+            username: props.username,
+            servername: props.servername,
+        }
+
+        const checkifAdmin = async () => {
+            
+            await axios.post('http://localhost:2999/isAdmin', data)
+                .then(response => {
+                    setFlag(response.data.flag);
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        }
+        checkifAdmin();
+
+    }, [props.username]);
 
 
     function handleSubmit(event) {

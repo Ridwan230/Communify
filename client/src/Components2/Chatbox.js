@@ -21,21 +21,26 @@ const Chatbox = (props) => {
     const channel_name = props.channel;
     const [flag, setFlag] = useState("false");
 
-    const data = {
-        username: props.username,
-        servername: props.servername,
-    }
 
-    const checkifAdmin = async () => {
-        await axios.post('http://localhost:2999/isAdmin', data)
-            .then(response => {
-                setFlag(response.data.flag);
-            })
-            .catch(error => {
-                console.log(error);
-            })
-    }
-    checkifAdmin();
+    useEffect(() => {
+
+        const data = {
+            username: props.username,
+            servername: props.servername,
+        }
+
+        const checkifAdmin = async () => {
+            await axios.post('http://localhost:2999/isAdmin', data)
+                .then(response => {
+                    setFlag(response.data.flag);
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        }
+        checkifAdmin();
+
+    }, [ENDPOINT, channel_name]);
 
 
     useEffect(() => {
@@ -91,7 +96,7 @@ const Chatbox = (props) => {
 
     return (
         <div className="outerContainer">
-            <div className="container">
+            <div className="container1">
                 <InfoBar room={props.channel} />
                 <Messages messages={messages} name={name} />
                 {channel_name === "Notice" && flag === true &&

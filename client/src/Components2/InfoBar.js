@@ -19,10 +19,10 @@ const InfoBar = ({ room }) => (
     <hr
       style={{
         color: "white",
-        width: "95%",
+        width: "100%",
         height: "5px",
         margin: "auto",
-        marginTop: "19.3px",
+        marginTop: "18.1px",
       }}
     />
   </div>

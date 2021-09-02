@@ -6,6 +6,7 @@
 .cardGrid{
     display: flex;
     flex-wrap: wrap;
+    margin-bottom: -234px;
 }
 
 .addServerButton{
@@ -91,3 +92,6 @@ h5{
     padding-right: 10px;
 }
 
+/* .serverinfoFooter{
+    height: 150px;
+} */

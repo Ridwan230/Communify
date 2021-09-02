@@ -1,7 +1,7 @@
 .form {
     display: flex;
-    width: 980px;
-    height: 90px;
+    width: 100vh;
+    height: 10vh;
     margin-bottom: 30px;
   }
   
@@ -9,7 +9,7 @@
     border: none;
     border-radius: 0;
     padding: 5%;
-    width: 80%;
+    width: 85%;
     font-size: 1.5em;
     color: white;
     background-color: #42454b;
@@ -18,19 +18,8 @@
   input:focus, textarea:focus, select:focus{
     outline: none;
   }
-  
-  .sendButton {
-    color: #fff !important;
-    text-transform: uppercase;
-    text-decoration: none;
-    background: #2979FF;
-    padding: 20px;
-    display: inline-block;
-    border: none;
-    width: 20%;
-  }
 
   .sendButton1{
     margin-left: 40px;
-    margin-top: 5px;
+    margin-top: 10px;
   }

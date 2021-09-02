@@ -39,9 +39,9 @@ const Signup = () => {
                     alertError = 'Minimum 8 characters password needed!';
                 }
                 else {
-                    if(!re.test(password)){
-                        alertError='Password must contain atleast 1 letter and 1 number!'
-                    }else{
+                    if (!re.test(password)) {
+                        alertError = 'Password must contain atleast 1 letter and 1 number!'
+                    } else {
                         if (password !== confirmPassword) {
                             alertError = 'Passwords do not match!';
                         }
@@ -84,9 +84,7 @@ const Signup = () => {
 
     return (
         <div>
-            <Header>
-
-            </Header>
+            <Header />
             <div className="Signup">
                 <Form onSubmit={handleSubmit}>
                     <h1>Sign Up</h1>
@@ -134,9 +132,9 @@ const Signup = () => {
                     <p className='para'>Already have an account? <Link to='/Login' className='link'>Log in</Link></p>
                 </Form>
             </div>
-            <Footer>
-
-            </Footer>
+            <div className="signupFooter">
+                <Footer />
+            </div>
         </div>
     );
 }

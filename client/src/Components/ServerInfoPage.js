@@ -39,14 +39,13 @@ const ServerInfoPage = (props) => {
     useEffect(() => {
         axios.post('http://localhost:2999/ownedServers', data1)  //useState use koray state change holei backend e req giye server gula change kore dicche
             .then(response => {
-                console.log(response.data);
                 setData(response.data);
             })
             .catch(error => {
                 console.log(error);
             })
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [displayServer]);
 
     return (
@@ -79,23 +78,23 @@ const ServerInfoPage = (props) => {
             <div className="addServer">
                 <h2 className='greeting'>Hello, {state.username}. </h2>
 
-                {displayServer === 'my' ? 
-                <div className="selector">
-                <Form.Group controlId="formBasicSelect" className="d-flex align-items-end">
-                        <Form.Label><h3>Show</h3></Form.Label>
-                        <Form.Control
-                            as="select"
-                            value={serverType}
-                            onChange={(e) => {
-                                setServerType(e.target.value);
-                            }}
-                        >
-                            <option value="All">Both</option>
-                            <option value="Public">Public</option>
-                            <option value="Private">Private</option>
-                        </Form.Control>
-                    </Form.Group>
-                    </div> 
+                {displayServer === 'my' ?
+                    <div className="selector">
+                        <Form.Group controlId="formBasicSelect" className="d-flex align-items-end">
+                            <Form.Label><h3>Show</h3></Form.Label>
+                            <Form.Control
+                                as="select"
+                                value={serverType}
+                                onChange={(e) => {
+                                    setServerType(e.target.value);
+                                }}
+                            >
+                                <option value="All">Both</option>
+                                <option value="Public">Public</option>
+                                <option value="Private">Private</option>
+                            </Form.Control>
+                        </Form.Group>
+                    </div>
                     : null}
 
             </div>
@@ -104,32 +103,32 @@ const ServerInfoPage = (props) => {
             <div className="cardGrid">
                 {
                     data.filter((Item) => {
-                        if(serverType==='Private'){
-                            return Item.serverType==='Private'
+                        if (serverType === 'Private') {
+                            return Item.serverType === 'Private'
                         }
-                        else if(serverType==='Public'){
-                            return Item.serverType==='Public'
+                        else if (serverType === 'Public') {
+                            return Item.serverType === 'Public'
                         }
-                        else{
+                        else {
                             return Item
                         }
                     })
-                    .map((classItem) => {
-                        return (
-                            <Card
-                                key={classItem.id}
-                                title={classItem.title}
-                                imageUrl={classItem.imageUrl}
-                                cardBody={classItem.cardBody}
-                                username={classItem.username}
-                                serverType={classItem.serverType}
-                            />
-                        );
-                    })}
+                        .map((classItem) => {
+                            return (
+                                <Card
+                                    key={classItem.id}
+                                    title={classItem.title}
+                                    imageUrl={classItem.imageUrl}
+                                    cardBody={classItem.cardBody}
+                                    username={classItem.username}
+                                    serverType={classItem.serverType}
+                                />
+                            );
+                        })}
             </div>
-            <Footer>
-
-            </Footer>
+            <div className="serverinfoFooter">
+                <Footer />
+            </div>
         </div>
     );
 

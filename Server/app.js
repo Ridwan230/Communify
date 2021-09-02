@@ -380,9 +380,110 @@ const isAdmin = async (req, res) => {
 app.post("/isAdmin", isAdmin);
 
 
+
+
+
+const MemberList = async (req, res) => {
+
+  var room = req.body.servername;
+  var list = [];
+  var isAdmin = 0;
+
+  let result = await query("SELECT username FROM `user_rooms` WHERE `room`='" + room + "'and `isAdmin`='" + isAdmin + "'");
+
+  for (var i = 0; i < result.length; i++) {
+    var feed = {
+      username: result[i].username,
+    };
+    list.push(feed);
+  }
+
+  try {
+    res.status(200).json(list);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}
+
+app.post("/MemberList", MemberList);
+
+
+
+
+
+const AdminList = async (req, res) => {
+
+  var room = req.body.servername;
+  var list = [];
+  var isAdmin = 1;
+
+  let result = await query("SELECT username FROM `user_rooms` WHERE `room`='" + room + "'and `isAdmin`='" + isAdmin + "'");
+
+  for (var i = 0; i < result.length; i++) {
+    var feed = {
+      username: result[i].username,
+    };
+    list.push(feed);
+  }
+
+  try {
+    res.status(200).json(list);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}
+
+app.post("/AdminList", AdminList);
+
+
+
+
+
+const Add_Admin = async (req, res) => {
+
+  var username = req.body.username;
+  var room = req.body.servername;
+
+  let result = await query("UPDATE `user_rooms` SET isAdmin = 1 WHERE `room`='" + room + "'and `username`='" + username + "'");
+
+}
+
+app.post("/Add_Admin", Add_Admin);
+
+
+
+
+
+const JoinedServers = async (req, res) => {
+
+  const server1 = [];
+  var username = req.body.username;
+
+  let result = await query("SELECT serverName, imageURL FROM myserver, user_rooms WHERE `room`=`serverName` AND `username`='" + req.body.username + "'");
+
+  for (var i = 0; i < result.length; i++) {
+    var feed = {
+      title: result[i].serverName,
+      imageUrl: result[i].imageURL,
+    };
+    server1.push(feed);
+  }
+
+  try {
+    res.status(200).json(server1);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+app.post("/JoinedServers", JoinedServers);
+
+
+
 //---------------------------------------IO PART STARTS----------------------------------------------
 
-const { addUser, removeUser, getUser, getUsersInRoom, getMessages, } = require("./users.js");
+const { addUser, getUser, getUsersInRoom, getMessages, } = require("./users.js");
+const { encrypt, decrypt } = require('./encryption');
 
 io.on("connect", (socket) => {
   socket.on("join", (name, room, channel_name, callback) => {
@@ -402,6 +503,7 @@ io.on("connect", (socket) => {
     (async function () {
       let result = await getMessages(room, channel_name);
       var length1 = result.length;
+
       callback({
         result: result,
         length1: length1,
@@ -410,8 +512,11 @@ io.on("connect", (socket) => {
   });
 
   socket.on("sendMessage", (message, name, room, channel_name, callback) => {
-    //const user = getUser(socket.id);
-    //const user = name;
+
+    // const hash = encrypt(message);
+
+    // var insertQuery = 'insert into `messages` (`sender`,`server_name`,`channel_name`,`initial_vector`,`content`) values (?,?,?,?,?)';
+    // var query_insert = mysql.format(insertQuery, [name, room, channel_name, hash.iv, hash.content]);
 
     var insertQuery = 'insert into `messages` (`sender`,`server_name`,`channel_name`,`text`) values (?,?,?,?)';
     var query_insert = mysql.format(insertQuery, [name, room, channel_name, message]);
@@ -425,13 +530,7 @@ io.on("connect", (socket) => {
     callback();
   });
 
-  // socket.on('disconnect', () => {
-  //     const user = removeUser(socket.id);
-
-  //     if(user){
-  //         io.to(user.room).emit('message', {user: 'admin', text: `${user.name} has left.`})
-  //     }
-  // })
+  
 });
 
 //----------------------------------------------IO PART ENDS----------------------------------------------

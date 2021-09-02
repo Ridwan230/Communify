@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 20, 2021 at 03:21 PM
+-- Generation Time: Sep 02, 2021 at 04:18 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -32,23 +32,30 @@ CREATE TABLE `messages` (
   `sender` varchar(20) NOT NULL,
   `server_name` varchar(20) NOT NULL,
   `channel_name` varchar(20) NOT NULL,
-  `text` varchar(1000) NOT NULL
+  `text` varchar(1000) NOT NULL,
+  `initial_vector` varchar(3000) NOT NULL,
+  `content` varchar(3000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `messages`
 --
 
-INSERT INTO `messages` (`message_no`, `sender`, `server_name`, `channel_name`, `text`) VALUES
-(12, 'ridwan', 'Gaming', 'General', 'hi'),
-(13, 'ifrad', 'Gaming', 'General', 'hello '),
-(14, 'ridwan', 'CSE 18', 'General', 'class cancelled'),
-(15, 'ifrad', 'CSE 18', 'General', 'thanks'),
-(16, 'ridwan', 'Gaming', 'General', 'no'),
-(17, 'ridwan', 'Gaming', 'General', 'd'),
-(18, 'ridwan', 'Gaming', 'General', 'nope'),
-(19, 'ridwan', 'Gaming', 'General', 'hey'),
-(20, 'ifrad', 'Gaming', 'General', 'what');
+INSERT INTO `messages` (`message_no`, `sender`, `server_name`, `channel_name`, `text`, `initial_vector`, `content`) VALUES
+(42, 'ridwan', 'Gaming', 'General', 'Hi ', '', ''),
+(43, 'ridwan', 'Gaming', 'General', 'This is General channel', '', ''),
+(44, 'ridwan', 'Gaming', 'Notice', 'This channel is only for Notice', '', ''),
+(45, 'ifrad', 'Gaming', 'General', 'Yes! It is.', '', ''),
+(46, 'ridwan', 'Gaming', 'General', 'a', '', ''),
+(47, 'ridwan', 'Gaming', 'General', 'b', '', ''),
+(48, 'ridwan', 'Gaming', 'General', 'c', '', ''),
+(49, 'ridwan', 'Gaming', 'General', 'd', '', ''),
+(50, 'ridwan', 'Gaming', 'General', 'e', '', ''),
+(51, 'ridwan', 'Gaming', 'General', 'f', '', ''),
+(52, 'ridwan', 'Gaming', 'General', 'g', '', ''),
+(53, 'ridwan', 'Gaming', 'General', 'h', '', ''),
+(54, 'ridwan', 'Gaming', 'General', 'i', '', ''),
+(55, 'ridwan', 'Gaming', 'General', 'j', '', '');
 
 -- --------------------------------------------------------
 
@@ -62,23 +69,22 @@ CREATE TABLE `myserver` (
   `serverDescription` varchar(50) NOT NULL,
   `imageURL` varchar(200) NOT NULL,
   `owner` varchar(20) NOT NULL,
-  `Password` varchar(100) NOT NULL,
-  `serverType` varchar(10) NOT NULL
+  `Password` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `myserver`
 --
 
-INSERT INTO `myserver` (`serverID`, `serverName`, `serverDescription`, `imageURL`, `owner`, `Password`, `serverType`) VALUES
-(11, 'Gaming', 'Gaming Server', 'https://i.pcmag.com/imagery/articles/00DDUM2F1UuVX1ciAvfJqM3-9..1623763322.jpg', 'ridwan', '7d04b658be887021751453d32bb239cf', 'Public'),
-(53, 'CSE 18', 'Official group for IUT CSE 19', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627895320/ij9aufyzaiwxgazkkwfm.jpg', 'ridwan', '25d55ad283aa400af464c76d713c07ad', 'Public'),
-(54, 'IUT Chess Society', 'IUT Chess community group', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627895387/xdai5m612dyttkcoc5sp.png', 'ridwan', '25d55ad283aa400af464c76d713c07ad', 'Public'),
-(55, 'Nature Study Club', 'A typical nature lovers paradise', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627895464/iuyrlwaysk9mjrjmqfhf.jpg', 'ridwan', '25d55ad283aa400af464c76d713c07ad', 'Public'),
-(56, 'Photography Society', 'Photography society group', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627895604/ebx175ndjrjrkpbtrwey.jpg', 'ridwan', '25d55ad283aa400af464c76d713c07ad', 'Public'),
-(57, 'Family', 'I got family', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627895728/endvf3x9bus9xlhzc4ql.jpg', 'ridwan', '25d55ad283aa400af464c76d713c07ad', 'Private'),
-(58, 'Music ', 'Music appreciation group', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627895821/wipild6cqifwhgw8kj4z.jpg', 'ridwan', '25d55ad283aa400af464c76d713c07ad', 'Public'),
-(59, 'Marvel Fans', 'Avengers Assemble', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627895925/jiwkyfpvj754flinfcxy.jpg', 'ridwan', '25d55ad283aa400af464c76d713c07ad', 'Public');
+INSERT INTO `myserver` (`serverID`, `serverName`, `serverDescription`, `imageURL`, `owner`, `Password`) VALUES
+(11, 'Gaming', 'Gaming Server', 'https://i.pcmag.com/imagery/articles/00DDUM2F1UuVX1ciAvfJqM3-9..1623763322.jpg', 'ridwan', '7d04b658be887021751453d32bb239cf'),
+(53, 'CSE 18', 'Official group for IUT CSE 19', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627895320/ij9aufyzaiwxgazkkwfm.jpg', 'ridwan', '25d55ad283aa400af464c76d713c07ad'),
+(54, 'IUT Chess Society', 'IUT Chess community group', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627895387/xdai5m612dyttkcoc5sp.png', 'ridwan', '25d55ad283aa400af464c76d713c07ad'),
+(55, 'Nature Study Club', 'A typical nature lovers paradise', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627895464/iuyrlwaysk9mjrjmqfhf.jpg', 'ridwan', '25d55ad283aa400af464c76d713c07ad'),
+(56, 'Photography Society', 'Photography society group', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627895604/ebx175ndjrjrkpbtrwey.jpg', 'ridwan', '25d55ad283aa400af464c76d713c07ad'),
+(57, 'Family', 'I got family', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627895728/endvf3x9bus9xlhzc4ql.jpg', 'ridwan', '25d55ad283aa400af464c76d713c07ad'),
+(58, 'Music ', 'Music appreciation group', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627895821/wipild6cqifwhgw8kj4z.jpg', 'ridwan', '25d55ad283aa400af464c76d713c07ad'),
+(59, 'Marvel Fans', 'Avengers Assemble', 'https://res.cloudinary.com/ddtyd3iwa/image/upload/v1627895925/jiwkyfpvj754flinfcxy.jpg', 'ridwan', '25d55ad283aa400af464c76d713c07ad');
 
 -- --------------------------------------------------------
 
@@ -99,9 +105,14 @@ CREATE TABLE `user_login` (
 
 INSERT INTO `user_login` (`Username`, `Password`, `Email`, `IsGoogleAccount`) VALUES
 ('abrar', '202cb962ac59075b964b07152d234b70', 'abrar@gmail.com', 0),
+('Adib', '5a05254570cc97ac9582ad7c5877f1ad', 'adib123@gmail.com', 0),
+('CR7', '5a05254570cc97ac9582ad7c5877f1ad', 'cr7_123@gmail.com', 0),
 ('Hello', '7a6d1b13498fb5b3085b2fd887933575', 'Hello@gmail.com', 0),
 ('ifrad', '202cb962ac59075b964b07152d234b70', 'ifrad@gmail.com', 0),
-('ridwan', '202cb962ac59075b964b07152d234b70', 'ridwan@gmail.com', 0);
+('Ishrak', '5a05254570cc97ac9582ad7c5877f1ad', 'ishrak123@gmail.com', 0),
+('ridwan', '202cb962ac59075b964b07152d234b70', 'ridwan@gmail.com', 0),
+('Rifat', '5a05254570cc97ac9582ad7c5877f1ad', 'rifat123@gmail.com', 0),
+('Trailblaze', '5a05254570cc97ac9582ad7c5877f1ad', 'trailblazer123@gmail.com', 0);
 
 -- --------------------------------------------------------
 
@@ -112,18 +123,28 @@ INSERT INTO `user_login` (`Username`, `Password`, `Email`, `IsGoogleAccount`) VA
 CREATE TABLE `user_rooms` (
   `id` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
-  `room` varchar(20) NOT NULL
+  `room` varchar(20) NOT NULL,
+  `isAdmin` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `user_rooms`
 --
 
-INSERT INTO `user_rooms` (`id`, `username`, `room`) VALUES
-(10, 'ridwan', 'Gaming'),
-(12, 'ridwan', 'CSE 18'),
-(13, 'ifrad', 'CSE 18'),
-(16, 'ifrad', 'Gaming');
+INSERT INTO `user_rooms` (`id`, `username`, `room`, `isAdmin`) VALUES
+(10, 'ridwan', 'Gaming', 1),
+(12, 'ridwan', 'CSE 18', 1),
+(13, 'ifrad', 'CSE 18', 0),
+(16, 'ifrad', 'Gaming', 0),
+(17, 'ridwan', 'IUT Chess Society', 1),
+(18, 'ifrad', 'IUT Chess Society', 0),
+(19, 'abrar', 'Gaming', 1),
+(20, 'Ishrak', 'Gaming', 0),
+(21, 'Rifat', 'Gaming', 0),
+(22, 'Adib', 'Gaming', 0),
+(23, 'Trailblazer', 'Gaming', 0),
+(24, 'CR7', 'Gaming', 0),
+(25, 'ridwan', 'Marvel Fans', 1);
 
 --
 -- Indexes for dumped tables
@@ -161,7 +182,7 @@ ALTER TABLE `user_rooms`
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `message_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `message_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `myserver`
@@ -173,7 +194,7 @@ ALTER TABLE `myserver`
 -- AUTO_INCREMENT for table `user_rooms`
 --
 ALTER TABLE `user_rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
