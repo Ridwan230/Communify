@@ -49,13 +49,11 @@ const getServers = async (req, res) => {
   let result;
   if (req.body.displayserver === "all") {
     result = await query(
-      "SELECT `serverID`, `serverName`, `serverDescription`, `imageURL`, `owner`,`serverType` FROM `myserver` where `serverType`='Public' ORDER BY `serverName`"
+      "SELECT `serverID`, `serverName`, `serverDescription`, `imageURL`, `owner` FROM `myserver` ORDER BY `serverName`"
     );
   } else {
     result = await query(
-      "SELECT `serverID`, `serverName`, `serverDescription`, `imageURL`, `owner`,`serverType` FROM `myserver` WHERE `owner`='" +
-        req.body.username +
-        "' ORDER BY `serverName`"
+      "SELECT `serverID`, `serverName`, `serverDescription`, `imageURL`, `owner` FROM `myserver`, `user_rooms` WHERE `room`=`serverName` AND `username`='" + req.body.username + "' ORDER BY `serverName`"
     );
   }
 
@@ -67,7 +65,6 @@ const getServers = async (req, res) => {
       id: i+1,
       owner: result[i].owner,
       username: req.body.username,
-      serverType: result[i].serverType,
     };
     server1.push(feed);
   }
@@ -80,6 +77,10 @@ const getServers = async (req, res) => {
 };
 
 app.post("/ownedServers", getServers);
+
+
+
+
 
 const React_Login = async (req, res) => {
   var username = req.body.username;
@@ -117,7 +118,6 @@ const React_Login = async (req, res) => {
     }
   } else {
     try {
-      console.log({ username: req.body.username, message: "" });
       res.status(200).json({ username: req.body.username, message: "" });
     } catch (error) {
       res.status(404).json({ message: error.message });
@@ -126,6 +126,10 @@ const React_Login = async (req, res) => {
 };
 
 app.post("/React_Login", React_Login);
+
+
+
+
 
 const React_SignUp = async (req, res) => {
   var username_2 = req.body.username;
@@ -178,12 +182,14 @@ const React_SignUp = async (req, res) => {
 
 app.post("/React_SignUp", React_SignUp);
 
+
+
+
+
 const React_AddServer = async (req, res) => {
   var flag = false;
 
   let result = await query("SELECT serverName FROM `myserver`");
-  console.log("Inside Addserver");
-  console.log(result);
   for (var i = 0; i < result.length; i++) {
     if (result[i].serverName === req.body.servername) {
       flag = true;
@@ -193,19 +199,31 @@ const React_AddServer = async (req, res) => {
 
   if (!flag) {
     var insertQuery =
-      "insert into `myserver` (`serverName`,`serverDescription`,`imageURL`,`owner`,`password`,`serverType`) values (?,?,?,?,?,?)";
+      "insert into `myserver` (`serverName`,`serverDescription`,`imageURL`,`owner`,`password`) values (?,?,?,?,?)";
     var query_insert = mysql.format(insertQuery, [
       req.body.servername,
       req.body.description,
       req.body.imageURL,
       req.body.username,
       req.body.serverpassword,
-      req.body.serverType,
     ]);
     con.query(query_insert, function (err, response) {
       if (err) throw err;
       else {
         console.log("Server Created!");
+
+        var insertQuery = 'insert into `user_rooms` (`username`,`room`,`isAdmin`) values (?,?,?)';
+        var query_insert = mysql.format(insertQuery, [req.body.username, req.body.servername, true]);
+        con.query(query_insert, function (err, response) {
+            if (err) throw err;
+            else {
+                console.log("User " + req.body.username + " Joined room " + req.body.servername +" as Admin");
+            }
+        });
+
+
+
+
         try {
           res.status(200).json({ username: req.body.username, message: "" });
         } catch (error) {
@@ -230,7 +248,11 @@ const React_AddServer = async (req, res) => {
 
 app.post("/React_AddServer", React_AddServer);
 
+
+
+
 //------------------------------------------------Ifrad-----------------------------------------------------------
+
 
 const React_EnterServer = async (req, res) => {
   var username = req.body.username;
@@ -250,6 +272,14 @@ const React_EnterServer = async (req, res) => {
 
   if (flag === true) {
     console.log("Entered into the Server!");
+
+    var name=username;
+    var room=servername;
+    const { error, user } = addUser({ name, room });
+    if (error) {
+      return callback({ error: error });
+    }
+
     try {
       res
         .status(200)
@@ -268,19 +298,125 @@ const React_EnterServer = async (req, res) => {
 
 app.post("/React_EnterServer", React_EnterServer);
 
+
+
+
+
+
+const isConnectedToServer = async (req, res) => {
+  var username = req.body.username;
+  var servername = req.body.servername;
+
+  var flag = false;
+
+  let result = await query("SELECT username,room FROM `user_rooms`");
+
+  for (var i = 0; i < result.length; i++) {
+    if (result[i].room === servername && result[i].username === username) {
+      flag = true;
+      break;
+    }
+  }
+
+  try {
+    res.status(200).json({ flag: flag, });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+
+};
+
+app.post("/isConnectedToServer", isConnectedToServer);
+
+
+
+
+
+
+const Leave_Server = async (req, res) => {
+
+  var username = req.body.username;
+  var room = req.body.servername;
+
+  let result = await query("DELETE FROM `user_rooms` WHERE `room`='" + room + "'and `username`='" + username + "'");
+
+  try {
+    res.status(200).json({ username: username, });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+
+};
+
+app.post("/Leave_Server", Leave_Server);
+
+
+const Delete_Server = async (req, res) => {
+
+  var username = req.body.username;
+  var room = req.body.servername;
+
+  let result_1 = await query("DELETE FROM `user_rooms` WHERE `room`='" + room + "'");
+  let result_2 = await query("DELETE FROM `myserver` WHERE `serverName`='" + room + "'");
+  let result_3 = await query("DELETE FROM `messages` WHERE `server_name`='" + room + "'");
+
+  try {
+    res.status(200).json({ username: username, });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+
+};
+
+
+app.post("/Delete_Server", Delete_Server);
+
+
+
+
+
+const isAdmin = async (req, res) => {
+
+  var username = req.body.username;
+  var room = req.body.servername;
+  var flag=false;
+
+  let result = await query("SELECT username,room,isAdmin FROM `user_rooms`");
+
+  for(var i=0; i<result.length; i++)
+  {
+    if(result[i].username===username && result[i].room===room)
+    {
+      if(result[i].isAdmin===1)
+      {
+        flag=true;
+      }
+      else
+      {
+        flag=false;
+      }
+      break;
+    }
+  }
+
+  try {
+    res.status(200).json({ flag: flag, });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+
+};
+
+app.post("/isAdmin", isAdmin);
+
+
 //---------------------------------------IO PART STARTS----------------------------------------------
 
-const {
-  addUser,
-  removeUser,
-  getUser,
-  getUsersInRoom,
-  getMessages,
-} = require("./users.js");
+const { addUser, removeUser, getUser, getUsersInRoom, getMessages, } = require("./users.js");
 
 io.on("connect", (socket) => {
   socket.on("join", (name, room, channel_name, callback) => {
-    const { error, user } = addUser({ id: socket.id, name, room });
+    const { error, user } = addUser({ name, room });
 
     if (error) {
       return callback({ error: error });
@@ -306,7 +442,7 @@ io.on("connect", (socket) => {
   socket.on("sendMessage", (message, name, room, channel_name, callback) => {
     //const user = getUser(socket.id);
     //const user = name;
-    
+
     var insertQuery = 'insert into `messages` (`sender`,`server_name`,`channel_name`,`text`) values (?,?,?,?)';
     var query_insert = mysql.format(insertQuery, [name, room, channel_name, message]);
     con.query(query_insert, function (err, response) {

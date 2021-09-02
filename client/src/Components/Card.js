@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
 import './Card.css';
 
 //const Card = ({ title, imageUrl, cardBody}) => {
@@ -8,10 +9,30 @@ const Card = (props) => {
     let history = useHistory();
 
     const buttonPush = () => {
-        history.push({
-            pathname: "/EnterServer",
-            state: { servername: props.title, username: props.username }
-        });
+
+        const data = {
+            username: props.username,
+            servername: props.title,
+        }
+
+        axios.post('http://localhost:2999/isConnectedToServer', data)
+            .then(response => {
+                if (response.data.flag === true) {
+                    history.push({
+                        pathname: "/Room",
+                        state: { servername: props.title, username: props.username }
+                    });
+                }
+                else {
+                    history.push({
+                        pathname: "/EnterServer",
+                        state: { servername: props.title, username: props.username }
+                    });
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }
 
     return (

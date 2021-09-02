@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import queryString from 'query-string';
 import io from 'socket.io-client';
-
+import axios from 'axios';
 import './Chatbox.css';
 import Messages from './Messages';
 import InfoBar from './InfoBar';
@@ -19,6 +19,24 @@ const Chatbox = (props) => {
     const ENDPOINT = 'localhost:2999';
 
     const channel_name = props.channel;
+    const [flag, setFlag] = useState("false");
+
+    const data = {
+        username: props.username,
+        servername: props.servername,
+    }
+
+    const checkifAdmin = async () => {
+        await axios.post('http://localhost:2999/isAdmin', data)
+            .then(response => {
+                setFlag(response.data.flag);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+    checkifAdmin();
+
 
     useEffect(() => {
         const name = props.username;
@@ -35,13 +53,13 @@ const Chatbox = (props) => {
                 alert(callback.error);
             }
             else {
+                setMessages([]);
                 for (var i = 0; i < callback.length1; i++) {
                     const initial_message = {
                         user: callback.result[i].sender,
                         text: callback.result[i].text,
                     }
                     setMessages(messages => [...messages, initial_message]);
-
                 }
             }
         });
@@ -51,11 +69,11 @@ const Chatbox = (props) => {
 
         //     socket.off();
         // }
-    }, [ENDPOINT]);
+    }, [ENDPOINT, channel_name]);
 
     useEffect(() => {
         socket.on('message', (message) => {
-            setMessages(messages => [...messages, message]); 
+            setMessages(messages => [...messages, message]);
         })
 
         // socket.on('roomData', ({users}) => {
@@ -67,7 +85,7 @@ const Chatbox = (props) => {
         event.preventDefault();
 
         if (message) {
-            socket.emit('sendMessage',  message, name, room, channel_name , () => setMessage(''));
+            socket.emit('sendMessage', message, name, room, channel_name, () => setMessage(''));
         }
     }
 
@@ -76,7 +94,12 @@ const Chatbox = (props) => {
             <div className="container">
                 <InfoBar room={props.channel} />
                 <Messages messages={messages} name={name} />
-                <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
+                {channel_name === "Notice" && flag === true &&
+                    (<Input message={message} setMessage={setMessage} sendMessage={sendMessage} />)
+                }
+                {channel_name === "General" &&
+                    (<Input message={message} setMessage={setMessage} sendMessage={sendMessage} />)
+                }
             </div>
         </div>
     );

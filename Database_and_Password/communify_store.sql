@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 13, 2021 at 11:20 AM
+-- Generation Time: Aug 20, 2021 at 03:21 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -43,7 +43,12 @@ INSERT INTO `messages` (`message_no`, `sender`, `server_name`, `channel_name`, `
 (12, 'ridwan', 'Gaming', 'General', 'hi'),
 (13, 'ifrad', 'Gaming', 'General', 'hello '),
 (14, 'ridwan', 'CSE 18', 'General', 'class cancelled'),
-(15, 'ifrad', 'CSE 18', 'General', 'thanks');
+(15, 'ifrad', 'CSE 18', 'General', 'thanks'),
+(16, 'ridwan', 'Gaming', 'General', 'no'),
+(17, 'ridwan', 'Gaming', 'General', 'd'),
+(18, 'ridwan', 'Gaming', 'General', 'nope'),
+(19, 'ridwan', 'Gaming', 'General', 'hey'),
+(20, 'ifrad', 'Gaming', 'General', 'what');
 
 -- --------------------------------------------------------
 
@@ -116,9 +121,9 @@ CREATE TABLE `user_rooms` (
 
 INSERT INTO `user_rooms` (`id`, `username`, `room`) VALUES
 (10, 'ridwan', 'Gaming'),
-(11, 'ifrad', 'Gaming'),
 (12, 'ridwan', 'CSE 18'),
-(13, 'ifrad', 'CSE 18');
+(13, 'ifrad', 'CSE 18'),
+(16, 'ifrad', 'Gaming');
 
 --
 -- Indexes for dumped tables
@@ -156,7 +161,7 @@ ALTER TABLE `user_rooms`
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `message_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `message_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `myserver`
@@ -168,7 +173,7 @@ ALTER TABLE `myserver`
 -- AUTO_INCREMENT for table `user_rooms`
 --
 ALTER TABLE `user_rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
