@@ -74,22 +74,59 @@ a{
 
 
 
-.image__overlay--blur {
+.smallimage__overlay--blur {
     backdrop-filter: blur(5px);
 }
 
 
 
-.image__overlay:hover {
+.smallimage__overlay:hover {
     opacity: .8;
 }
 
-.image__overlay:hover > * {
+.smallimage__overlay:hover > * {
     transform: translateY(0);
 }
 
-.image__title {
+.smallimage__title {
     font-size: 2em;
     font-weight: bold;
 }
 
+.smallimage__description {
+    font-size: 1.7em;
+    margin-top: 15px;
+    opacity: 1;
+    padding-right: 120px;
+}
+
+.smallimage__overlay--primary {
+    background: #1a202c;
+}
+
+.smallimage__overlay > * {
+    transform: translateY(20px);
+    transition: transform 0.25s;
+}
+
+.smallimage__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: 0px;
+    width: 250px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.25s;
+    word-wrap: break-word;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 13px;
+}

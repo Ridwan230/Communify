@@ -17,7 +17,6 @@ const AddServer = (props) => {
     const [serverPassword, setServerPassword] = useState("");
     const [description, setDescription] = useState("");
     const [imageFile, setImageFile] = useState("");
-    const [serverType, setServerType] = useState("Public");
     const [error, setError] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -26,13 +25,13 @@ const AddServer = (props) => {
         event.preventDefault();
 
         let re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+        let SqlInjectionCheck = /^[a-zA-Z0-9_ ]*$/;
         const data = {
             username: state.username,
             servername: serverName,
             description: description,
             serverpassword: MD5(serverPassword).toString(),
             imageURL: "https://images.unsplash.com/photo-1544006659-f0b21884ce1d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFuJTIwd29ya2luZyUyMG9uJTIwY29tcHV0ZXJ8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80",
-            serverType: serverType,
         };
         
         if(serverName.length===0 || serverPassword.length===0 || confirmPassword.length===0 || imageFile===""){
@@ -40,6 +39,11 @@ const AddServer = (props) => {
 
         }
         else{
+            if(serverName.length>10){
+                setError("Server name can be 10 characters only!")
+            }
+            else{
+                
             if (serverPassword.length < 8) {
                 setError("Password length must be atleast 8 characters")
             }
@@ -48,6 +52,11 @@ const AddServer = (props) => {
                     setError("Passwords don't match")
                 }
                 else {
+                    if(!SqlInjectionCheck.test(serverName) || !SqlInjectionCheck.test(confirmPassword) || !SqlInjectionCheck.test(serverPassword) || !SqlInjectionCheck.test(description)){
+                        setError('Only letters, numbers and underscore allowed in input fields')
+                    }
+                    else{
+                        
                     if(!re.test(serverPassword)){
                         setError('Password must contain atleast 1 letter and 1 number!')
                     }
@@ -82,7 +91,9 @@ const AddServer = (props) => {
                         });
                     }
                     
+                    }
                 }
+            }
             }
         }
 
@@ -124,19 +135,6 @@ const AddServer = (props) => {
                             onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                     </Form.Group>
-                    <Form.Group controlId="formBasicSelect">
-                        <Form.Label>SELECT SERVER TYPE</Form.Label>
-                        <Form.Control
-                            as="select"
-                            value={serverType}
-                            onChange={(e) => {
-                                setServerType(e.target.value);
-                            }}
-                        >
-                            <option value="Public">Public</option>
-                            <option value="Private">Private</option>
-                        </Form.Control>
-                    </Form.Group>
                     <Form.Group controlId="formFile" className="mb-3">
                         <Form.Label>CHOOSE IMAGE</Form.Label>
                         <Form.Control
@@ -160,14 +158,12 @@ const AddServer = (props) => {
                     {error !== '' ? <Alert className='alert' variant='danger'>
                         {error}
                     </Alert> : null}
-                    <Button block size="lg" type="submit" variant='success'>
+                    <Button className="createServer_btn" block size="lg" type="submit" variant='success'>
                         Create Server
                     </Button>
                 </Form>
             </div>
-            <Footer>
 
-            </Footer>
         </div>
 
     );

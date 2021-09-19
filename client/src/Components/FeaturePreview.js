@@ -10,7 +10,7 @@ const FeaturePreview = (props) => {
         <div className="feature">
         
             <div className="featureImage">
-                <FaCodepen size={56}/>
+                <FaCodepen size={58}/>
             </div>
 
             <h6>{props.text1}</h6>

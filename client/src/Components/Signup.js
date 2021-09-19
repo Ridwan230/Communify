@@ -15,6 +15,7 @@ const Signup = () => {
 
 
     let re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    let SqlInjectionCheck = /^[a-zA-Z0-9_ ]*$/;
     let history = useHistory();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -35,15 +36,20 @@ const Signup = () => {
                 alertError = 'Invalid Email!';
             }
             else {
-                if (password.length < 8) {
-                    alertError = 'Minimum 8 characters password needed!';
+                if(!SqlInjectionCheck.test(user) || !SqlInjectionCheck.test(password) || !SqlInjectionCheck.test(confirmPassword)){
+                    alertError = 'Only letters, numbers and underscore allowed in input fields';
                 }
-                else {
-                    if (!re.test(password)) {
-                        alertError = 'Password must contain atleast 1 letter and 1 number!'
-                    } else {
-                        if (password !== confirmPassword) {
-                            alertError = 'Passwords do not match!';
+                else{
+                    if (password.length < 8) {
+                        alertError = 'Minimum 8 characters password needed!';
+                    }
+                    else {
+                        if(!re.test(password)){
+                            alertError='Password must contain atleast 1 letter and 1 number!'
+                        }else{
+                            if (password !== confirmPassword) {
+                                alertError = 'Passwords do not match!';
+                            }
                         }
                     }
                 }
@@ -126,15 +132,15 @@ const Signup = () => {
                     {error !== '' ? <Alert className='alert' variant='danger'>
                         {error}
                     </Alert> : null}
-                    <Button block size="lg" type="submit" variant='success'>
+                    <Button className="signupbutton1" block size="lg" type="submit" variant='success'>
                         Sign Up
                     </Button>
                     <p className='para'>Already have an account? <Link to='/Login' className='link'>Log in</Link></p>
                 </Form>
             </div>
-            <div className="signupFooter">
+            {/* <div className="signupFooter">
                 <Footer />
-            </div>
+            </div> */}
         </div>
     );
 }

@@ -45,22 +45,18 @@ const addUser = async ({ name, room }) => {
             }
         }
 
-        if(flag===true)
+        if(flag===false)
         {
             var insertQuery = 'insert into `user_rooms` (`username`,`room`,`isAdmin`) values (?,?,?)';
+            var query_insert = mysql.format(insertQuery, [name, room, flag]);
+            con.query(query_insert, function (err, response) {
+                if (err) throw err;
+                else {
+                    console.log("User " + name + " Joined room " + room);
+                }
+            });
         }
-        else
-        {
-            var insertQuery = 'insert into `user_rooms` (`username`,`room`,`isAdmin`) values (?,?,?)';
-        }
-
-        var query_insert = mysql.format(insertQuery, [name, room, flag]);
-        con.query(query_insert, function (err, response) {
-            if (err) throw err;
-            else {
-                console.log("User " + name + " Joined room " + room);
-            }
-        });
+        
     }
 
     const user = { name, room };

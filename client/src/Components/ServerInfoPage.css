@@ -4,9 +4,10 @@
 }
 
 .cardGrid{
-    display: flex;
     flex-wrap: wrap;
-    margin-bottom: -234px;
+    margin-left: 4%;
+    margin-top: 50px;
+    margin-bottom: 30%;
 }
 
 .addServerButton{
@@ -16,15 +17,17 @@
     float: right;
 }
 
-h5{
+.addServerButton h5{
     margin-top: 5px;
 }
 
-.addServer h2{
+.serverGreeting h2{
     display: inline;
     padding-left: 15px;
 }
-.addServer{
+.serverGreeting{
+    margin-top: 45px;
+    margin-bottom: 15px;
     margin-left: 10px;
     margin-right: 10px;
 }
@@ -38,19 +41,16 @@ h5{
     text-transform: capitalize;
 }
 
-
-.d-flex{
-    margin-left: 700px;
-}
 .serverPage{
     font-family: "Lato";
-    display: flex;
     flex-direction: column;
     justify-content: space-between;
+    height: 100%;
 }
 
 .greeting{
     text-transform: capitalize;
+    font-size: 28px;
 }
 
 .serverLink{
@@ -79,11 +79,6 @@ h5{
     padding-right: 20px;
 }
 
-.d-flex{
-    margin-left: 0px;
-    min-width: 180px;
-}
-
 .selector .form-label{
     margin-left: 10px !important;
 }
@@ -92,6 +87,43 @@ h5{
     padding-right: 10px;
 }
 
-/* .serverinfoFooter{
-    height: 150px;
-} */
+.searchBar{
+    float: right;
+    margin: 0 0 0 0 !important;
+    padding: 0 0 0 0 !important;
+}
+
+.searchButton{
+    margin: 0 0 0 0;
+    margin-right: 25px;
+}
+
+.searchInput{
+    margin-right: 0px !important;
+}
+
+.searchInput:not(active){
+    background-color: #3b4453;
+    border-color: #157347 !important;
+    color: white;
+ }
+
+ .searchInput:focus{
+    background-color: #3b4453;
+    border-color: #157347 !important;
+    box-shadow:1px 1px 1px 1px #157347 !important;
+    color: white;
+ }
+
+ .searchIcon{
+     background-color: #171923;
+     border-color: #292a30 !important;
+ }
+
+ .searchInputGroup{
+     float: right !important;
+     width: 250px;
+     margin-right: 10px;
+ }
+
+

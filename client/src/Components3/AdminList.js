@@ -63,7 +63,7 @@ const AdminList = (props) => {
                 <h3>Admin-</h3>
             </div>
 
-            <MDBContainer className="scrollbar my-5 mx-auto mdb" style={scrollContainerStyle}>
+            <MDBContainer className="adminlist-scrlbar scrollbar my-5 mx-auto mdb" style={scrollContainerStyle}>
                 <div className="adminlistNames">{
                     list.map((classItem) => {
                         return (

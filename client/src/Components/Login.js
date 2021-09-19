@@ -14,6 +14,7 @@ const Login = () => {
 
 
     let history = useHistory();
+    let SqlInjectionCheck = /^[a-zA-Z0-9_ ]*$/;
 
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
@@ -27,8 +28,11 @@ const Login = () => {
             username: user,
             password: MD5(password).toString(),
         }
-
-        axios.post('http://localhost:2999/React_Login', data)
+        if(!SqlInjectionCheck.test(user) || !SqlInjectionCheck.test(password)){
+            setError('Only letters, numbers and underscore allowed in input fields');
+        }
+        else{
+            axios.post('http://localhost:2999/React_Login', data)
             .then(response => {
                 if (!(response.data.message === '')) {
                     setError(response.data.message)
@@ -44,6 +48,9 @@ const Login = () => {
                 console.log(error);
             })
 
+        }
+
+        
     }
 
     // const handleClick = (event) =>{
@@ -94,7 +101,7 @@ const Login = () => {
                     {error !== '' ? <Alert className='alert' variant='danger'>
                         {error}
                     </Alert> : null}
-                    <Button block size="lg" type="submit" variant='success'>
+                    <Button className="loginbutton1" block size="lg" type="submit" variant='success'>
                         Login
                     </Button>
                     {/* <Button block size="lg" type="submit" variant='danger' onClick={handleClick}>
@@ -105,9 +112,8 @@ const Login = () => {
                 </Form>
                 
             </div>
-            <Footer>
 
-            </Footer>
+            <Footer/>
         </div>
     );
 }

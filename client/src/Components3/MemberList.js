@@ -100,7 +100,7 @@ const MemberList = (props) => {
                 <h3>Members-</h3>
             </div>
 
-            <MDBContainer className="scrollbar my-5 mx-auto mdb" style={scrollContainerStyle}>
+            <MDBContainer className="memberlist-scrlbar scrollbar my-5 mx-auto mdb" style={scrollContainerStyle}>
                 <div className="memberlistNames">{
                     list.map((classItem) => {
                         return (

@@ -3,9 +3,13 @@
     background-color: #5658dd;
     border-radius: 50%;
     margin: 0 auto;
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     line-height: 100px;
+}
+
+.featureImage svg{
+    padding-bottom: 18px;
 }
 
 .feature{
@@ -14,16 +18,16 @@
     
 }
 
-h6{
+.feature h6{
     font-weight: bold; 
     text-align: center;
     margin-top: 32px;
-    font-size: 35px;
+    font-size: 30px;
 }
 
 .feature h3{
     margin-top: 20px;
     color: #8d98a2;
     text-align: center;
-    font-size: 25px;
+    font-size: 20px;
 }

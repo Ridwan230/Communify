@@ -20,6 +20,11 @@ const SmallCards = (props) => {
             <div className='smallimageContainer'>
                 <div className="smallimage">
                     <img className="smallimage__img" src={props.imageUrl} alt="cardImage" />
+                    <div className="smallimage__overlay smallimage__overlay--primary">
+                        <p className="smallimage__description">
+                            {props.title}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

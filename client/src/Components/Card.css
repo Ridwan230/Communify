@@ -1,7 +1,7 @@
 
 .cardContainer{
-    width: 250px;
-    height: 250px;
+    width: 150px;
+    height: 150px;
     overflow: hidden;
     box-shadow: 5px 5px 15px -5px #225504;
     margin: 25px;
@@ -20,11 +20,18 @@
 
 }
 
-.imageContainer img{
+/* .imageContainer img{
     width: 300px;
     overflow: hidden;
     height: 180px;
     object-fit:cover
+} */
+
+.imageContainer{
+    width: 150px;
+    overflow: hidden;
+    height: 100px;
+    object-fit:cover;
 }
 
 .cardContents{
@@ -33,14 +40,18 @@
     margin-top: 0.5rem;
     word-wrap: break-word;
     width: 75%;
-    
-    
 }
 
-h3,p{
-    margin: 0;
+.cardTitle p{
+    margin: 0 0 0 0;
     padding: 0;
-    font-size: 22px;
+    font-size: 15px;
+}
+
+.cardTitle h3{
+    margin: 0 0 0 0;
+    padding: 0;
+    font-size: 17px;
 }
 
 .cardTitle{
@@ -65,12 +76,12 @@ h3,p{
     background: rgba(27, 156, 252, 0.1);
 }
 
-a{
+/* a{
     text-transform: uppercase;
     color: #189CFC;
     text-decoration: none;
     font-weight: bold;
-}
+} */
 .linkedContainer{
     color: white;
 }
@@ -88,11 +99,13 @@ a{
 .image {
     position: relative;
     width: 300px;
+    height: 163.63px;
 }
 
 .image__img {
     display: block;
-    width: 100%;
+    width: 60%;
+    height: 62%;
 }
 
 .image__overlay {
@@ -144,7 +157,9 @@ a{
 }
 
 .image__description {
-    font-size: 1.25em;
-    margin-top: 0px;
+    width: 55%;
+    font-size: 12px;
     opacity: 1;
+    margin-bottom: 2.5rem;
+    margin-right: 6rem;
 }
