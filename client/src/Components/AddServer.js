@@ -158,14 +158,12 @@ const AddServer = (props) => {
                     {error !== '' ? <Alert className='alert' variant='danger'>
                         {error}
                     </Alert> : null}
-                    <Button block size="lg" type="submit" variant='success'>
+                    <Button className="createServer_btn" block size="lg" type="submit" variant='success'>
                         Create Server
                     </Button>
                 </Form>
             </div>
-            <Footer>
 
-            </Footer>
         </div>
 
     );

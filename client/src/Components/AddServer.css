@@ -1,20 +1,20 @@
 @media all and (min-width: 480px) {
     .addServer {
-      padding: 60px 0;
+      padding: 25px 0;
     }
   
     .addServer form {
       margin: 0 auto;
       max-width: 400px;
       padding: 20px;
-      border : 2px solid #c3c3c3;
+      border : 2px solid #5658dd;
       border-radius: 7px;
       background-color: #2d3748;
     }
   }
 
-  .addServer Button{
-      margin-top: 10px;
+  .createServer_btn{
+      margin-top: 15px;
       margin-bottom: 15px;
   }
 
@@ -25,4 +25,8 @@
 
   ::-webkit-input-placeholder {
     text-align: left;
+  }
+
+  .addServer h1{
+    font-size: 35px;
   }

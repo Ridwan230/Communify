@@ -101,7 +101,7 @@ const Login = () => {
                     {error !== '' ? <Alert className='alert' variant='danger'>
                         {error}
                     </Alert> : null}
-                    <Button block size="lg" type="submit" variant='success'>
+                    <Button className="loginbutton1" block size="lg" type="submit" variant='success'>
                         Login
                     </Button>
                     {/* <Button block size="lg" type="submit" variant='danger' onClick={handleClick}>
@@ -112,9 +112,8 @@ const Login = () => {
                 </Form>
                 
             </div>
-            <Footer>
 
-            </Footer>
+            <Footer/>
         </div>
     );
 }

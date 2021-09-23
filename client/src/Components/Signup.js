@@ -132,15 +132,15 @@ const Signup = () => {
                     {error !== '' ? <Alert className='alert' variant='danger'>
                         {error}
                     </Alert> : null}
-                    <Button block size="lg" type="submit" variant='success'>
+                    <Button className="signupbutton1" block size="lg" type="submit" variant='success'>
                         Sign Up
                     </Button>
                     <p className='para'>Already have an account? <Link to='/Login' className='link'>Log in</Link></p>
                 </Form>
             </div>
-            <div className="signupFooter">
+            {/* <div className="signupFooter">
                 <Footer />
-            </div>
+            </div> */}
         </div>
     );
 }

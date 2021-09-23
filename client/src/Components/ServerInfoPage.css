@@ -1,8 +1,9 @@
 
 .cardGrid{
-    display: flex;
     flex-wrap: wrap;
-    margin-bottom: -234px;
+    margin-left: 4%;
+    margin-top: 50px;
+    margin-bottom: 30%;
 }
 
 .addServerButton{
@@ -12,15 +13,17 @@
     float: right;
 }
 
-
+.addServerButton h5{
+    margin-top: 5px;
+}
 
 .serverGreeting h2{
     display: inline;
     padding-left: 15px;
 }
 .serverGreeting{
-    padding-top: 15px;
-    padding-bottom: 15px;
+    margin-top: 45px;
+    margin-bottom: 15px;
     margin-left: 10px;
     margin-right: 10px;
 }
@@ -36,13 +39,14 @@
 
 .serverPage{
     font-family: "Lato";
-    display: flex;
     flex-direction: column;
     justify-content: space-between;
+    height: 100%;
 }
 
 .greeting{
     text-transform: capitalize;
+    font-size: 28px;
 }
 
 .serverLink{

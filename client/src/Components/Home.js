@@ -17,7 +17,7 @@ const Home = () => {
     var message_encryption="User messages will be encrypted and privacy will be ensured for the users";
 
     return (
-        <div className='serverPage'>
+        <div className='homePage'>
             <div>
                 <Navbar className='navBar' expand="lg" >
                     <Navbar.Brand href="/"><h1>Communify</h1></Navbar.Brand>
