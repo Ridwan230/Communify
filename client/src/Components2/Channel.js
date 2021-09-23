@@ -6,11 +6,12 @@ import { TiHome } from "react-icons/ti";
 import { FaGripfire } from "react-icons/fa";
 import './Channel.css';
 import Chatbox from './Chatbox'
-import Calendar from 'react-calendar';
 import Settings from '../Components3/Settings'
 import MemberList from '../Components3/MemberList'
 import AdminList from '../Components3/AdminList'
 import JoinedServers from '../Components3/JoinedServers';
+import CustomCalendar from './CustomCalendar'
+
 
 const Channel = (props) => {
 
@@ -96,7 +97,6 @@ const Channel = (props) => {
           </Col>
 
           <Col className="col4" sm={0} md={3} lg={3}>
-          <Calendar/>
             <AdminList username={props.username} servername={props.servername} channelname={ComponentToShow} />
             <MemberList username={props.username} servername={props.servername} channelname={ComponentToShow} />
           </Col>
@@ -131,7 +131,7 @@ const Channel = (props) => {
           </Col>
 
           <Col className="col4" sm={0} md={3} lg={3}>
-            <Calendar/>
+            <CustomCalendar username={props.username} servername={props.servername} channelName={"Notice"}></CustomCalendar>
             <AdminList username={props.username} servername={props.servername} channelname={ComponentToShow} />
             <MemberList username={props.username} servername={props.servername} channelname={ComponentToShow} />
           </Col>
@@ -166,7 +166,7 @@ const Channel = (props) => {
           </Col>
 
           <Col className="col4" sm={0} md={3} lg={3}>
-            <Calendar/>
+            <CustomCalendar username={props.username} servername={props.servername} channelName={"General"}></CustomCalendar>
             <AdminList username={props.username} servername={props.servername} channelname={ComponentToShow} />
             <MemberList username={props.username} servername={props.servername} channelname={ComponentToShow} />
           </Col>

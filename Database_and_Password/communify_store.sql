@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 02, 2021 at 04:18 PM
+-- Generation Time: Sep 23, 2021 at 02:37 PM
 -- Server version: 10.4.19-MariaDB
--- PHP Version: 8.0.6
+-- PHP Version: 8.0.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,34 @@ SET time_zone = "+00:00";
 --
 -- Database: `communify_store`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `events`
+--
+
+CREATE TABLE `events` (
+  `eventNumber` int(11) NOT NULL,
+  `userName` varchar(20) NOT NULL,
+  `serverName` varchar(20) NOT NULL,
+  `isAdmin` tinyint(1) NOT NULL,
+  `eventDate` varchar(20) NOT NULL,
+  `eventMonth` varchar(20) NOT NULL,
+  `eventYear` varchar(20) NOT NULL,
+  `eventName` varchar(20) NOT NULL,
+  `eventDescription` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `events`
+--
+
+INSERT INTO `events` (`eventNumber`, `userName`, `serverName`, `isAdmin`, `eventDate`, `eventMonth`, `eventYear`, `eventName`, `eventDescription`) VALUES
+(4, 'ridwan', 'Gaming', 1, '25', '8', '2021', 'Admin Ridwan Event', 'Testing'),
+(5, 'ifrad', 'Gaming', 0, '26', '8', '2021', 'Member ifrad Event', 'Testing'),
+(6, 'ridwan', 'Gaming', 1, '24', '8', '2021', 'Admin Ridwan Event 2', 'Party hobbe'),
+(7, 'ridwan', 'Gaming', 1, '23', '8', '2021', 'Hello nEW EVENT', 'WWWW');
 
 -- --------------------------------------------------------
 
@@ -55,7 +83,8 @@ INSERT INTO `messages` (`message_no`, `sender`, `server_name`, `channel_name`, `
 (52, 'ridwan', 'Gaming', 'General', 'g', '', ''),
 (53, 'ridwan', 'Gaming', 'General', 'h', '', ''),
 (54, 'ridwan', 'Gaming', 'General', 'i', '', ''),
-(55, 'ridwan', 'Gaming', 'General', 'j', '', '');
+(55, 'ridwan', 'Gaming', 'General', 'j', '', ''),
+(56, 'ridwan', 'CSE 18', 'General', 'hello', '', '');
 
 -- --------------------------------------------------------
 
@@ -151,6 +180,12 @@ INSERT INTO `user_rooms` (`id`, `username`, `room`, `isAdmin`) VALUES
 --
 
 --
+-- Indexes for table `events`
+--
+ALTER TABLE `events`
+  ADD PRIMARY KEY (`eventNumber`);
+
+--
 -- Indexes for table `messages`
 --
 ALTER TABLE `messages`
@@ -179,10 +214,16 @@ ALTER TABLE `user_rooms`
 --
 
 --
+-- AUTO_INCREMENT for table `events`
+--
+ALTER TABLE `events`
+  MODIFY `eventNumber` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `message_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `message_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `myserver`

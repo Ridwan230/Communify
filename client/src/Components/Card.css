@@ -71,12 +71,6 @@
     background: rgba(27, 156, 252, 0.1);
 }
 
-a{
-    text-transform: uppercase;
-    color: #189CFC;
-    text-decoration: none;
-    font-weight: bold;
-}
 .linkedContainer{
     color: white;
 }

@@ -54,7 +54,7 @@ const ServerInfoPage = (props) => {
         <div className='serverPage'>
             <div>
                 <Navbar className='navBar' expand="lg" >
-                    <Navbar.Brand href="/"><h1>Communify</h1></Navbar.Brand>
+                    <Navbar.Brand href="/"><h1 className='whiteFont'>Communify</h1></Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
                         <Nav
@@ -71,7 +71,7 @@ const ServerInfoPage = (props) => {
                             state: { username: state.username } // your data array of objects
                         }}>
                             <Button className="addServerButton" variant="success" size="sm">
-                                <h5>Add Server</h5>
+                                <h5 className='whiteFont marginTop5px'>Add Server</h5>
                             </Button>
                         </Link>
 

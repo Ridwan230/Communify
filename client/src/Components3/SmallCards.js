@@ -17,11 +17,11 @@ const SmallCards = (props) => {
     
     return (
         <div className='smallcardContainer' onClick={buttonPush}>
-            <div className='smallimageContainer'>
-                <div className="smallimage">
+            {/* <div className='smallimageContainer'>
+                <div className="smallimage"> */}
                     <img className="smallimage__img" src={props.imageUrl} alt="cardImage" />
-                </div>
-            </div>
+                {/* </div>
+            </div> */}
         </div>
 
     );

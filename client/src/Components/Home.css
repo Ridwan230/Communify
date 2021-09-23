@@ -1,8 +1,4 @@
 
-*{
-    color: white;
-}
-
 .cardGrid{
     display: flex;
     flex-wrap: wrap;
@@ -112,6 +108,7 @@
     padding-left: 12px;
     text-transform: capitalize;
     font-size: 50px;
+    color: white;
 }
 
 .col{
