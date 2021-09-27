@@ -10,6 +10,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Alert from 'react-bootstrap/Alert';
 import validator from 'email-validator';
+import { Scrollbars } from 'react-custom-scrollbars-2';
 
 const Signup = () => {
 
@@ -89,6 +90,7 @@ const Signup = () => {
     }
 
     return (
+        <Scrollbars autoHeight autoHeightMin={`100vh`}>
         <div>
             <Header />
             <div className="Signup">
@@ -142,6 +144,7 @@ const Signup = () => {
                 <Footer />
             </div> */}
         </div>
+        </Scrollbars>
     );
 }
 

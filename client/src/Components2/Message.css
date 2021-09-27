@@ -13,6 +13,7 @@
     float: left;
     font-size: 1.4em;
     word-wrap: break-word;
+    margin-bottom: 0px !important;
   }
   
   .messageText img {

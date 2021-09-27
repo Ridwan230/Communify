@@ -9,6 +9,7 @@ import MD5 from "crypto-js/md5";
 import Alert from 'react-bootstrap/Alert'
 import Header from "./Header";
 import Footer from "./Footer";
+import { Scrollbars } from 'react-custom-scrollbars-2';
 
 const Login = () => {
 
@@ -71,6 +72,7 @@ const Login = () => {
 
 
     return (
+        <Scrollbars autoHeight autoHeightMin={`100vh`}>
         <div>
             <Header>
 
@@ -115,6 +117,7 @@ const Login = () => {
 
             <Footer/>
         </div>
+        </Scrollbars>
     );
 }
 
