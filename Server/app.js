@@ -525,10 +525,6 @@ io.on("connect", (socket) => {
 
     socket.join(room);
 
-    //socket.emit('message', { user: 'admin', text: `${user.name}, welcome to the room ${user.room}` });
-    //socket.broadcast.to(user.room).emit('message', { user: 'admin', text: `${user.name}, has joined!` });
-
-    //io.to(user.room).emit('roomData', { room: user.room, users: getUsersInRoom(user.room) })
 
     (async function () {
       let result = await getMessages(room, channel_name);
@@ -555,7 +551,6 @@ io.on("connect", (socket) => {
     });
 
     io.to(room).emit("message", { user: name, text: message });
-    //io.to(user.room).emit('roomData', { room: user.room, text: message });
 
     callback();
   });
@@ -564,6 +559,103 @@ io.on("connect", (socket) => {
 });
 
 //----------------------------------------------IO PART ENDS----------------------------------------------
+
+
+
+
+//-----------------------------------------Calendar Part STARTS--------------------------------------
+
+const AddEvent = async (req, res) =>{
+
+  var insertQuery =
+  "insert into `events` (`userName`,`serverName`,`isAdmin`,`eventDate`,`eventMonth`,`eventYear`,`eventName`,`eventDescription`) values (?,?,?,?,?,?,?,?)";
+var insertQuery = mysql.format(insertQuery, [
+  req.body.userName,
+  req.body.serverName,
+  req.body.isAdmin,
+  req.body.eventDate,
+  req.body.eventMonth,
+  req.body.eventYear,
+  req.body.eventName,
+  req.body.eventDescription,
+]);
+
+con.query(insertQuery, function (err, response) {
+  if (err) throw err;
+  else {
+    try {
+      res.status(200).json({ message: 'Successful' });
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+  }
+});
+}
+
+app.post("/AddEvent", AddEvent);
+
+
+
+
+
+
+const GetEvent = async (req, res) =>{
+
+  let server=req.body.servername;
+  let isAdmin=req.body.isAdmin;
+  let userName=req.body.username;
+  let data=[];
+
+  let result = await query("SELECT * FROM events WHERE `isAdmin`=1 AND `serverName`='" + server +"'");
+
+  for (var i = 0; i < result.length; i++) {
+    var feed = {
+      userName: result[i].userName,
+            serverName: result[i].serverName,
+            isAdmin: result[i].isAdmin,
+            eventDate: result[i].eventDate,
+            eventMonth: result[i].eventMonth,
+            eventYear: result[i].eventYear,
+            eventName: result[i].eventName,
+            eventDescription: result[i].eventDescription,
+    };
+    data.push(feed);
+  }
+
+  if(isAdmin===0){
+    let result = await query("SELECT * FROM events WHERE `isAdmin`=0 AND `serverName`='" + server + "' AND `userName`='" + userName +"'");
+
+    for (var i = 0; i < result.length; i++) {
+      var feed = {
+        userName: result[i].userName,
+              serverName: result[i].serverame,
+              isAdmin: result[i].isAdmin,
+              eventDate: result[i].eventDate,
+              eventMonth: result[i].eventMonth,
+              eventYear: result[i].eventYear,
+              eventName: result[i].eventName,
+              eventDescription: result[i].eventDescription,
+      };
+      data.push(feed);
+    }
+
+  }
+  
+  try {
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+}
+
+
+app.post("/GetEvent", GetEvent);
+
+
+//-----------------------------------------Calendar Part ENDS--------------------------------------
+
+
+
 
 /*require('dotenv').config()
 const passport = require('passport');

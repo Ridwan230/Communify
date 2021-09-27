@@ -1,27 +1,19 @@
-import React, { useState, Component, useEffect } from "react";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import React from "react";
 import "./Room.css";
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import { useHistory } from "react-router-dom";
 import Channel from "./Channel";
-import { Navbar, Nav, Container, Row, Col } from 'react-bootstrap';
-import Chatbox from './Chatbox'
-
 
 const Room = (props) => {
 
     const { state } = props.location;
 
-    console.log("ROOM");
+    var cross = Math.random() * (99999 - 0);
 
     return (
         <div className="room">
             <Channel
                 username={state.username}
                 servername={state.servername}
-                servercode={state.servercode}
+                cross={cross}
             />
         </div>
     );

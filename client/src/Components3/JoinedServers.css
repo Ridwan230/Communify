@@ -1,11 +1,13 @@
 .smallcardGrid{
-    display: flex;
-    flex-wrap: wrap;
+    /* display: flex;
+    flex-wrap: wrap; */
+    height: 100%;
 }
 
 .smallcard_scrollbar_container{
-    height: 86vh;
+    height: 100%;
     background-color: #202225;
+    margin: 0.1rem;
 }
 
 

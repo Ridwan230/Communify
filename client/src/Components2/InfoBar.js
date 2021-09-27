@@ -1,31 +1,52 @@
 import React from 'react';
-
+import { useHistory } from "react-router-dom";
 import onlineIcon from '../icons/onlineIcon.png';
 import closeIcon from '../icons/closeIcon.png';
-
 import './InfoBar.css';
 
-const InfoBar = ({ room }) => (
-  <div>
-    <div className="infoBar">
-      <div className="leftInnerContainer">
-        <img className="onlineIcon" src={onlineIcon} alt="online icon" />
-        <h3>{room}</h3>
+const InfoBar = ({ username, servername, channel }) => {
+
+  let history = useHistory();
+
+  function handleSubmit(event) {
+    
+    const data = {
+      username: username,
+      servername: servername,
+    };
+
+    history.push({
+      pathname: "/Room/" + servername,
+      state: data,
+    });
+
+    event.preventDefault();
+  }
+
+
+  return (
+    <div>
+      <div className="infoBar">
+        <div className="leftInnerContainer">
+          <img className="onlineIcon" src={onlineIcon} alt="online icon" />
+          <h3>{channel}</h3>
+        </div>
+        <div onClick={handleSubmit} className="rightInnerContainer">
+          <a href=""><img src={closeIcon} alt="close icon" /></a>
+        </div>
       </div>
-      <div className="rightInnerContainer">
-        <a href="/Room"><img src={closeIcon} alt="close icon" /></a>
-      </div>
+      <hr
+        style={{
+          color: "white",
+          width: "100%",
+          height: "5px",
+          margin: "auto",
+          marginTop: "21px",
+          borderRadius: "30px",
+        }}
+      />
     </div>
-    <hr
-      style={{
-        color: "white",
-        width: "100%",
-        height: "5px",
-        margin: "auto",
-        marginTop: "18.1px",
-      }}
-    />
-  </div>
-);
+  );
+};
 
 export default InfoBar;

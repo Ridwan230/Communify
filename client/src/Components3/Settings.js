@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Button from "react-bootstrap/Button";
 import { DropdownButton, Dropdown, ButtonGroup } from 'react-bootstrap';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
-
 import "./Settings.css";
 
 

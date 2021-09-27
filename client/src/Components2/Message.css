@@ -11,8 +11,9 @@
     width: 100%;
     letter-spacing: 0;
     float: left;
-    font-size: 1.4em;
+    font-size: 1.2em;
     word-wrap: break-word;
+    margin-bottom: 0px !important;
   }
   
   .messageText img {
@@ -32,10 +33,12 @@
     font-family: Helvetica;
     color: #828282;
     letter-spacing: 0.3px;
+    font-size: 1em;
   }
   
   .pl-10 {
     padding-left: 10px;
+    margin-bottom: 0px !important;
   }
   
   .pr-10 {

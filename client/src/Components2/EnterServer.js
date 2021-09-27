@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { InputGroup, FormControl } from "react-bootstrap";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal'
-import { Link } from 'react-router-dom';
 import MD5 from "crypto-js/md5";
 import './EnterServer.css'
 
@@ -24,13 +22,12 @@ const EnterServer = (props) => {
             servername: state.servername,
             code: MD5(serverCode).toString(),
         };
-console.log("ENTERSERVER "+state.servername);
+
         axios.post("http://localhost:2999/React_EnterServer", data)
             .then((response) => {
-                history.push({                                                                         
-                    pathname: "/Room/" + state.servername, 
+                history.push({
+                    pathname: "/Room/" + state.servername,
                     state: response.data,
-                    //I guess here I have to receive all the informations like admin, username, members etc.
                 });
             })
             .catch((error) => {
@@ -46,11 +43,9 @@ console.log("ENTERSERVER "+state.servername);
         setShow(false);
         history.push({
             pathname: "/ServerInfoPage",
-            state: { username: state.username }         //bug fixed
+            state: { username: state.username }        
         });
     }
-
-   // const handleClose = () => setShow(false);
 
     return (
         <>

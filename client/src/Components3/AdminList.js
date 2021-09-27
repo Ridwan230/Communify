@@ -1,26 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col } from 'react-bootstrap';
-import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import ScrollToBottom from 'react-scroll-to-bottom';
+import Modal from "react-bootstrap/Modal";
 import "./AdminList.css";
 import axios from 'axios';
 import { MDBContainer } from "mdbreact";
 
 
-const AdminList = (props) => {
+const AdminList = ({ setShowAdminList, username, servername, channelname }) => {
 
     const [list, setList] = useState([]);
+    const handleClose = () => setShowAdminList(false);
+    const [show, setShow] = useState(true);
+    
 
     useEffect(() => {
 
         const data = {
-            username: props.username,
-            servername: props.servername,
+            username: username,
+            servername: servername,
         }
 
         const getAdminList = async () => {
-            
+
             await axios.post('http://localhost:2999/AdminList', data)
                 .then(response => {
                     setList(response.data);
@@ -31,53 +32,37 @@ const AdminList = (props) => {
         }
         getAdminList();
 
-    }, [props.channelname]);
-
-
-
-    // return (
-    // <div className="listContainer">
-    //     <div className="listTag">
-    //         <h3>Members-</h3>
-    //     </div>
-
-    //     <ScrollToBottom className="namescontainer">
-    //         <div className="listNames">{
-    //             list.map((classItem) => {
-    //                 return (
-    //                     <div className="names">{classItem.username}</div>
-    //                 );
-    //             })}
-    //         </div>
-    //     </ScrollToBottom>
-    // </div>
-
-    // );
+    }, [channelname]);
 
 
     const scrollContainerStyle = { width: "100%", maxHeight: "100%", paddingRight: "5%" };
 
     return (
-        <div className="adminlistContainer">
-            <div className="adminlistTag">
-                <h3>Admin-</h3>
-            </div>
+        <Modal show={show} onHide={handleClose} className="adminlistContainer">
+            <Modal.Header closeButton className="adminlistTag">
+                <h3>Admins -</h3>
+            </Modal.Header>
 
-            <MDBContainer className="adminlist-scrlbar scrollbar my-5 mx-auto mdb" style={scrollContainerStyle}>
-                <div className="adminlistNames">{
-                    list.map((classItem) => {
-                        return (
-                            <Row className="adminnameRow">
-                                <Col>
-                                    <div className="adminnames">{classItem.username}</div>
-                                </Col>
-                                
-                            </Row>
-                        );
-                    })}
+            <MDBContainer className="adminlist-scrlbar scrollbar mx-auto mdb" style={scrollContainerStyle}>
+                <div className="adminlistNames">
+                    <ol>{
+                        list.map((classItem) => {
+                            return (
+                                <div className="adminNames">
+                                    <li>{classItem.username}</li>
+                                </div>
+                            );
+                        })
+                    }
+                    </ol>
                 </div>
             </MDBContainer>
-        </div>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                    Close
+                </Button>
+            </Modal.Footer>
+        </Modal>
 
     );
 };

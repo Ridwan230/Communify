@@ -2,15 +2,19 @@
     display: flex;
     width: 100vh;
     height: 10vh;
-    margin-bottom: 30px;
+    margin-bottom: 2%;
+  }
+
+  .form a{
+    color: white;
   }
   
   .input {
     border: none;
-    border-radius: 0;
+    border-radius: 30px;
     padding: 5%;
     width: 85%;
-    font-size: 1.5em;
+    font-size: 1.2em;
     color: white;
     background-color: #42454b;
   }
@@ -20,6 +24,7 @@
   }
 
   .sendButton1{
-    margin-left: 40px;
-    margin-top: 10px;
+    margin-left: 1.5rem;
+    margin-top: 0.5rem;
+    /* border-radius: 30px; */
   }

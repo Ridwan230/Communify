@@ -1,9 +1,8 @@
-.memberlistTag h3{
-    font-size: 25px;
-}
-
-.membernames{
-    font-size: 20px;
+.memberlistNames{
+  margin-top: 1.5rem;
+  margin-left: .5rem;
+  margin-bottom: 1rem;
+  font-size: 18px;
 }
 
 .membernamescontainer {
@@ -14,7 +13,18 @@
 }
 
 .memberlistContainer{
-    height: 15%;
+  color: white;
+}
+
+.memberNames{
+  margin: .4rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.memberlistContainer .modal-content{
+  background-color: #2D3748;
+  height: 50vh;
 }
 
 .membernameRow{
@@ -25,6 +35,10 @@
     width: 35%;
 }
 
+.memberlistTag h3{
+  font-size: 30px;
+  font-family:Georgia, 'Times New Roman', Times, serif
+}
 
 .scrollbar {
     overflow: scroll;

@@ -1,5 +1,4 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import './FeaturePreview.css';
 import { FaArchive, FaCodepen } from "react-icons/fa";
 

@@ -12,7 +12,7 @@ const Input = ({  message, setMessage, sendMessage }) => (
       onChange={({ target: { value } }) => setMessage(value)}
       onKeyPress={event => event.key === 'Enter' ? sendMessage(event) : null}
     />
-    <a href=""><IoSend size={80} className="sendButton1" onClick={event => sendMessage(event)}/></a>
+    <a href=""><IoSend size={60} className="sendButton1" onClick={event => sendMessage(event)}/></a>
   </form>
 )
 

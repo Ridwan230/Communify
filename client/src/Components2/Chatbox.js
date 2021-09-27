@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import queryString from 'query-string';
 import io from 'socket.io-client';
 import axios from 'axios';
 import './Chatbox.css';
@@ -68,22 +67,12 @@ const Chatbox = (props) => {
                 }
             }
         });
-
-        // return () => {
-        //     socket.emit('disconnect');
-
-        //     socket.off();
-        // }
     }, [ENDPOINT, channel_name]);
 
     useEffect(() => {
         socket.on('message', (message) => {
             setMessages(messages => [...messages, message]);
         })
-
-        // socket.on('roomData', ({users}) => {
-        //     setUsers(users);
-        // })
     }, []);
 
     const sendMessage = (event) => {
@@ -97,7 +86,7 @@ const Chatbox = (props) => {
     return (
         <div className="outerContainer">
             <div className="container1">
-                <InfoBar room={props.channel} />
+                <InfoBar username={props.username} servername={props.servername} channel={props.channel} />
                 <Messages messages={messages} name={name} />
                 {channel_name === "Notice" && flag === true &&
                     (<Input message={message} setMessage={setMessage} sendMessage={sendMessage} />)

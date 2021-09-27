@@ -3,9 +3,8 @@ import { IoPerson } from "react-icons/io5";
 import './Message.css';
 
 const Message = ({ message: { user, text }, name }) => {
+  
   let isSentByCurrentUser = false;
-
-  //const trimmedName = name.trim().toLowerCase();
 
   if (user === name) {
     isSentByCurrentUser = true;

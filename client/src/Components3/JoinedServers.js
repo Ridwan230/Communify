@@ -3,9 +3,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import "./JoinedServers.css";
 import axios from 'axios';
-import { Navbar, Nav, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { Form } from "react-bootstrap";
 import SmallCards from "./SmallCards";
 import { MDBContainer } from "mdbreact";
 
@@ -28,10 +25,10 @@ const JoinedServers = (props) => {
             })
     }, []);
 
-    const scrollContainerStyle = { width: "100%", maxHeight: "100%", paddingRight: "5%" };
+    const scrollContainerStyle = { width: "100%", maxHeight: "85%" };
     return (
         <div className="smallcard_scrollbar_container">
-            <MDBContainer className="scrollbar my-5 mx-auto mdb" style={scrollContainerStyle}>
+            <MDBContainer className="scrollbar mdb" style={scrollContainerStyle}>
                 <div className="smallCardGrid">
                     {
                         data.map((classItem) => {

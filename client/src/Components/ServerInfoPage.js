@@ -54,7 +54,7 @@ const ServerInfoPage = (props) => {
         <div className='serverPage'>
             <div>
                 <Navbar className='navBar' expand="lg" >
-                    <Navbar.Brand href="/"><h1>Communify</h1></Navbar.Brand>
+                    <Navbar.Brand href="/"><h1 className='whiteFont'>Communify</h1></Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
                         <Nav
@@ -71,7 +71,7 @@ const ServerInfoPage = (props) => {
                             state: { username: state.username } // your data array of objects
                         }}>
                             <Button className="addServerButton" variant="success" size="sm">
-                                <h5>Add Server</h5>
+                                <h5 className='whiteFont marginTop5px'>Create Server</h5>
                             </Button>
                         </Link>
 
@@ -133,39 +133,3 @@ const ServerInfoPage = (props) => {
 
 };
 export default ServerInfoPage;
-
-
-
-/*
-     {displayServer === 'my' ?
-                <div className="selector">
-                <Form.Group controlId="formBasicSelect" className="d-flex align-items-end">
-                        <Form.Label><h3>Show</h3></Form.Label>
-                        <Form.Control
-                            as="select"
-                            value={serverType}
-                            onChange={(e) => {
-                                setServerType(e.target.value);
-                            }}
-                        >
-                            <option value="All">Both</option>
-                            <option value="Public">Public</option>
-                            <option value="Private">Private</option>
-                        </Form.Control>
-                    </Form.Group>
-                    </div>
-                    : null}
-
-                    .filter((Item) => {
-                        if (serverType === 'Private') {
-                            return Item.serverType === 'Private'
-                        }
-                        else if (serverType === 'Public') {
-                            return Item.serverType === 'Public'
-                        }
-                        else {
-                            return Item
-                        }
-                    })
-                        
-*/

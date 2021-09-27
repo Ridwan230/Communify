@@ -1,9 +1,8 @@
-.adminlistTag h3{
-    font-size: 25px;
-}
-
-.adminnames{
-    font-size: 20px;
+.adminlistNames{
+  margin-top: 1.5rem;
+  margin-left: .5rem;
+  margin-bottom: 1rem;
+  font-size: 18px;
 }
 
 .adminnamescontainer {
@@ -14,8 +13,16 @@
 }
 
 .adminlistContainer{
-    margin-bottom: 100px;
-    height: 15%;
+  color: white;
+}
+
+.adminNames{
+  margin: .4rem;
+}
+
+.adminlistContainer .modal-content{
+  background-color: #2D3748;
+  height: 50vh;
 }
 
 .adminnameRow{
@@ -27,6 +34,10 @@
     width: 35%;
 }
 
+.adminlistTag h3{
+  font-size: 30px;
+  font-family:Georgia, 'Times New Roman', Times, serif
+}
 
 .scrollbar {
     overflow: scroll;
@@ -66,4 +77,12 @@
     border-radius: 8px;
     height: 100%;
     width: 100%;
+  }
+
+  .close{
+    color: white;
+  }
+
+  .close:hover{
+    color: white;
   }

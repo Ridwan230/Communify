@@ -1,25 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { Row, Col } from 'react-bootstrap';
-import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import ScrollToBottom from 'react-scroll-to-bottom';
+import Modal from "react-bootstrap/Modal";
 import "./MemberList.css";
 import axios from 'axios';
 import { MDBContainer } from "mdbreact";
 
 
-const MemberList = (props) => {
+const MemberList = ({ setShowMemberList, username, servername, channelname }) => {
+    console.log("HERE");
 
     const [list, setList] = useState([]);
     const [flag, setFlag] = useState("false");
     const [temp, setTemp] = useState(false);
 
+    const handleClose = () => setShowMemberList(false);
+    const [show, setShow] = useState(true);
+
 
     useEffect(() => {
 
         const data = {
-            username: props.username,
-            servername: props.servername,
+            username: username,
+            servername: servername,
         }
 
         const getMemberList = async () => {
@@ -34,14 +36,14 @@ const MemberList = (props) => {
         }
         getMemberList();
 
-    }, [temp,props.channelname]);
+    }, [temp, channelname]);
 
 
     useEffect(() => {
 
         const data = {
-            username: props.username,
-            servername: props.servername,
+            username: username,
+            servername: servername,
         }
 
         const checkifAdmin = async () => {
@@ -55,7 +57,7 @@ const MemberList = (props) => {
         }
         checkifAdmin();
 
-    }, [props.username]);
+    }, [username]);
 
 
 
@@ -65,60 +67,44 @@ const MemberList = (props) => {
 
         const data1 = {
             username: username,
-            servername: props.servername,
+            servername: servername,
         }
         axios.post('http://localhost:2999/Add_Admin', data1)
 
     }
 
 
-    // return (
-    // <div className="listContainer">
-    //     <div className="listTag">
-    //         <h3>Members-</h3>
-    //     </div>
-
-    //     <ScrollToBottom className="membernamescontainer">
-    //         <div className="listNames">{
-    //             list.map((classItem) => {
-    //                 return (
-    //                     <div className="names">{classItem.username}</div>
-    //                 );
-    //             })}
-    //         </div>
-    //     </ScrollToBottom>
-    // </div>
-
-    // );
-
-
     const scrollContainerStyle = { width: "100%", maxHeight: "100%", paddingRight: "5%" };
 
     return (
-        <div className="memberlistContainer">
-            <div className="memberlistTag">
+        <Modal show={show} onHide={handleClose} className="memberlistContainer">
+            <Modal.Header closeButton className="memberlistTag">
                 <h3>Members-</h3>
-            </div>
+            </Modal.Header>
 
-            <MDBContainer className="memberlist-scrlbar scrollbar my-5 mx-auto mdb" style={scrollContainerStyle}>
-                <div className="memberlistNames">{
-                    list.map((classItem) => {
-                        return (
-                            <Row className="membernameRow">
-                                <Col>
-                                    <div className="membernames">{classItem.username}</div>
-                                </Col>
-                                <Col>
+            <MDBContainer className="memberlist-scrlbar scrollbar mx-auto mdb" style={scrollContainerStyle}>
+                <div className="memberlistNames">
+                    <ol>{
+                        list.map((classItem) => {
+                            return (
+                                <div className="memberNames">
+                                    <li>{classItem.username}</li>
                                     {flag === true &&
                                         (<Button className="addAdmin" block size="sm" variant='success' onClick={() => { handleSubmit(classItem.username); }}> +Admin </Button>)
                                     }
-                                </Col>
-                            </Row>
-                        );
-                    })}
+                                </div>
+                            );
+                        })
+                    }
+                    </ol>
                 </div>
             </MDBContainer>
-        </div>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                    Close
+                </Button>
+            </Modal.Footer>
+        </Modal>
 
     );
 };

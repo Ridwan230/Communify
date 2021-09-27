@@ -32,31 +32,26 @@ const addUser = async ({ name, room }) => {
         }
     }
 
-    var flag=false;
+    var flag = false;
     if (!existingUser) {
         let result1 = await query("SELECT `serverName`,`owner` FROM `myserver`");
 
-        for(var i=0; i<result1.length; i++)
-        {
-            if(result1[i].serverName===room && result1[i].owner===name)
-            {
-                flag=true;
+        for (var i = 0; i < result1.length; i++) {
+            if (result1[i].serverName === room && result1[i].owner === name) {
+                flag = true;
                 break;
             }
         }
 
-        if(flag===false)
-        {
-            var insertQuery = 'insert into `user_rooms` (`username`,`room`,`isAdmin`) values (?,?,?)';
-            var query_insert = mysql.format(insertQuery, [name, room, flag]);
-            con.query(query_insert, function (err, response) {
-                if (err) throw err;
-                else {
-                    console.log("User " + name + " Joined room " + room);
-                }
-            });
-        }
-        
+        var insertQuery = 'insert into `user_rooms` (`username`,`room`,`isAdmin`) values (?,?,?)';
+        var query_insert = mysql.format(insertQuery, [name, room, flag]);
+        con.query(query_insert, function (err, response) {
+            if (err) throw err;
+            else {
+                console.log("User " + name + " Joined room " + room);
+            }
+        });
+
     }
 
     const user = { name, room };
@@ -67,7 +62,7 @@ const addUser = async ({ name, room }) => {
 }
 
 
-const getMessages = async ( room, channel_name ) => {
+const getMessages = async (room, channel_name) => {
 
     let result = await query("SELECT `sender`,`text` FROM `messages` WHERE `server_name`='" + room + "'and `channel_name`='" + channel_name + "'");
     return result;
