@@ -7,7 +7,7 @@
     .Login form {
       margin: 0 auto;
       max-width: 280px;
-      height: 400px;
+      min-height: 400px;
       padding: 20px;
       border : 2px solid #5658dd;
       border-radius: 7px;

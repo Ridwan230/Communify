@@ -30,7 +30,7 @@ const Home = () => {
                         >
 
                         </Nav>
-                        <Link to={{
+                        <Link className='linkbutton' to={{
                             pathname: "/Login"
                         }}>
                             <Button className="LoginButton" variant="success" size="sm">
@@ -38,7 +38,7 @@ const Home = () => {
                             </Button>
                         </Link>
 
-                        <Link to={{
+                        <Link className='linkbutton' to={{
                             pathname: "/SignUp"
                         }}>
                             <Button className="SignUpButton" variant="success" size="sm">

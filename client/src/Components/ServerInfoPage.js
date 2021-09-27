@@ -11,6 +11,7 @@ import { Form } from "react-bootstrap";
 import { InputGroup } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { Scrollbars } from 'react-custom-scrollbars-2';
 
 
 const ServerInfoPage = (props) => {
@@ -51,6 +52,7 @@ const ServerInfoPage = (props) => {
     }, [displayServer]);
 
     return (
+        <Scrollbars autoHeight autoHeightMin={`100vh`}>
         <div className='serverPage'>
             <div>
                 <Navbar className='navBar' expand="lg" >
@@ -129,6 +131,7 @@ const ServerInfoPage = (props) => {
 
             </Footer>
         </div>
+        </Scrollbars>
     );
 
 };
