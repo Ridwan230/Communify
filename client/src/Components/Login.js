@@ -10,6 +10,10 @@ import Alert from 'react-bootstrap/Alert'
 import Header from "./Header";
 import Footer from "./Footer";
 import { Scrollbars } from 'react-custom-scrollbars-2';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+
+
 
 const Login = () => {
 
@@ -74,6 +78,11 @@ const Login = () => {
     return (
         <Scrollbars autoHeight autoHeightMin={`100vh`}>
         <div>
+        <Link to ="/">
+            <Button variant="outline-success"  className='backButtonLogIn'>
+                <FontAwesomeIcon icon={faArrowLeft} className='backButtonIconLogIn'/>
+            </Button>
+            </Link>
             <Header>
 
             </Header>
@@ -90,7 +99,11 @@ const Login = () => {
                             value={user}
                             onChange={(e) => setUser(e.target.value)}
                         />
-                    </Form.Group>
+                        </Form.Group>
+
+
+
+                    
                     <Form.Group size="lg" controlId="password">
                         <Form.Label>PASSWORD</Form.Label>
                         <Form.Control
@@ -100,6 +113,9 @@ const Login = () => {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </Form.Group>
+                    
+
+
                     {error !== '' ? <Alert className='alert' variant='danger'>
                         {error}
                     </Alert> : null}

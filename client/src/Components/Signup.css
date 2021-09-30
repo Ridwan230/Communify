@@ -49,4 +49,13 @@
    font-size: 35px;
  }
 
+ .backButtonIconSignIn{
+  transform: scale(2.5,1.2);
+}
+
+.backButtonSignIn{
+    min-width: 4rem;
+    margin-top: .5rem;
+    margin-left: .5rem;
+}
 
