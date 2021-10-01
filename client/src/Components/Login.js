@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "./Login.css";
@@ -10,6 +10,10 @@ import Alert from 'react-bootstrap/Alert'
 import Header from "./Header";
 import Footer from "./Footer";
 import { Scrollbars } from 'react-custom-scrollbars-2';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+
+
 
 const Login = () => {
 
@@ -20,6 +24,8 @@ const Login = () => {
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+
+    axios.defaults.withCredentials = true;
 
     function handleSubmit(event) {
 
@@ -54,6 +60,14 @@ const Login = () => {
         
     }
 
+
+    useEffect(() => {
+        axios.get('http://localhost:2999/React_Login').then((response) => {
+            console.log("GET");
+            console.log(response);
+        })
+    }, [])
+
     // const handleClick = (event) =>{
     //     event.preventDefault();
     //     console.log("GOOGLE SIGNIN BUTTON PRESSED");
@@ -74,6 +88,11 @@ const Login = () => {
     return (
         <Scrollbars autoHeight autoHeightMin={`100vh`}>
         <div>
+        <Link to ="/">
+            <Button variant="outline-success"  className='backButtonLogIn'>
+                <FontAwesomeIcon icon={faArrowLeft} className='backButtonIconLogIn'/>
+            </Button>
+            </Link>
             <Header>
 
             </Header>
@@ -90,7 +109,11 @@ const Login = () => {
                             value={user}
                             onChange={(e) => setUser(e.target.value)}
                         />
-                    </Form.Group>
+                        </Form.Group>
+
+
+
+                    
                     <Form.Group size="lg" controlId="password">
                         <Form.Label>PASSWORD</Form.Label>
                         <Form.Control
@@ -100,6 +123,9 @@ const Login = () => {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </Form.Group>
+                    
+
+
                     {error !== '' ? <Alert className='alert' variant='danger'>
                         {error}
                     </Alert> : null}

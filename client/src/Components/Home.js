@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import Footer from "./Footer";
 import FeaturePreview from "./FeaturePreview";
 import frontpageimage from '../icons/frontpageimage1.jpg';
+import { Scrollbars } from 'react-custom-scrollbars-2';
 
 
 const Home = () => {
@@ -17,6 +18,7 @@ const Home = () => {
     var message_encryption="User messages will be encrypted and privacy will be ensured for the users";
 
     return (
+        <Scrollbars autoHeight autoHeightMin={`100vh`}>
         <div className='homePage'>
             <div>
                 <Navbar className='navBar' expand="lg" >
@@ -75,6 +77,7 @@ const Home = () => {
 
             <Footer />
         </div>
+        </Scrollbars>
 
     );
 

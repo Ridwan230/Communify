@@ -53,3 +53,13 @@ a:hover {
 .Login h1{
   font-size: 35px;
 }
+
+.backButtonIconLogIn{
+  transform: scale(2.5,1.2);
+}
+
+.backButtonLogIn{
+    min-width: 4rem;
+    margin-top: .5rem;
+    margin-left: .5rem;
+}

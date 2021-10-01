@@ -10,6 +10,9 @@ const MD5 = require("crypto-js/md5");
 const socketio = require("socket.io");
 const http = require("http");
 
+const cookieParser = require("cookie-parser");
+const session = require('express-session');
+
 const PORT = process.env.PORT || 2999;
 
 var con = mysql.createConnection({
@@ -36,11 +39,34 @@ const io = socketio(server, {
   },
 });
 
+
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+    methods: ["GET", "POST"],
+    credentials: true,
+  })
+);
+
+
+
+//session middleware
+app.use(session({
+  key: "userId",
+  secret: "thisismysecretkey",
+  saveUninitialized: false,
+  cookie: { maxAge: 1000 * 60 * 60 * 24 },
+  resave: false
+}));
+
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 app.use(router);
+
+// cookie parser middleware
+app.use(cookieParser());
 
 //------------------------------------------------Ridwan-----------------------------------------------------------
 
@@ -118,6 +144,7 @@ const React_Login = async (req, res) => {
     }
   } else {
     try {
+      req.session.user = req.body.username;
       res.status(200).json({ username: req.body.username, message: "" });
     } catch (error) {
       res.status(404).json({ message: error.message });
@@ -129,6 +156,17 @@ app.post("/React_Login", React_Login);
 
 
 
+
+app.get("/React_Login", (req, res) => {
+  if(req.session.user)
+  {
+    res.send({loggedIn: true, user: req.session.user})
+  }
+  else
+  {
+    res.send({loggedIn: false})
+  }
+})
 
 
 const React_SignUp = async (req, res) => {
@@ -557,109 +595,6 @@ io.on("connect", (socket) => {
 
   
 });
-
-
-
-//-----------------------------------------Calendar Part--------------------------------------
-
-const AddEvent = async (req, res) =>{
-
-  var insertQuery =
-  "insert into `events` (`userName`,`serverName`,`isAdmin`,`eventDate`,`eventMonth`,`eventYear`,`eventName`,`eventDescription`) values (?,?,?,?,?,?,?,?)";
-var insertQuery = mysql.format(insertQuery, [
-  req.body.userName,
-  req.body.serverName,
-  req.body.isAdmin,
-  req.body.eventDate,
-  req.body.eventMonth,
-  req.body.eventYear,
-  req.body.eventName,
-  req.body.eventDescription,
-]);
-
-con.query(insertQuery, function (err, response) {
-  if (err) throw err;
-  else {
-    try {
-      res.status(200).json({ message: 'Successful' });
-    } catch (error) {
-      res.status(404).json({ message: error.message });
-    }
-  }
-});
-}
-
-app.post("/AddEvent", AddEvent);
-
-
-
-
-
-
-const GetEvent = async (req, res) =>{
-
-  // console.log(req.body)
-  // console.log("Hello")
-
-  let server=req.body.servername;
-  let isAdmin=req.body.isAdmin;
-  let userName=req.body.username;
-  let data=[];
-
-  let result = await query("SELECT * FROM events WHERE `isAdmin`=1 AND `serverName`='" + server +"'");
-
-  for (var i = 0; i < result.length; i++) {
-    var feed = {
-      userName: result[i].userName,
-            serverName: result[i].serverName,
-            isAdmin: result[i].isAdmin,
-            eventDate: result[i].eventDate,
-            eventMonth: result[i].eventMonth,
-            eventYear: result[i].eventYear,
-            eventName: result[i].eventName,
-            eventDescription: result[i].eventDescription,
-    };
-    data.push(feed);
-  }
-
-  if(isAdmin===0){
-    let result = await query("SELECT * FROM events WHERE `isAdmin`=0 AND `serverName`='" + server + "' AND `userName`='" + userName +"'");
-
-    for (var i = 0; i < result.length; i++) {
-      var feed = {
-        userName: result[i].userName,
-              serverName: result[i].serverame,
-              isAdmin: result[i].isAdmin,
-              eventDate: result[i].eventDate,
-              eventMonth: result[i].eventMonth,
-              eventYear: result[i].eventYear,
-              eventName: result[i].eventName,
-              eventDescription: result[i].eventDescription,
-      };
-      data.push(feed);
-    }
-
-  }
-
-
-  // console.log(data);
-  
-  try {
-    res.status(200).json(data);
-  } catch (error) {
-    res.status(404).json({ message: error.message });
-  }
-
-}
-
-
-app.post("/GetEvent", GetEvent);
-
-
-
-
-
-
 
 
 

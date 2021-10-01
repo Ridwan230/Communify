@@ -8,7 +8,9 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import axios from 'axios';
-
+import { Scrollbars } from 'react-custom-scrollbars-2';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSquare } from '@fortawesome/free-solid-svg-icons'
 
 const CustomCalendar = (props) => {
 
@@ -64,7 +66,13 @@ const CustomCalendar = (props) => {
     
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow = () => {
+        setShow(true);
+        setEvent("");
+        setDescription("");
+    } 
+
+
     
 
     const addEvent = () =>{
@@ -99,26 +107,26 @@ const CustomCalendar = (props) => {
 
     return (
         <div className="calendarDiv">
-            <Modal show={show} onHide={handleClose} className='customModal'>
+            <Modal show={show} onHide={handleClose} className='customModal' >
                 <Modal.Header closeButton>
                     <Modal.Title><h3>Event for {date.getDate().toString()}/{date.getMonth().toString()}/{date.getFullYear().toString()}</h3></Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                 <h5>Events Already Set-</h5>
-                <div className='eventContainerModal'>
-            <ol>
+                <Scrollbars autoHeight autoHeightMax={`20vh`}>
+            <ul className='eventListModal'>
             {   
                 eventList.map( (item) => {if(item.eventDate === date.getDate().toString() && item.eventMonth === date.getMonth().toString() && item.eventYear === date.getFullYear().toString()){
-                    return (<li>{item.eventName}</li>)
+                    return (<li className='eventListItemModal'>{item.eventName}</li>)
                 }
                 else{
                     return null;
                 }
                 })
             }
-            </ol>
-            </div>
-                    <Form.Group size="lg" controlId="email">
+            </ul>
+            </Scrollbars>
+                    <Form.Group size="lg eventInput" controlId="email">
                         <Form.Label>New Event</Form.Label>
                         <Form.Control
                             className=''
@@ -162,22 +170,32 @@ const CustomCalendar = (props) => {
                 }}
 
             ></Calendar>
-            <h1>Event-</h1>
+            <div className='legendDiv'>
+            <FontAwesomeIcon icon={faSquare} className='legend'/>
+            <p>Admin Event</p>
+            <FontAwesomeIcon icon={faSquare} className='legend2'/>
+            <p>Member Event</p>
+            </div>
+            <h1>Event- {today.getDate().toString()}/{today.getMonth().toString()}/{today.getFullYear().toString()}</h1>
             <hr style={{ color: "white", width: "90%", height: "5px", margin: "auto", marginTop: "10px", }} />
-            <h5>Date- {today.getDate().toString()} / {today.getMonth().toString()} / {today.getFullYear().toString()}</h5>
-            <div className='eventContainer'>
-            <ol>
+            <Scrollbars autoHeight autoHeightMax={`20vh`}>
+            <ul className='eventList'>
             {   
                 eventList.map( (item) => {if(item.eventDate === today.getDate().toString() && item.eventMonth === today.getMonth().toString() && item.eventYear === today.getFullYear().toString()){
-                    return (<li>{item.eventName}</li>)
+                    if(item.isAdmin===1){
+                        return (<li className='eventListItem'><strong>Admin: </strong>{item.eventName}. ({item.userName})</li>)
+                    }
+                    else{
+                        return (<li className='eventListItem'><strong>Member: </strong>{item.eventName}. ({item.userName})</li>)
+                    }
                 }
                 else{
                     return null;
                 }
                 })
             }
-            </ol>
-            </div>
+            </ul>
+            </Scrollbars>
         </div>
     );
 };

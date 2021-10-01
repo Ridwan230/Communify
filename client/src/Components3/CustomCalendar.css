@@ -16,7 +16,7 @@
 
 .calendarDiv h1{
     font-size: 40px;
-    margin-top: 25px;
+    margin-top: 0px;
     padding-top: 5px;
     margin-left: 15px;
     font-family:Georgia, 'Times New Roman', Times, serif
@@ -50,11 +50,33 @@
     color: white !important;
 }
 
- .eventContainer{
-     max-height: 20vh;
-     overflow-y: scroll;
- }
 
- .eventContainerModal{
-    max-height: 20vh;
+.eventList{
+    margin-top: 2,5vh;
+    font-size: larger;
+}
+
+.eventListItem{
+    margin-top: 1vh;
+    margin-left: 1vh;
+}
+
+.legend{
+    margin-left: 3rem;
+    margin-top: .3rem;
+    margin-right: .6rem;
+    color:rgb(247, 100, 100);
+    
+}
+
+.legend2{
+    margin-left: 3rem;
+    margin-top: .3rem;
+    margin-right: .6rem;
+    color:rgb(138, 182, 145);
+    
+}
+
+.legendDiv{
+    display: flex;
 }

@@ -30,3 +30,13 @@
   .addServer h1{
     font-size: 35px;
   }
+
+  .backButtonIconAddServer{
+    transform: scale(2.5,1.2);
+  }
+
+  .backButtonAddServer{
+      min-width: 4rem;
+      margin-top: .5rem;
+      margin-left: .5rem;
+  }
