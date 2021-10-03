@@ -1,6 +1,7 @@
 @media all and (min-width: 480px) {
     .addServer {
       padding: 25px 0;
+      margin-bottom: 30px;
     }
   
     .addServer form {

@@ -17,7 +17,6 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 const Login = () => {
 
-
     let history = useHistory();
     let SqlInjectionCheck = /^[a-zA-Z0-9_ ]*$/;
 
@@ -54,17 +53,19 @@ const Login = () => {
             .catch(error => {
                 console.log(error);
             })
-
         }
-
-        
     }
 
 
     useEffect(() => {
         axios.get('http://localhost:2999/React_Login').then((response) => {
-            console.log("GET");
-            console.log(response);
+            console.log("HERE "+response.data.loggedIn+" "+response.data.username)
+            if (response.data.loggedIn === true) {
+                history.push({
+                    pathname: "/ServerInfoPage",
+                    state: response.data
+                });
+            }
         })
     }, [])
 

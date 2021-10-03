@@ -64,23 +64,23 @@ const addUser = async ({ name, room }) => {
 
 const getMessages = async (room, channel_name) => {
 
-    let result = await query("SELECT `sender`,`text` FROM `messages` WHERE `server_name`='" + room + "'and `channel_name`='" + channel_name + "'");
-    return result;
-    // let result = await query("SELECT `sender`,`initial_vector`,`content` FROM `messages` WHERE `server_name`='" + room + "'and `channel_name`='" + channel_name + "'");
-    // const result1=[];
-    // for(var i=0;i<result.length;i++)
-    // {
-    //     const hash = {
-    //         iv: result[i].initial_vector,
-    //         content: result[i].content,
-    //     }
-    //     const message = decrypt(hash);
-    //     result1[i]={
-    //         sender: result[i].sender,
-    //         text: message
-    //     }
-    // }
-    // return result1;
+    // let result = await query("SELECT `sender`,`text` FROM `messages` WHERE `server_name`='" + room + "'and `channel_name`='" + channel_name + "'");
+    // return result;
+    let result = await query("SELECT `sender`,`initial_vector`,`content` FROM `messages` WHERE `server_name`='" + room + "'and `channel_name`='" + channel_name + "'");
+    const result1=[];
+    for(var i=0;i<result.length;i++)
+    {
+        const hash = {
+            iv: result[i].initial_vector,
+            content: result[i].content,
+        }
+        const message = decrypt(hash);
+        result1[i]={
+            sender: result[i].sender,
+            text: message
+        }
+    }
+    return result1;
 }
 
 

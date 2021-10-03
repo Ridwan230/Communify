@@ -8,13 +8,22 @@
 
 .addServerButton{
     margin-right: 25px;
-    margin-top: 15px;
     display: flex;
     float: right;
 }
 
 .addServerButton h5{
     margin-top: 5px;
+}
+
+.logout-button{
+    margin-right: 25px;
+}
+
+.logout-button h5{
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .serverGreeting h2{

@@ -31,11 +31,9 @@ const CustomCalendar = (props) => {
                     if ((response.data.map(x => {return x.username})).includes(props.username)) {
                         setIsAdmin(1);
                     }
-                    console.log(data)
                     axios.post('http://localhost:2999/GetEvent', data)
                     .then(response => {
-                        setEventList(response.data)
-                        console.log(eventList)
+                        setEventList(response.data);
                     })
                     .catch(error => {
                         console.log(error);

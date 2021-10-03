@@ -57,7 +57,19 @@ const Chatbox = (props) => {
                 alert(callback.error);
             }
             else {
+                // console.log("Back from server after joining "+channel_name);
+                // for(var i=0;i<messages.length;i++)
+                // {
+                //     console.log("MESSAGES BEFORE DELETING "+messages[i].text);
+                // }
+                
                 setMessages([]);
+
+                // for(var i=0;i<messages.length;i++)
+                // {
+                //     console.log("MESSAGES AFTER DELETING "+messages[i].text);
+                // }
+                
                 for (var i = 0; i < callback.length1; i++) {
                     const initial_message = {
                         user: callback.result[i].sender,

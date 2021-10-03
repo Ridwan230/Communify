@@ -9,9 +9,9 @@ const util = require("util");
 const MD5 = require("crypto-js/md5");
 const socketio = require("socket.io");
 const http = require("http");
-
 const cookieParser = require("cookie-parser");
 const session = require('express-session');
+
 
 const PORT = process.env.PORT || 2999;
 
@@ -49,8 +49,6 @@ app.use(
 );
 
 
-
-//session middleware
 app.use(session({
   key: "userId",
   secret: "thisismysecretkey",
@@ -62,10 +60,7 @@ app.use(session({
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors());
 app.use(router);
-
-// cookie parser middleware
 app.use(cookieParser());
 
 //------------------------------------------------Ridwan-----------------------------------------------------------
@@ -160,7 +155,7 @@ app.post("/React_Login", React_Login);
 app.get("/React_Login", (req, res) => {
   if(req.session.user)
   {
-    res.send({loggedIn: true, user: req.session.user})
+    res.send({loggedIn: true, username: req.session.user})
   }
   else
   {
@@ -290,6 +285,18 @@ app.post("/React_AddServer", React_AddServer);
 
 
 //------------------------------------------------Ifrad-----------------------------------------------------------
+
+
+
+const React_Logout = async (req, res) => {
+  req.session.destroy();
+  res.send({loggedIn: false})
+};
+
+
+app.get("/React_Logout", React_Logout);
+
+
 
 
 const React_EnterServer = async (req, res) => {
@@ -555,13 +562,15 @@ const { encrypt, decrypt } = require('./encryption');
 
 io.on("connect", (socket) => {
   socket.on("join", (name, room, channel_name, callback) => {
+
     const { error, user } = addUser({ name, room });
 
     if (error) {
       return callback({ error: error });
     }
 
-    socket.join(room);
+    var room_channel = room+channel_name;
+    socket.join(room_channel);
 
 
     (async function () {
@@ -577,18 +586,19 @@ io.on("connect", (socket) => {
 
   socket.on("sendMessage", (message, name, room, channel_name, callback) => {
 
-    // const hash = encrypt(message);
+    const hash = encrypt(message);
 
-    // var insertQuery = 'insert into `messages` (`sender`,`server_name`,`channel_name`,`initial_vector`,`content`) values (?,?,?,?,?)';
-    // var query_insert = mysql.format(insertQuery, [name, room, channel_name, hash.iv, hash.content]);
+    var insertQuery = 'insert into `messages` (`sender`,`server_name`,`channel_name`,`initial_vector`,`content`) values (?,?,?,?,?)';
+    var query_insert = mysql.format(insertQuery, [name, room, channel_name, hash.iv, hash.content]);
 
-    var insertQuery = 'insert into `messages` (`sender`,`server_name`,`channel_name`,`text`) values (?,?,?,?)';
-    var query_insert = mysql.format(insertQuery, [name, room, channel_name, message]);
+    // var insertQuery = 'insert into `messages` (`sender`,`server_name`,`channel_name`,`text`) values (?,?,?,?)';
+    // var query_insert = mysql.format(insertQuery, [name, room, channel_name, message]);
     con.query(query_insert, function (err, response) {
       if (err) throw err;
     });
 
-    io.to(room).emit("message", { user: name, text: message });
+    var room_channel = room+channel_name;
+    io.to(room_channel).emit("message", { user: name, text: message });
 
     callback();
   });

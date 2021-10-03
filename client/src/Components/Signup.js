@@ -16,8 +16,9 @@ import Tooltip from 'react-bootstrap/Tooltip'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
-const Signup = () => {
 
+
+const Signup = () => {
 
     let re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     let SqlInjectionCheck = /^[a-zA-Z0-9_ ]*$/;
@@ -91,6 +92,8 @@ const Signup = () => {
                 })
         }
     }
+
+
 
     return (
         <Scrollbars autoHeight autoHeightMin={`100vh`}>
