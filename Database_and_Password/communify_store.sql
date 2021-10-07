@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 01, 2021 at 12:40 AM
+-- Generation Time: Oct 07, 2021 at 10:20 PM
 -- Server version: 10.4.19-MariaDB
--- PHP Version: 8.0.7
+-- PHP Version: 8.0.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -35,7 +35,7 @@ CREATE TABLE `events` (
   `eventDate` varchar(20) NOT NULL,
   `eventMonth` varchar(20) NOT NULL,
   `eventYear` varchar(20) NOT NULL,
-  `eventName` varchar(100) NOT NULL,
+  `eventName` varchar(20) NOT NULL,
   `eventDescription` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -47,20 +47,7 @@ INSERT INTO `events` (`eventNumber`, `userName`, `serverName`, `isAdmin`, `event
 (4, 'ridwan', 'Gaming', 1, '25', '8', '2021', 'Admin Ridwan Event', 'Testing'),
 (5, 'ifrad', 'Gaming', 0, '26', '8', '2021', 'Member ifrad Event', 'Testing'),
 (6, 'ridwan', 'Gaming', 1, '24', '8', '2021', 'Admin Ridwan Event 2', 'Party hobbe'),
-(7, 'ridwan', 'Gaming', 1, '23', '8', '2021', 'Hello nEW EVENT', 'WWWW'),
-(8, 'ridwan', 'Gaming', 1, '29', '8', '2021', 'R', 'R'),
-(9, 'ridwan', 'Gaming', 1, '29', '8', '2021', 'R2', 'R2'),
-(10, 'ridwan', 'Gaming', 1, '29', '8', '2021', 'R3', 'R3'),
-(11, 'ridwan', 'Gaming', 1, '29', '8', '2021', 'R4', 'R4'),
-(12, 'ridwan', 'Gaming', 1, '29', '8', '2021', 'R5', 'R5'),
-(13, 'ridwan', 'Gaming', 1, '29', '8', '2021', 'R6', 'R6'),
-(14, 'ridwan', 'Gaming', 1, '29', '8', '2021', 'R7', 'R7'),
-(15, 'ridwan', 'Gaming', 1, '30', '8', '2021', 'R7 this is a good ev', 'Hello'),
-(16, 'ridwan', 'Gaming', 1, '30', '8', '2021', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the ', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the '),
-(17, 'ifrad', 'Gaming', 0, '1', '9', '2021', 'NewEvent for testing and debugging purposes', 'Hello'),
-(18, 'ifrad', 'Gaming', 0, '1', '9', '2021', 'NewEvent for testing and debugging purposes', 'tyrtyrete'),
-(19, 'ifrad', 'Gaming', 0, '1', '9', '2021', 'NewEvent for testing and debugging purposes', 'srdgsdgsd'),
-(20, 'ridwan', 'Gaming', 1, '1', '9', '2021', 'Testing Testing Testing Testing Testing Testing', 'Testing');
+(7, 'ridwan', 'Gaming', 1, '23', '8', '2021', 'Hello nEW EVENT', 'WWWW');
 
 -- --------------------------------------------------------
 
@@ -73,32 +60,10 @@ CREATE TABLE `messages` (
   `sender` varchar(20) NOT NULL,
   `server_name` varchar(20) NOT NULL,
   `channel_name` varchar(20) NOT NULL,
-  `text` varchar(1000) NOT NULL,
+  `text` varchar(3000) NOT NULL,
   `initial_vector` varchar(3000) NOT NULL,
   `content` varchar(3000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `messages`
---
-
-INSERT INTO `messages` (`message_no`, `sender`, `server_name`, `channel_name`, `text`, `initial_vector`, `content`) VALUES
-(42, 'ridwan', 'Gaming', 'General', 'Hi ', '', ''),
-(43, 'ridwan', 'Gaming', 'General', 'This is General channel', '', ''),
-(44, 'ridwan', 'Gaming', 'Notice', 'This channel is only for Notice', '', ''),
-(45, 'ifrad', 'Gaming', 'General', 'Yes! It is.', '', ''),
-(46, 'ridwan', 'Gaming', 'General', 'a', '', ''),
-(47, 'ridwan', 'Gaming', 'General', 'b', '', ''),
-(48, 'ridwan', 'Gaming', 'General', 'c', '', ''),
-(49, 'ridwan', 'Gaming', 'General', 'd', '', ''),
-(50, 'ridwan', 'Gaming', 'General', 'e', '', ''),
-(51, 'ridwan', 'Gaming', 'General', 'f', '', ''),
-(52, 'ridwan', 'Gaming', 'General', 'g', '', ''),
-(53, 'ridwan', 'Gaming', 'General', 'h', '', ''),
-(54, 'ridwan', 'Gaming', 'General', 'i', '', ''),
-(55, 'ridwan', 'Gaming', 'General', 'j', '', ''),
-(56, 'ridwan', 'CSE 18', 'General', 'hello', '', ''),
-(57, 'ridwan', 'Gaming', 'General', 'mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm', '', '');
 
 -- --------------------------------------------------------
 
@@ -156,6 +121,8 @@ INSERT INTO `user_login` (`Username`, `Password`, `Email`, `IsGoogleAccount`) VA
 ('Ishrak', '5a05254570cc97ac9582ad7c5877f1ad', 'ishrak123@gmail.com', 0),
 ('ridwan', '202cb962ac59075b964b07152d234b70', 'ridwan@gmail.com', 0),
 ('Rifat', '5a05254570cc97ac9582ad7c5877f1ad', 'rifat123@gmail.com', 0),
+('test1', '5a05254570cc97ac9582ad7c5877f1ad', 'test@123.com', 0),
+('test2', '5a05254570cc97ac9582ad7c5877f1ad', 'test2@123.com', 0),
 ('Trailblaze', '5a05254570cc97ac9582ad7c5877f1ad', 'trailblazer123@gmail.com', 0);
 
 -- --------------------------------------------------------
@@ -193,8 +160,7 @@ INSERT INTO `user_rooms` (`id`, `username`, `room`, `isAdmin`) VALUES
 (29, 'ridwan', 'Family', 1),
 (30, 'ridwan', 'Photography Society', 1),
 (31, 'ridwan', 'Nature SC', 1),
-(32, 'ridwan', 'CommunifyT', 1),
-(33, 'ridwan', 'RR RR', 1);
+(32, 'ridwan', 'CommunifyT', 1);
 
 --
 -- Indexes for dumped tables
@@ -238,25 +204,25 @@ ALTER TABLE `user_rooms`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `eventNumber` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `eventNumber` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `message_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `message_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=240;
 
 --
 -- AUTO_INCREMENT for table `myserver`
 --
 ALTER TABLE `myserver`
-  MODIFY `serverID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `serverID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `user_rooms`
 --
 ALTER TABLE `user_rooms`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

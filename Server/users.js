@@ -17,7 +17,6 @@ con.connect(function (err) {
     console.log("Database Connected in users.js!");
 });
 
-const users = [];
 
 const addUser = async ({ name, room }) => {
 
@@ -56,8 +55,6 @@ const addUser = async ({ name, room }) => {
 
     const user = { name, room };
 
-    //users.push(user);
-
     return { user };
 }
 
@@ -84,10 +81,4 @@ const getMessages = async (room, channel_name) => {
 }
 
 
-
-const getUser = (id) => users.find((user) => user.id === id);
-
-const getUsersInRoom = (room) => users.filter((user) => user.room === room);
-
-
-module.exports = { addUser, getUser, getUsersInRoom, getMessages };
+module.exports = { addUser, getMessages };

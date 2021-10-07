@@ -290,6 +290,10 @@ app.post("/React_AddServer", React_AddServer);
 
 const React_Logout = async (req, res) => {
   req.session.destroy();
+  while(req.session)
+  {
+    req.session.destroy();
+  }
   res.send({loggedIn: false})
 };
 
@@ -557,7 +561,8 @@ app.post("/JoinedServers", JoinedServers);
 
 //---------------------------------------IO PART STARTS----------------------------------------------
 
-const { addUser, getUser, getUsersInRoom, getMessages, } = require("./users.js");
+
+const { addUser, getMessages} = require("./users.js");
 const { encrypt, decrypt } = require('./encryption');
 
 io.on("connect", (socket) => {
@@ -570,6 +575,7 @@ io.on("connect", (socket) => {
     }
 
     var room_channel = room+channel_name;
+    
     socket.join(room_channel);
 
 
@@ -586,6 +592,11 @@ io.on("connect", (socket) => {
 
   socket.on("sendMessage", (message, name, room, channel_name, callback) => {
 
+    // (async function () {
+
+    // })();
+
+    
     const hash = encrypt(message);
 
     var insertQuery = 'insert into `messages` (`sender`,`server_name`,`channel_name`,`initial_vector`,`content`) values (?,?,?,?,?)';
@@ -596,8 +607,10 @@ io.on("connect", (socket) => {
     con.query(query_insert, function (err, response) {
       if (err) throw err;
     });
+    
 
     var room_channel = room+channel_name;
+
     io.to(room_channel).emit("message", { user: name, text: message });
 
     callback();

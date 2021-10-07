@@ -59,7 +59,6 @@ const Login = () => {
 
     useEffect(() => {
         axios.get('http://localhost:2999/React_Login').then((response) => {
-            console.log("HERE "+response.data.loggedIn+" "+response.data.username)
             if (response.data.loggedIn === true) {
                 history.push({
                     pathname: "/ServerInfoPage",

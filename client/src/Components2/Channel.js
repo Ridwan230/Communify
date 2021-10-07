@@ -6,6 +6,7 @@ import { TiHome } from "react-icons/ti";
 import { FaGripfire } from "react-icons/fa";
 import './Channel.css';
 import Chatbox from './Chatbox'
+import Chatbox_Notice from './Chatbox_Notice'
 import Settings from '../Components3/Settings'
 import MemberList from '../Components3/MemberList'
 import AdminList from '../Components3/AdminList'
@@ -109,7 +110,7 @@ const Channel = (props) => {
           </Col>
 
           <Col className="col3" sm={10} md={4} lg={6}>
-            <Chatbox username={props.username} servername={props.servername} channel={'Notice'} />
+            <Chatbox_Notice username={props.username} servername={props.servername} channel={'Notice'} />
           </Col>
 
           <Col className="col4" sm={0} md={3} lg={3}>

@@ -56,7 +56,6 @@ const ServerInfoPage = (props) => {
 
 
     function handlelogout(event) {
-        console.log("Logout clicked");
 
         axios.get('http://localhost:2999/React_Logout')
             .then(response => {
