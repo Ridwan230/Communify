@@ -31,7 +31,8 @@ const AddServer = (props) => {
         event.preventDefault();
 
         let re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-        let SqlInjectionCheck = /^[a-zA-Z0-9_\\s]*$/;
+        let SqlInjectionCheck = /^[a-zA-Z0-9_]*$/;
+        let SqlInjectionCheck2 = /^[a-zA-Z0-9_\s]*$/;
         const data = {
             username: state.username,
             servername: serverName,
@@ -58,7 +59,7 @@ const AddServer = (props) => {
                     setError("Passwords don't match")
                 }
                 else {
-                    if(!SqlInjectionCheck.test(serverName) || !SqlInjectionCheck.test(confirmPassword) || !SqlInjectionCheck.test(serverPassword) || !SqlInjectionCheck.test(description)){
+                    if(!SqlInjectionCheck.test(serverName) || !SqlInjectionCheck.test(confirmPassword) || !SqlInjectionCheck.test(serverPassword) || !SqlInjectionCheck2.test(description)){
                         setError('Only letters, numbers and underscore allowed in input fields')
                     }
                     else{

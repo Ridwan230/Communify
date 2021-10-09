@@ -21,7 +21,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 const Signup = () => {
 
     let re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-    let SqlInjectionCheck = /^[a-zA-Z0-9_ ]*$/;
+    let SqlInjectionCheck = /^[a-zA-Z0-9_]*$/;
     let history = useHistory();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");

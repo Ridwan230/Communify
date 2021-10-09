@@ -18,7 +18,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 const Login = () => {
 
     let history = useHistory();
-    let SqlInjectionCheck = /^[a-zA-Z0-9_ ]*$/;
+    let SqlInjectionCheck = /^[a-zA-Z0-9_]*$/;
 
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");

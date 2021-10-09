@@ -336,11 +336,22 @@ const React_EnterServer = async (req, res) => {
           servername: req.body.servername,
           servercode: req.body.code,
           username: req.body.username,
+          message: ""
         });
     } catch (error) {
       res.status(404).json({ message: error.message });
     }
   } else {
+    try {
+      res
+        .status(200)
+        .json({
+          message: "Wrong server code"
+        });
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+
     console.log("Code does not match. Try Again!");
   }
 };
@@ -408,6 +419,7 @@ const Delete_Server = async (req, res) => {
   let result_1 = await query("DELETE FROM `user_rooms` WHERE `room`='" + room + "'");
   let result_2 = await query("DELETE FROM `myserver` WHERE `serverName`='" + room + "'");
   let result_3 = await query("DELETE FROM `messages` WHERE `server_name`='" + room + "'");
+  let result_4 = await query("DELETE FROM `events` WHERE `serverName`='" + room + "'");
 
   try {
     res.status(200).json({ username: username, });
