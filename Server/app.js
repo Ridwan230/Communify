@@ -58,8 +58,14 @@ app.use(session({
 }));
 
 app.use(express.static("public"));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(express.json());
+
+app.use(bodyParser.urlencoded({limit: '100mb', extended: true}));
+app.use(express.json({limit: '100mb'}));
+
+
+
 app.use(router);
 app.use(cookieParser());
 
@@ -220,6 +226,7 @@ app.post("/React_SignUp", React_SignUp);
 
 
 const React_AddServer = async (req, res) => {
+  
   var flag = false;
 
   let result = await query("SELECT serverName FROM `myserver`");
@@ -247,6 +254,9 @@ const React_AddServer = async (req, res) => {
 
         var insertQuery = 'insert into `user_rooms` (`username`,`room`,`isAdmin`) values (?,?,?)';
         var query_insert = mysql.format(insertQuery, [req.body.username, req.body.servername, true]);
+
+        
+
         con.query(query_insert, function (err, response) {
             if (err) throw err;
             else {
