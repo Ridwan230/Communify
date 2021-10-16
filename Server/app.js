@@ -58,8 +58,14 @@ app.use(session({
 }));
 
 app.use(express.static("public"));
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(express.json());
+
+app.use(bodyParser.urlencoded({limit: '100mb', extended: true}));
+app.use(express.json({limit: '100mb'}));
+
+
+
 app.use(router);
 app.use(cookieParser());
 
@@ -220,6 +226,7 @@ app.post("/React_SignUp", React_SignUp);
 
 
 const React_AddServer = async (req, res) => {
+  
   var flag = false;
 
   let result = await query("SELECT serverName FROM `myserver`");
@@ -247,6 +254,9 @@ const React_AddServer = async (req, res) => {
 
         var insertQuery = 'insert into `user_rooms` (`username`,`room`,`isAdmin`) values (?,?,?)';
         var query_insert = mysql.format(insertQuery, [req.body.username, req.body.servername, true]);
+
+        
+
         con.query(query_insert, function (err, response) {
             if (err) throw err;
             else {
@@ -336,11 +346,22 @@ const React_EnterServer = async (req, res) => {
           servername: req.body.servername,
           servercode: req.body.code,
           username: req.body.username,
+          message: ""
         });
     } catch (error) {
       res.status(404).json({ message: error.message });
     }
   } else {
+    try {
+      res
+        .status(200)
+        .json({
+          message: "Wrong server code"
+        });
+    } catch (error) {
+      res.status(404).json({ message: error.message });
+    }
+
     console.log("Code does not match. Try Again!");
   }
 };
@@ -408,6 +429,7 @@ const Delete_Server = async (req, res) => {
   let result_1 = await query("DELETE FROM `user_rooms` WHERE `room`='" + room + "'");
   let result_2 = await query("DELETE FROM `myserver` WHERE `serverName`='" + room + "'");
   let result_3 = await query("DELETE FROM `messages` WHERE `server_name`='" + room + "'");
+  let result_4 = await query("DELETE FROM `events` WHERE `serverName`='" + room + "'");
 
   try {
     res.status(200).json({ username: username, });

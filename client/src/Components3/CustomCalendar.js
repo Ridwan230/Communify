@@ -115,7 +115,7 @@ const CustomCalendar = (props) => {
             <ul className='eventListModal'>
             {   
                 eventList.map( (item) => {if(item.eventDate === date.getDate().toString() && item.eventMonth === date.getMonth().toString() && item.eventYear === date.getFullYear().toString()){
-                    return (<li className='eventListItemModal'>{item.eventName}</li>)
+                    return (<li className='eventListItemModal'><strong>{item.eventName}</strong> :- {item.eventDescription}.</li>)
                 }
                 else{
                     return null;
@@ -174,17 +174,17 @@ const CustomCalendar = (props) => {
             <FontAwesomeIcon icon={faSquare} className='legend2'/>
             <p>Member Event</p>
             </div>
-            <h1>Event- {today.getDate().toString()}/{today.getMonth().toString()}/{today.getFullYear().toString()}</h1>
+            <h1>Event- {today.getDate().toString()}/{(today.getMonth()+1).toString()}/{today.getFullYear().toString()}</h1>
             <hr style={{ color: "white", width: "90%", height: "5px", margin: "auto", marginTop: "10px", }} />
             <Scrollbars autoHeight autoHeightMax={`20vh`}>
             <ul className='eventList'>
             {   
                 eventList.map( (item) => {if(item.eventDate === today.getDate().toString() && item.eventMonth === today.getMonth().toString() && item.eventYear === today.getFullYear().toString()){
                     if(item.isAdmin===1){
-                        return (<li className='eventListItem'><strong>Admin: </strong>{item.eventName}. ({item.userName})</li>)
+                        return (<li className='eventListItem'><strong>Admin: </strong>{item.eventName}.</li>)
                     }
                     else{
-                        return (<li className='eventListItem'><strong>Member: </strong>{item.eventName}. ({item.userName})</li>)
+                        return (<li className='eventListItem'><strong>Member: </strong>{item.eventName}.</li>)
                     }
                 }
                 else{

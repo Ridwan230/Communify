@@ -18,7 +18,10 @@ const Channel = (props) => {
 
   let history = useHistory();
 
+  
   function handleSubmit(event) {
+
+    event.preventDefault();
 
     const data = {
       username: props.username,

@@ -6,10 +6,12 @@ import { useHistory } from "react-router-dom";
 import Modal from 'react-bootstrap/Modal'
 import MD5 from "crypto-js/md5";
 import './EnterServer.css'
+import Alert from 'react-bootstrap/Alert';
 
 const EnterServer = (props) => {
     let history = useHistory();
     const [serverCode, setServerCode] = useState("");
+    const [error, setError] = useState("");
     const { state } = props.location;
 
     function validateForm() {
@@ -25,10 +27,15 @@ const EnterServer = (props) => {
 
         axios.post("http://localhost:2999/React_EnterServer", data)
             .then((response) => {
-                history.push({
-                    pathname: "/Room/" + state.servername,
-                    state: response.data,
-                });
+                if(response.data.message===""){
+                    history.push({
+                        pathname: "/Room/" + state.servername,
+                        state: response.data,
+                    });
+                }
+                else{
+                    setError(response.data.message);
+                }
             })
             .catch((error) => {
                 console.log(error);
@@ -64,6 +71,9 @@ const EnterServer = (props) => {
                                 onChange={(e) => setServerCode(e.target.value)}
                             />
                         </Form.Group>
+                        {error !== '' ? <Alert className='alert' variant='danger'>
+                        {error}
+                    </Alert> : null}
                         <Modal.Footer>
                             <Button variant="secondary" onClick={handleClose}>
                                 Close
