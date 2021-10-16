@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
 -- Generation Time: Oct 11, 2021 at 10:14 PM
 -- Server version: 10.4.19-MariaDB
--- PHP Version: 8.0.6
+-- PHP Version: 8.0.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -163,34 +163,10 @@ INSERT INTO `user_rooms` (`id`, `username`, `room`, `isAdmin`) VALUES
 --
 
 --
--- Indexes for table `events`
---
-ALTER TABLE `events`
-  ADD PRIMARY KEY (`eventNumber`);
-
---
--- Indexes for table `messages`
---
-ALTER TABLE `messages`
-  ADD PRIMARY KEY (`message_no`);
-
---
 -- Indexes for table `myserver`
 --
 ALTER TABLE `myserver`
   ADD PRIMARY KEY (`serverID`);
-
---
--- Indexes for table `user_login`
---
-ALTER TABLE `user_login`
-  ADD PRIMARY KEY (`Username`);
-
---
--- Indexes for table `user_rooms`
---
-ALTER TABLE `user_rooms`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
